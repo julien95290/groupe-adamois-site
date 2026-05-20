@@ -1,0 +1,2778 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Groupe Adamois — BTP & Métallurgie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Cormorant+Garamond:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  html, body {
+    font-family: 'Manrope', sans-serif;
+    background: #0a0a0a;
+    color: #fff;
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  body { height: 100%; overflow: hidden; }
+  body.scrolling { height: auto; overflow-x: hidden; overflow-y: auto; }
+  
+  #home-page { height: 100vh; overflow: hidden; position: relative; }
+  #home-page.hidden { display: none; }
+  
+  #majel-site { display: none; }
+  #majel-site.visible { display: block; }
+  
+  #adamois-site { display: none; }
+  #adamois-site.visible { display: block; }
+  
+  /* ============================================
+     TRANSITION FONDU (vers Majel Lift)
+     ============================================ */
+
+  #majel-fade {
+    position: fixed; inset: 0;
+    z-index: 9998;
+    display: none;
+    pointer-events: none;
+    opacity: 0;
+    background:
+      radial-gradient(ellipse at center,
+        rgba(48, 56, 68, 1) 0%,
+        rgba(22, 28, 36, 1) 55%,
+        rgba(8, 11, 16, 1) 100%);
+    transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  /* Texture fine "brossée métallique" sur le fondu */
+  #majel-fade::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(90deg,
+      transparent 0,
+      rgba(255,255,255,0.025) 1px,
+      transparent 2px,
+      transparent 4px);
+    pointer-events: none;
+    opacity: 0.7;
+  }
+  #majel-fade.active {
+    display: block;
+    pointer-events: auto;
+  }
+  #majel-fade.fade-in  { opacity: 1; }
+  #majel-fade.fade-out {
+    opacity: 0;
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .majel-fade-content {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, calc(-50% + 12px));
+    text-align: center;
+    color: #e8ecf2;
+    opacity: 0;
+    transition: opacity 0.5s ease 0.35s, transform 0.7s ease 0.35s;
+  }
+  #majel-fade.fade-in .majel-fade-content {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+  #majel-fade.fade-out .majel-fade-content {
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  .majel-fade-eyebrow {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: #c4825a;
+    margin-bottom: 1.8rem;
+    font-weight: 500;
+  }
+  .majel-fade-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: #e8ecf2;
+    margin-bottom: 1.8rem;
+  }
+  .majel-fade-name em { font-style: italic; font-weight: 300; color: #c4825a; }
+  .majel-fade-line {
+    width: 60px; height: 1px;
+    background: rgba(196, 130, 90, 0.5);
+    margin: 0 auto;
+  }
+
+  /* ============================================
+     TRANSITION FONDU (vers Adamois Renov')
+     ============================================ */
+
+  #adamois-fade {
+    position: fixed; inset: 0;
+    z-index: 9998;
+    display: none;
+    pointer-events: none;
+    opacity: 0;
+    background:
+      radial-gradient(ellipse at center,
+        rgba(70, 52, 35, 1) 0%,
+        rgba(40, 30, 20, 1) 55%,
+        rgba(20, 14, 9, 1) 100%);
+    transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  #adamois-fade.active {
+    display: block;
+    pointer-events: auto;
+  }
+  #adamois-fade.fade-in  { opacity: 1; }
+  #adamois-fade.fade-out {
+    opacity: 0;
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .adamois-fade-content {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #f0e2c8;
+    opacity: 0;
+    transition: opacity 0.5s ease 0.35s, transform 0.7s ease 0.35s;
+    transform: translate(-50%, calc(-50% + 12px));
+  }
+  #adamois-fade.fade-in .adamois-fade-content {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+  #adamois-fade.fade-out .adamois-fade-content {
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  .adamois-fade-eyebrow {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: #d4a574;
+    margin-bottom: 1.8rem;
+    font-weight: 500;
+  }
+  .adamois-fade-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: #f0e2c8;
+    margin-bottom: 1.8rem;
+  }
+  .adamois-fade-name em { font-style: italic; font-weight: 300; color: #d4a574; }
+  .adamois-fade-line {
+    width: 60px; height: 1px;
+    background: rgba(212, 165, 116, 0.5);
+    margin: 0 auto;
+  }
+
+  /* ============================================
+     PAGE D'ACCUEIL (figée)
+     ============================================ */
+  
+  .hub {
+    position: relative; width: 100%; height: 100vh;
+    display: flex; overflow: hidden;
+  }
+  .universe {
+    position: relative; flex: 1; height: 100%; overflow: hidden;
+    cursor: pointer; transition: flex 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+  }
+  .universe-bg {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center;
+    transition: transform 8s ease-out, filter 1.2s ease;
+    transform: scale(1.1);
+  }
+  .universe:hover .universe-bg { transform: scale(1.18); }
+  
+  .adamois .universe-bg {
+    background-image: 
+      linear-gradient(180deg, rgba(60, 45, 30, 0.35) 0%, rgba(40, 30, 20, 0.65) 100%),
+      url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=1600&q=85&auto=format&fit=crop');
+    background-color: #8b7355;
+  }
+  .majel .universe-bg {
+    background-image: 
+      linear-gradient(180deg, rgba(15, 20, 25, 0.45) 0%, rgba(10, 12, 15, 0.75) 100%),
+      url('https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=1600&q=85&auto=format&fit=crop');
+    background-color: #1a1d20;
+  }
+  .universe::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.5) 100%);
+    pointer-events: none;
+  }
+  
+  .universe-content {
+    position: relative; z-index: 2; height: 100%;
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 5vh 6vw; color: #fff;
+  }
+  .universe-top { opacity: 0; animation: fadeInUp 1.4s ease 0.6s forwards; }
+  .universe-bottom { opacity: 0; animation: fadeInUp 1.4s ease 0.9s forwards; }
+  
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .badge {
+    font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+    font-weight: 500; opacity: 0.75; margin-bottom: 1.5rem; display: inline-block;
+  }
+  .universe-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 5.5vw, 5rem);
+    font-weight: 400; line-height: 0.95;
+    letter-spacing: -0.02em; margin-bottom: 1.2rem;
+  }
+  .universe-name em { font-style: italic; font-weight: 300; }
+  .universe-tagline {
+    font-size: clamp(0.95rem, 1.2vw, 1.1rem); font-weight: 300;
+    line-height: 1.6; opacity: 0.85; max-width: 380px;
+  }
+  .universe-restriction {
+    display: inline-block;
+    margin-top: 1.2rem;
+    padding: 0.45rem 1rem;
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    border: 1px solid rgba(196,130,90,0.55);
+    color: #c4825a;
+    font-weight: 500;
+    border-radius: 999px;
+    background: rgba(196,130,90,0.06);
+  }
+  
+  .trades { list-style: none; margin-bottom: 2.5rem; }
+  .trades li {
+    font-size: 0.95rem; font-weight: 300;
+    padding: 0.6rem 0; border-top: 1px solid rgba(255,255,255,0.15);
+    display: flex; align-items: center; gap: 1rem; opacity: 0.9;
+    transition: opacity 0.3s, padding-left 0.4s;
+  }
+  .trades li:last-child { border-bottom: 1px solid rgba(255,255,255,0.15); }
+  .universe:hover .trades li { padding-left: 0.5rem; }
+  .trade-num { font-size: 0.7rem; opacity: 0.5; font-variant-numeric: tabular-nums; letter-spacing: 0.1em; }
+  
+  .cta {
+    display: inline-flex; align-items: center; gap: 0.8rem;
+    padding: 1rem 1.8rem;
+    border: 1px solid rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    color: #fff; text-decoration: none;
+    font-size: 0.85rem; letter-spacing: 0.15em;
+    text-transform: uppercase; font-weight: 500;
+    transition: all 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+    cursor: pointer; align-self: flex-start;
+  }
+  .cta:hover { background: rgba(255,255,255,0.95); color: #1a1a1a; border-color: #fff; padding-right: 2.2rem; }
+  .cta-arrow { transition: transform 0.4s ease; }
+  .cta:hover .cta-arrow { transform: translateX(4px); }
+  
+  .adamois .cta:hover { background: #d4a574; color: #2a1f15; border-color: #d4a574; }
+  .adamois .badge { color: #e8c9a0; }
+  .majel .cta:hover { background: #c4825a; color: #1a1d20; border-color: #c4825a; }
+  .majel .badge { color: #d4a07e; }
+  
+  .center-logo {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%); z-index: 10;
+    text-align: center; pointer-events: none;
+    opacity: 0; animation: fadeInScale 1.6s ease 0.3s forwards;
+  }
+  @keyframes fadeInScale {
+    from { opacity: 0; transform: translate(-50%, -50%) scale(0.92); }
+    to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  }
+  .logo-circle {
+    width: clamp(140px, 13vw, 180px); height: clamp(140px, 13vw, 180px);
+    border-radius: 50%; background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.2);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; margin: 0 auto 1.2rem;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+  .logo-mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+    font-weight: 500; line-height: 1; letter-spacing: 0.02em;
+  }
+  .logo-sub {
+    font-size: 0.6rem; letter-spacing: 0.4em; margin-top: 0.4rem;
+    opacity: 0.7; text-transform: uppercase;
+  }
+  .baseline {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: clamp(0.95rem, 1.3vw, 1.15rem); font-weight: 300;
+    letter-spacing: 0.04em; opacity: 0.9; white-space: nowrap;
+  }
+  
+  .divider {
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 1px; height: 100%;
+    background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.25) 25%, rgba(255,255,255,0.25) 75%, transparent 100%);
+    z-index: 5; pointer-events: none;
+  }
+  
+  .top-nav {
+    position: absolute; top: 0; left: 0; right: 0; z-index: 20;
+    padding: 1.8rem 2.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+    pointer-events: none;
+  }
+  .top-nav > * { pointer-events: auto; }
+  .nav-brand { font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; font-weight: 500; opacity: 0.7; }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a {
+    color: #fff; text-decoration: none;
+    font-size: 0.8rem; letter-spacing: 0.2em;
+    text-transform: uppercase; font-weight: 400;
+    opacity: 0.7; transition: opacity 0.3s;
+  }
+  .nav-links a:hover { opacity: 1; }
+  
+  .bottom-bar {
+    position: absolute; bottom: 0; left: 0; right: 0; z-index: 15;
+    padding: 1.5rem 2.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+    pointer-events: none; font-size: 0.7rem; letter-spacing: 0.2em;
+    text-transform: uppercase; opacity: 0.5;
+  }
+  .scroll-hint { display: flex; align-items: center; gap: 0.6rem; }
+  .scroll-line { width: 30px; height: 1px; background: rgba(255,255,255,0.5); animation: scrollLine 2.5s ease-in-out infinite; }
+  @keyframes scrollLine {
+    0%, 100% { transform: scaleX(1); opacity: 0.5; }
+    50% { transform: scaleX(1.5); opacity: 1; }
+  }
+  
+  .hub:hover .universe:not(:hover) { flex: 0.85; }
+  .hub:hover .universe:hover { flex: 1.15; }
+  .hub:hover .universe:not(:hover) .universe-bg { filter: brightness(0.5) saturate(0.6); }
+  
+  @media (max-width: 768px) {
+    .hub { flex-direction: column; }
+    .universe { flex: 1; min-height: 50vh; }
+    .universe-content { padding: 8vh 8vw 4vh; }
+    .divider {
+      width: 100%; height: 1px; top: 50%; left: 0;
+      transform: translateY(-50%);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+    }
+    .hub:hover .universe:not(:hover) { flex: 0.7; }
+    .hub:hover .universe:hover { flex: 1.3; }
+    .center-logo { display: none; }
+    .top-nav { padding: 1.2rem; }
+    .nav-links { gap: 1rem; }
+    .nav-links a { font-size: 0.65rem; }
+    .bottom-bar { padding: 1rem; font-size: 0.6rem; }
+    .trades li { font-size: 0.85rem; padding: 0.45rem 0; }
+  }
+  
+  /* ============================================
+     SITE MAJEL LIFT
+     ============================================ */
+  
+  #majel-site {
+    background: #0e0f11; color: #e8e8e8; min-height: 100vh;
+  }
+  #majel-site a { text-decoration: none; color: inherit; }
+  #majel-site ul { list-style: none; }
+  
+  .m-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    padding: 1.2rem 2.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(14, 15, 17, 0.85);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .m-nav-brand-block { display: flex; align-items: center; gap: 0.8rem; cursor: pointer; }
+  .m-nav-mark {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(196,130,90,0.35);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    padding: 4px;
+    flex-shrink: 0;
+  }
+  .m-nav-mark img {
+    width: 100%; height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+  .m-nav-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem; font-weight: 500; color: #fff;
+  }
+  .m-nav-brand em { font-style: italic; font-weight: 300; }
+  .m-nav-links { display: flex; gap: 2rem; align-items: center; }
+  .m-nav-links a {
+    font-size: 0.75rem; letter-spacing: 0.18em;
+    text-transform: uppercase; font-weight: 500;
+    opacity: 0.7; cursor: pointer; transition: opacity 0.3s;
+  }
+  .m-nav-links a:hover { opacity: 1; }
+  .m-nav-back {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.6rem 1.1rem;
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 100px; background: rgba(255,255,255,0.03);
+    font-size: 0.7rem; letter-spacing: 0.15em;
+    text-transform: uppercase; cursor: pointer;
+    transition: all 0.3s ease; opacity: 0.9;
+  }
+  .m-nav-back:hover { background: #c4825a; border-color: #c4825a; color: #fff; opacity: 1; }
+  
+  .m-hero {
+    min-height: 100vh; padding: 10rem 6vw 6rem;
+    display: flex; align-items: center;
+    position: relative; overflow: hidden;
+  }
+  .m-hero::before {
+    content: ''; position: absolute; inset: 0; z-index: 0;
+    background:
+      linear-gradient(180deg, rgba(14,15,17,0.65) 0%, rgba(14,15,17,0.92) 100%),
+      url('https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=1800&q=85&auto=format&fit=crop');
+    background-size: cover; background-position: center;
+  }
+  .m-hero-inner {
+    position: relative; z-index: 1;
+    max-width: 1300px; margin: 0 auto; width: 100%;
+    display: grid; grid-template-columns: 1.3fr 1fr; gap: 5rem; align-items: center;
+  }
+  .m-eyebrow {
+    display: inline-block; font-size: 0.72rem; letter-spacing: 0.35em;
+    text-transform: uppercase; color: #d4a07e;
+    font-weight: 600; margin-bottom: 2rem;
+  }
+  .m-hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 400; line-height: 0.98; letter-spacing: -0.02em;
+    margin-bottom: 1.5rem; color: #fff;
+  }
+  .m-hero-title em { font-style: italic; font-weight: 300; color: #d4a07e; }
+  .m-lead {
+    font-size: clamp(1rem, 1.25vw, 1.15rem); line-height: 1.7;
+    color: #a0a3a8; max-width: 540px; font-weight: 300;
+  }
+  .m-hero-lead { margin-bottom: 2.5rem; }
+  .m-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .m-btn {
+    display: inline-flex; align-items: center; gap: 0.7rem;
+    padding: 1rem 1.8rem; font-size: 0.78rem; letter-spacing: 0.2em;
+    text-transform: uppercase; font-weight: 600;
+    border: 1px solid #c4825a; background: #c4825a; color: #fff;
+    cursor: pointer; transition: all 0.4s ease;
+  }
+  .m-btn:hover { background: transparent; color: #c4825a; transform: translateY(-2px); }
+  .m-btn-ghost { background: transparent; color: #fff; border-color: rgba(255,255,255,0.3); }
+  .m-btn-ghost:hover { background: rgba(255,255,255,0.05); border-color: #fff; transform: translateY(-2px); }
+  
+  .m-hero-card {
+    background: rgba(196,130,90,0.08);
+    border: 1px solid rgba(196,130,90,0.25);
+    padding: 2.5rem; backdrop-filter: blur(10px);
+  }
+  .m-hero-card-tag {
+    font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: #d4a07e; font-weight: 600; margin-bottom: 1rem;
+  }
+  .m-hero-card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; font-weight: 500; line-height: 1.3;
+    color: #fff; margin-bottom: 1rem;
+  }
+  .m-hero-card-text {
+    font-size: 0.92rem; line-height: 1.65;
+    color: #a0a3a8; font-weight: 300; margin-bottom: 1.5rem;
+  }
+  .m-hero-card-contact {
+    padding-top: 1.2rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: grid; gap: 0.6rem; font-size: 0.85rem;
+  }
+  .m-hero-card-contact a { color: #d4a07e; transition: color 0.3s; }
+  .m-hero-card-contact a:hover { color: #fff; }
+  
+  .m-usps {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+    padding: 4rem 6vw; background: #16181b;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .m-usp { text-align: center; padding: 1.5rem; }
+  .m-usp-icon {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: rgba(196,130,90,0.1);
+    border: 1px solid #c4825a;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.5rem; color: #c4825a;
+  }
+  .m-usp-icon svg { width: 26px; height: 26px; }
+  .m-usp-title { font-size: 1rem; font-weight: 600; color: #fff; margin-bottom: 0.5rem; }
+  .m-usp-text { font-size: 0.88rem; color: #a0a3a8; line-height: 1.6; font-weight: 300; }
+  
+  .m-section { padding: 7rem 6vw; }
+  .m-section-inner { max-width: 1300px; margin: 0 auto; }
+  .m-section-light { background: #f4f5f7; color: #1a1d20; }
+  .m-section-light .m-eyebrow { color: #b56e3f; }
+  .m-section-light .m-lead { color: #6b6e72; }
+  .m-section-header { margin-bottom: 4rem; max-width: 800px; }
+  
+  .m-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 400; line-height: 1.1; color: inherit;
+    margin-bottom: 1.2rem;
+  }
+  .m-title em { font-style: italic; font-weight: 300; color: #c4825a; }
+  .m-section-light .m-title em { color: #b56e3f; }
+  
+  .m-vision {
+    padding: 8rem 6vw; text-align: center;
+    background:
+      radial-gradient(ellipse at center, rgba(196,130,90,0.06) 0%, transparent 70%),
+      #0e0f11;
+  }
+  .m-vision-inner { max-width: 900px; margin: 0 auto; }
+  .m-vision-quote {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    line-height: 1.45; font-weight: 400; color: #fff;
+    margin: 1.5rem 0;
+  }
+  .m-vision-quote::before, .m-vision-quote::after {
+    content: ''; display: block; width: 50px; height: 1px;
+    background: #c4825a; margin: 1.5rem auto;
+  }
+  .m-vision-attribution {
+    font-size: 0.72rem; letter-spacing: 0.25em;
+    text-transform: uppercase; color: #c4825a; font-weight: 600;
+    margin-top: 2rem;
+  }
+  
+  .m-expertises { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+  .m-expertise {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.06);
+    padding: 2.5rem 2rem;
+    transition: all 0.5s cubic-bezier(0.77,0,0.175,1);
+    position: relative; overflow: hidden; color: #1a1d20;
+  }
+  .m-expertise::before {
+    content: ''; position: absolute; left: 0; top: 0;
+    width: 3px; height: 100%; background: #b56e3f;
+    transform: scaleY(0); transform-origin: bottom;
+    transition: transform 0.5s ease;
+  }
+  .m-expertise:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+  }
+  .m-expertise:hover::before { transform: scaleY(1); transform-origin: top; }
+  .m-expertise-num {
+    font-family: 'Cormorant Garamond', serif; font-size: 2.5rem;
+    font-style: italic; color: #b56e3f; opacity: 0.5;
+    line-height: 1; margin-bottom: 1rem;
+  }
+  .m-expertise-title {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.6rem;
+    font-weight: 500; line-height: 1.2; color: #1a1d20;
+    margin-bottom: 1rem;
+  }
+  .m-expertise-desc {
+    font-size: 0.92rem; line-height: 1.7;
+    color: #6b6e72; font-weight: 300; margin-bottom: 1.5rem;
+  }
+  .m-expertise-list {
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0,0,0,0.08);
+  }
+  .m-expertise-list li {
+    font-size: 0.85rem; color: #6b6e72;
+    padding: 0.4rem 0 0.4rem 1.2rem;
+    position: relative; line-height: 1.5;
+  }
+  .m-expertise-list li::before {
+    content: '—'; position: absolute; left: 0;
+    color: #b56e3f; opacity: 0.7;
+  }
+  
+  .m-detail { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .m-pieces-list { padding: 0; }
+  .m-pieces-list li {
+    padding: 1rem 0; border-bottom: 1px solid rgba(0,0,0,0.08);
+    font-size: 0.95rem; color: #1a1d20;
+    display: flex; gap: 1rem; align-items: center;
+  }
+  .m-pieces-list li::before {
+    content: '→'; color: #b56e3f; font-weight: 600;
+  }
+  
+  .m-founder {
+    padding: 7rem 6vw; background: #16181b;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .m-founder-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1.4fr; gap: 5rem; align-items: center;
+  }
+  .m-founder-visual {
+    aspect-ratio: 4/5;
+    background:
+      linear-gradient(180deg, rgba(14,15,17,0.3) 0%, rgba(14,15,17,0.7) 100%),
+      url('https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=800&q=85&auto=format&fit=crop');
+    background-size: cover; background-position: center;
+    position: relative;
+  }
+  .m-founder-stat {
+    position: absolute; bottom: 2rem; left: 2rem;
+    background: rgba(14,15,17,0.85); backdrop-filter: blur(10px);
+    padding: 1.5rem 2rem; border: 1px solid #c4825a;
+  }
+  .m-founder-stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem; line-height: 1; color: #d4a07e; font-weight: 400;
+  }
+  .m-founder-stat-label {
+    font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: #a0a3a8; margin-top: 0.3rem;
+  }
+  
+  .m-clients {
+    padding: 5rem 6vw; background: #0e0f11;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .m-clients-label {
+    font-size: 0.7rem; letter-spacing: 0.3em;
+    text-transform: uppercase; color: #888;
+    margin-bottom: 2.5rem; font-weight: 500;
+  }
+  /* Slider partenaires — défilement infini avec pause au survol */
+  .m-clients-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0%, #000 6%, #000 94%, transparent 100%);
+  }
+  .m-clients-track {
+    display: flex;
+    width: max-content;
+    animation: m-clients-scroll 30s linear infinite;
+  }
+  .m-clients-grid:hover .m-clients-track {
+    animation-play-state: paused;
+  }
+  @keyframes m-clients-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .m-client {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 4px;
+    padding: 0.9rem 1.3rem;
+    width: 150px; height: 76px;
+    margin-right: 2rem;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.35s ease, border-color 0.35s ease, transform 0.35s ease;
+  }
+  .m-client:hover {
+    background: rgba(196,130,90,0.08);
+    border-color: rgba(196,130,90,0.35);
+    transform: translateY(-2px);
+  }
+  .m-client img {
+    max-width: 100%; max-height: 100%;
+    width: auto; height: auto;
+    object-fit: contain;
+    display: block;
+    opacity: 0.85;
+    /* Harmonisation : fond blanc des JPG effacé + tous les logos passés en silhouette claire */
+    filter: invert(1) brightness(1.5) grayscale(1);
+    mix-blend-mode: lighten;
+    transition: opacity 0.35s ease;
+  }
+  .m-client:hover img { opacity: 1; }
+  
+  .m-contact {
+    padding: 7rem 6vw;
+    background: linear-gradient(135deg, #16181b 0%, #0e0f11 100%);
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .m-contact-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+  }
+  .m-contact-info { display: grid; gap: 0; }
+  .m-contact-line {
+    display: flex; gap: 1.5rem; align-items: flex-start;
+    padding: 1.4rem 0;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .m-contact-line:last-of-type { border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .m-contact-line-icon {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: rgba(196,130,90,0.1);
+    border: 1px solid #c4825a;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; color: #c4825a;
+  }
+  .m-contact-line-icon svg { width: 18px; height: 18px; }
+  .m-contact-line-content { flex: 1; }
+  .m-contact-line-label {
+    font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: #c4825a; margin-bottom: 0.3rem; font-weight: 600;
+  }
+  .m-contact-line-value {
+    font-size: 1rem; color: #fff; font-weight: 400; line-height: 1.5;
+  }
+  .m-contact-line-value a { color: #fff; transition: color 0.3s; }
+  .m-contact-line-value a:hover { color: #d4a07e; }
+  
+  .m-footer {
+    padding: 3rem 6vw 2rem;
+    background: #08090a;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    color: #888; text-align: center;
+    font-size: 0.75rem; letter-spacing: 0.15em;
+  }
+  .m-footer-back { color: #d4a07e; cursor: pointer; }
+  .m-footer-back:hover { color: #fff; }
+
+  /* ============================================
+     MODALE "OBTENIR UN DEVIS" — Majel Lift
+     ============================================ */
+  .m-modal {
+    position: fixed; inset: 0;
+    z-index: 9990;
+    display: none;
+    align-items: center; justify-content: center;
+    background: rgba(8, 11, 14, 0.72);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    padding: 2rem;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+  .m-modal.shown { display: flex; opacity: 1; }
+
+  .m-modal-panel {
+    background: #1a1d20;
+    border: 1px solid rgba(196,130,90,0.18);
+    width: 100%; max-width: 920px;
+    max-height: 92vh; overflow-y: auto;
+    position: relative;
+    padding: 3.5rem 3rem 3rem;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: opacity 0.4s ease 0.05s,
+                transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) 0.05s;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+  }
+  .m-modal.shown .m-modal-panel { transform: translateY(0); opacity: 1; }
+
+  .m-modal-close {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    width: 38px; height: 38px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #d4a07e;
+    font-size: 1.5rem; line-height: 1;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .m-modal-close:hover {
+    background: #c4825a; color: #fff; border-color: #c4825a;
+  }
+
+  .m-modal-header { margin-bottom: 2.5rem; }
+  .m-modal-header .m-eyebrow { margin-bottom: 1rem; }
+  .m-modal-header .m-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    color: #fff; margin-bottom: 1rem; line-height: 1.15;
+  }
+  .m-modal-header .m-lead { color: #a0a3a8; max-width: none; }
+
+  .m-modal-body {
+    display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 3rem;
+  }
+  .m-modal-info {
+    border-right: 1px solid rgba(255,255,255,0.08);
+    padding-right: 2.5rem;
+    display: flex; flex-direction: column;
+    align-self: start;
+  }
+  .m-modal-info .m-contact-line:first-child { border-top: none; padding-top: 0; }
+  .m-modal-info .m-contact-line:last-of-type { border-bottom: none; }
+
+  /* Formulaire devis */
+  .m-form { display: flex; flex-direction: column; gap: 1rem; }
+  .m-form-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+  }
+  .m-form-field { display: flex; flex-direction: column; }
+  .m-form-field label {
+    font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: #a0a3a8; margin-bottom: 0.45rem; font-weight: 600;
+  }
+  .m-form-field input,
+  .m-form-field textarea {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 0.85rem 1rem;
+    color: #fff;
+    font-family: inherit; font-size: 0.92rem;
+    transition: all 0.25s ease;
+  }
+  .m-form-field input::placeholder,
+  .m-form-field textarea::placeholder { color: rgba(255,255,255,0.3); }
+  .m-form-field input:focus,
+  .m-form-field textarea:focus {
+    outline: none;
+    border-color: #c4825a;
+    background: rgba(196,130,90,0.06);
+  }
+  .m-form-field textarea { resize: vertical; min-height: 90px; }
+  .m-form-submit { margin-top: 0.6rem; align-self: flex-start; }
+  .m-form-success {
+    display: none;
+    margin-top: 0.8rem;
+    padding: 0.9rem 1.1rem;
+    background: rgba(78, 200, 78, 0.1);
+    border: 1px solid rgba(78, 200, 78, 0.4);
+    color: #a8f3a8;
+    font-size: 0.88rem;
+  }
+  .m-form-success.shown { display: block; }
+
+  /* Pièces jointes — drag & drop + liste */
+  .m-form-hint {
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.4);
+    font-weight: 400;
+    margin-left: 0.4rem;
+  }
+  .m-dropzone {
+    border: 1.5px dashed rgba(196,130,90,0.35);
+    background: rgba(255,255,255,0.02);
+    padding: 1.2rem 1.2rem;
+    display: flex; align-items: center; gap: 1rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .m-dropzone:hover,
+  .m-dropzone.dragover {
+    border-color: #c4825a;
+    background: rgba(196,130,90,0.08);
+  }
+  .m-dropzone.dragover {
+    transform: scale(1.01);
+  }
+  .m-dropzone-icon {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: rgba(196,130,90,0.12);
+    display: flex; align-items: center; justify-content: center;
+    color: #c4825a; flex-shrink: 0;
+  }
+  .m-dropzone-icon svg { width: 20px; height: 20px; }
+  .m-dropzone-text {
+    display: flex; flex-direction: column; gap: 0.15rem;
+    pointer-events: none;
+  }
+  .m-dropzone-text strong {
+    font-size: 0.92rem; color: #fff; font-weight: 500;
+  }
+  .m-dropzone-text span {
+    font-size: 0.78rem; color: rgba(255,255,255,0.5);
+  }
+  .m-file-list {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    margin-top: 0.65rem;
+  }
+  .m-file-list:empty { margin-top: 0; }
+  .m-file-item {
+    display: flex; align-items: center; gap: 0.8rem;
+    padding: 0.6rem 0.85rem;
+    background: rgba(196,130,90,0.08);
+    border: 1px solid rgba(196,130,90,0.2);
+    font-size: 0.85rem;
+    animation: fileItemIn 0.25s ease;
+  }
+  @keyframes fileItemIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .m-file-item-icon {
+    width: 22px; height: 22px; color: #d4a07e; flex-shrink: 0;
+  }
+  .m-file-item-icon svg { width: 100%; height: 100%; }
+  .m-file-item-name {
+    flex: 1; color: #fff;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .m-file-item-size {
+    font-size: 0.75rem; color: rgba(255,255,255,0.5); flex-shrink: 0;
+  }
+  .m-file-item-remove {
+    background: transparent; border: none;
+    color: rgba(255,255,255,0.5);
+    cursor: pointer;
+    font-size: 1.2rem; line-height: 1;
+    padding: 0 0.3rem;
+    transition: color 0.2s;
+  }
+  .m-file-item-remove:hover { color: #c4825a; }
+
+  @media (max-width: 820px) {
+    .m-modal { padding: 1rem; }
+    .m-modal-panel { padding: 3rem 1.5rem 2rem; }
+    .m-modal-body { grid-template-columns: 1fr; gap: 2rem; }
+    .m-modal-info {
+      border-right: none;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding-right: 0; padding-bottom: 1.5rem;
+    }
+    .m-form-row { grid-template-columns: 1fr; gap: 1rem; }
+  }
+  
+  @media (max-width: 900px) {
+    .m-nav { padding: 1rem 1.2rem; }
+    .m-nav-links { gap: 1rem; }
+    .m-nav-links a:not(.m-nav-back) { display: none; }
+    .m-hero-inner, .m-detail, .m-founder-inner, .m-contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .m-expertises, .m-usps { grid-template-columns: 1fr; }
+    .m-section, .m-vision, .m-founder, .m-contact { padding: 4rem 6vw; }
+    .m-client { width: 116px; height: 60px; padding: 0.6rem 0.9rem; margin-right: 1.5rem; }
+    .m-clients-track { animation-duration: 22s; }
+  }
+  
+  /* ============================================
+     SITE ADAMOIS RENOV
+     ============================================ */
+  
+  #adamois-site {
+    background: #faf6f0; color: #2a1f15; min-height: 100vh;
+  }
+  #adamois-site a { text-decoration: none; color: inherit; }
+  #adamois-site ul { list-style: none; }
+  
+  .a-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    padding: 1.2rem 2.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(250, 246, 240, 0.92);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .a-nav-brand-block { display: flex; align-items: center; gap: 0.8rem; cursor: pointer; }
+  .a-nav-mark {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: #fff;
+    border: 1px solid rgba(184,129,74,0.25);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    padding: 3px;
+    flex-shrink: 0;
+    box-shadow: 0 1px 4px rgba(60,45,30,0.08);
+  }
+  .a-nav-mark img {
+    width: 100%; height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+  .a-nav-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem; font-weight: 500; color: #2a1f15;
+  }
+  .a-nav-brand em { font-style: italic; font-weight: 300; }
+  .a-nav-links { display: flex; gap: 2rem; align-items: center; }
+  .a-nav-links a {
+    font-size: 0.75rem; letter-spacing: 0.18em;
+    text-transform: uppercase; font-weight: 500;
+    color: #2a1f15; opacity: 0.7; cursor: pointer; transition: opacity 0.3s;
+  }
+  .a-nav-links a:hover { opacity: 1; }
+  .a-nav-back {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.6rem 1.1rem;
+    border: 1px solid rgba(0,0,0,0.18);
+    border-radius: 100px; background: rgba(255,255,255,0.5);
+    font-size: 0.7rem; letter-spacing: 0.15em;
+    text-transform: uppercase; cursor: pointer;
+    transition: all 0.3s ease; opacity: 0.9;
+  }
+  .a-nav-back:hover { background: #b8814a; border-color: #b8814a; color: #fff; opacity: 1; }
+  
+  .a-hero {
+    min-height: 88vh; padding: 9rem 6vw 3rem;
+    display: flex; align-items: center;
+    position: relative; overflow: hidden;
+    background: linear-gradient(180deg, #faf6f0 0%, #f0e8db 100%);
+  }
+  .a-hero-inner {
+    position: relative; z-index: 1;
+    max-width: 1300px; margin: 0 auto; width: 100%;
+    display: grid; grid-template-columns: 1.1fr 1fr; gap: 5rem; align-items: center;
+  }
+  .a-eyebrow {
+    display: inline-block; font-size: 0.72rem; letter-spacing: 0.35em;
+    text-transform: uppercase; color: #b8814a;
+    font-weight: 600; margin-bottom: 2rem;
+  }
+  .a-hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.4rem, 5.5vw, 4.6rem);
+    font-weight: 400; line-height: 1.02; letter-spacing: -0.02em;
+    margin-bottom: 1.5rem; color: #2a1f15;
+  }
+  .a-hero-title em { font-style: italic; font-weight: 300; color: #b8814a; }
+  .a-hero-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+    color: #8b7355; margin-bottom: 1.5rem; font-weight: 400;
+  }
+  .a-lead {
+    font-size: clamp(1rem, 1.25vw, 1.15rem); line-height: 1.7;
+    color: #6b5d4a; max-width: 540px; font-weight: 300;
+  }
+  .a-hero-lead { margin-bottom: 2.5rem; }
+  .a-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .a-btn {
+    display: inline-flex; align-items: center; gap: 0.7rem;
+    padding: 1rem 1.8rem; font-size: 0.78rem; letter-spacing: 0.2em;
+    text-transform: uppercase; font-weight: 600;
+    border: 1px solid #b8814a; background: #b8814a; color: #fff;
+    cursor: pointer; transition: all 0.4s ease;
+  }
+  .a-btn:hover { background: transparent; color: #b8814a; transform: translateY(-2px); }
+  .a-btn-ghost { background: transparent; color: #2a1f15; border-color: rgba(42,31,21,0.3); }
+  .a-btn-ghost:hover { background: rgba(42,31,21,0.05); border-color: #2a1f15; transform: translateY(-2px); }
+  
+  /* Slider Before/After générique */
+  .ba-slider {
+    position: relative; width: 100%; aspect-ratio: 3/2;
+    overflow: hidden; cursor: ew-resize;
+    box-shadow: 0 30px 80px rgba(60,45,30,0.15);
+    user-select: none;
+  }
+  .ba-slider img, .ba-slider .ba-img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    background-size: cover; background-position: center;
+    pointer-events: none;
+  }
+  .ba-slider .ba-before {
+    clip-path: inset(0 50% 0 0);
+  }
+  .ba-handle {
+    position: absolute; top: 0; bottom: 0; left: 50%;
+    width: 3px; background: #fff;
+    transform: translateX(-50%);
+    pointer-events: none;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  }
+  .ba-handle::after {
+    content: ''; position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 44px; height: 44px; border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  }
+  .ba-handle::before {
+    content: '⇆'; position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    color: #b8814a; font-size: 1.1rem; font-weight: 600;
+    z-index: 2;
+  }
+  .ba-label {
+    position: absolute; top: 1.5rem;
+    padding: 0.5rem 1rem; font-size: 0.7rem;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    background: rgba(0,0,0,0.6); color: #fff;
+    backdrop-filter: blur(10px); font-weight: 600;
+    pointer-events: none;
+  }
+  .ba-label-before { left: 1.5rem; }
+  .ba-label-after { right: 1.5rem; }
+  
+  /* Slider HERO : photos réelles du chantier Caisse d'Épargne */
+  #hero-slider {
+    background: #d4c4a8;
+  }
+  /* Photo unique du hero Adamois — remplace l'image en éditant l'URL ci-dessous */
+  .a-hero-photo {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4/5;
+    background-image: url('https://i.ibb.co/6jK2YYf/IMG-1016.jpg');
+    background-size: cover;
+    background-position: center;
+    background-color: #d4c4a8;
+    /* Fondu doux sur les bords et coins — la photo s'estompe vers la page */
+    -webkit-mask-image: radial-gradient(ellipse 100% 100% at center, #000 55%, transparent 100%);
+    mask-image: radial-gradient(ellipse 100% 100% at center, #000 55%, transparent 100%);
+    /* Ombre qui suit la forme estompée (effet halo) */
+    filter: drop-shadow(0 25px 55px rgba(60, 45, 30, 0.22));
+  }
+  
+  .a-section { padding: 7rem 6vw; }
+  .a-section-inner { max-width: 1300px; margin: 0 auto; }
+  .a-section-light { background: #fff; }
+  .a-section-cream { background: #f0e8db; }
+  
+  .a-section-header { margin-bottom: 4rem; max-width: 800px; }
+  
+  .a-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 400; line-height: 1.1;
+    color: #2a1f15; margin-bottom: 1.2rem;
+  }
+  .a-title em { font-style: italic; font-weight: 300; color: #b8814a; }
+
+  .a-services {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2.5rem;
+    margin-top: 3rem;
+  }
+  .a-service {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.06);
+    padding: 3rem 2.5rem;
+    transition: all 0.5s cubic-bezier(0.77,0,0.175,1);
+    position: relative; overflow: hidden;
+  }
+  .a-service::before {
+    content: ''; position: absolute; left: 0; top: 0;
+    width: 3px; height: 100%; background: #b8814a;
+    transform: scaleY(0); transform-origin: bottom;
+    transition: transform 0.5s ease;
+  }
+  .a-service:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(60,45,30,0.1); }
+  .a-service:hover::before { transform: scaleY(1); transform-origin: top; }
+  .a-service-num {
+    font-family: 'Cormorant Garamond', serif; font-size: 2.5rem;
+    font-style: italic; color: #b8814a; opacity: 0.5;
+    line-height: 1; margin-bottom: 1rem;
+  }
+  .a-service-title {
+    font-family: 'Cormorant Garamond', serif; font-size: 2rem;
+    font-weight: 500; line-height: 1.2; color: #2a1f15;
+    margin-bottom: 0.5rem;
+  }
+  .a-service-subtitle {
+    font-size: 0.85rem; letter-spacing: 0.05em;
+    color: #b8814a; font-weight: 600;
+    margin-bottom: 1.5rem; font-style: italic;
+  }
+  .a-service-desc {
+    font-size: 0.95rem; line-height: 1.7;
+    color: #5a4a36; font-weight: 300; margin-bottom: 1.5rem;
+  }
+  .a-service-list {
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(0,0,0,0.08);
+    display: grid; gap: 1.2rem;
+  }
+  .a-service-item {
+    display: grid; grid-template-columns: auto 1fr; gap: 0.8rem;
+    align-items: start;
+  }
+  .a-service-item-bullet {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #b8814a; margin-top: 0.5rem;
+  }
+  .a-service-item strong {
+    color: #2a1f15; font-weight: 600;
+    display: block; margin-bottom: 0.2rem; font-size: 0.92rem;
+  }
+  .a-service-item span {
+    color: #6b5d4a; font-size: 0.88rem; line-height: 1.6; font-weight: 300;
+  }
+  
+  .a-realisations-table {
+    margin-top: 3rem; background: #fff;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+  .a-realisations-row {
+    display: grid; grid-template-columns: 2fr 2fr 1fr;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    align-items: center; transition: background 0.3s;
+  }
+  .a-realisations-row:last-child { border-bottom: none; }
+  .a-realisations-row.header {
+    background: #f0e8db;
+    font-size: 0.7rem; letter-spacing: 0.25em;
+    text-transform: uppercase; color: #b8814a;
+    font-weight: 600;
+  }
+  .a-realisations-row:not(.header):hover { background: rgba(184,129,74,0.03); }
+  .a-r-address {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem; color: #2a1f15; font-weight: 500;
+  }
+  .a-r-type { color: #5a4a36; font-size: 0.92rem; font-weight: 300; }
+  .a-r-duration {
+    color: #b8814a; font-weight: 600; font-size: 0.85rem;
+    letter-spacing: 0.05em;
+  }
+  
+  .a-realisation-visual {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
+    align-items: center;
+  }
+  .a-realisation-text h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem; font-weight: 500;
+    color: #2a1f15; margin-bottom: 1rem; line-height: 1.2;
+  }
+  .a-realisation-text h3 em { font-style: italic; font-weight: 300; color: #b8814a; }
+
+  /* Galerie 4 photos (slide sans avant/après) */
+  .a-gallery-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 6px;
+    aspect-ratio: 4/3;
+    width: 100%;
+    background: #f0e8db;
+    padding: 6px;
+    box-shadow: 0 30px 80px rgba(60,45,30,0.15);
+  }
+  .a-gallery-grid--duo {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    aspect-ratio: 3/2;
+  }
+  .a-gallery-cell {
+    position: relative;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: zoom-in;
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .a-gallery-cell::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, transparent 50%, rgba(42,31,21,0.18) 100%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+  }
+  .a-gallery-cell:hover { transform: scale(1.035); }
+  .a-gallery-cell:hover::after { opacity: 1; }
+
+  /* Slider de chantiers (défilement automatique) */
+  .chantiers-slider { position: relative; margin-top: 4rem; }
+  .chantiers-viewport {
+    overflow: hidden;
+    transition: height 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+  }
+  .chantiers-track {
+    display: flex;
+    align-items: flex-start;
+    transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+    will-change: transform;
+  }
+  .chantiers-track .a-realisation-visual {
+    flex: 0 0 100%;
+    min-width: 100%;
+    margin-top: 0;
+    padding: 0 0.5rem;
+    align-self: flex-start;
+  }
+  .chantiers-arrow {
+    position: absolute; top: 50%;
+    transform: translateY(-50%);
+    width: 52px; height: 52px;
+    background: rgba(255,255,255,0.95);
+    border: 1px solid rgba(184,129,74,0.18);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: #2a1f15;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem; line-height: 1;
+    box-shadow: 0 10px 30px rgba(60,45,30,0.12);
+    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, scale 0.3s ease;
+    z-index: 5;
+    padding: 0;
+  }
+  .chantiers-arrow:hover {
+    background: #b8814a; color: #fff;
+    border-color: #b8814a;
+    scale: 1.08;
+  }
+  .chantiers-arrow-prev { left: -58px; }
+  .chantiers-arrow-next { right: -58px; }
+  @media (max-width: 1023px) {
+    .chantiers-arrow { display: none; }
+  }
+  .chantiers-dots {
+    display: flex; gap: 0.7rem;
+    justify-content: center;
+    margin-top: 2.5rem;
+  }
+  .chantiers-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: rgba(42,31,21,0.18);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+  }
+  .chantiers-dot:hover { background: rgba(42,31,21,0.4); }
+  .chantiers-dot.active {
+    background: #b8814a;
+    transform: scale(1.4);
+  }
+  @media (max-width: 768px) {
+    .chantiers-arrow-prev { left: 8px; }
+    .chantiers-arrow-next { right: 8px; }
+  }
+  
+  .a-map {
+    margin-top: 5rem; aspect-ratio: 16/9;
+    background:
+      linear-gradient(135deg, rgba(184,129,74,0.1) 0%, rgba(184,129,74,0.05) 100%),
+      url('https://images.unsplash.com/photo-1524813686514-a57563d77965?w=1400&q=85&auto=format&fit=crop');
+    background-size: cover; background-position: center;
+    position: relative;
+    border: 1px solid rgba(0,0,0,0.06);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .a-map-overlay {
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(10px);
+    padding: 2rem 3rem; text-align: center;
+    border: 1px solid #b8814a; max-width: 500px;
+  }
+  .a-map-overlay-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; font-weight: 500;
+    color: #2a1f15; margin-bottom: 0.5rem;
+  }
+  .a-map-overlay-text {
+    font-size: 0.9rem; color: #6b5d4a;
+    font-weight: 300; line-height: 1.5;
+  }
+  
+  .a-about {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+    align-items: center;
+  }
+  .a-about-visual {
+    aspect-ratio: 4/5;
+    background:
+      linear-gradient(180deg, rgba(60,45,30,0.1) 0%, rgba(60,45,30,0.4) 100%),
+      url('https://images.unsplash.com/photo-1521791136064-7986c2920216?w=800&q=85&auto=format&fit=crop');
+    background-size: cover; background-position: center;
+    position: relative;
+  }
+  .a-about-stat {
+    position: absolute; bottom: 2rem; left: 2rem;
+    background: rgba(250,246,240,0.95); backdrop-filter: blur(10px);
+    padding: 1.5rem 2rem; border: 1px solid #b8814a;
+  }
+  .a-about-stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem; line-height: 1; color: #b8814a; font-weight: 400;
+  }
+  .a-about-stat-label {
+    font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: #6b5d4a; margin-top: 0.3rem;
+  }
+  .a-about-tag {
+    display: inline-block; font-style: italic;
+    font-family: 'Cormorant Garamond', serif; font-size: 1.3rem;
+    color: #b8814a; margin-bottom: 0.5rem;
+  }
+  .a-about p { margin-bottom: 1.2rem; }
+  
+  .a-values {
+    margin-top: 5rem; padding-top: 4rem;
+    border-top: 1px solid rgba(0,0,0,0.1);
+  }
+  .a-values-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem; font-weight: 500;
+    color: #2a1f15; margin-bottom: 2rem; text-align: center;
+  }
+  .a-values-title em { font-style: italic; font-weight: 300; color: #b8814a; }
+  .a-values-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem;
+    margin-top: 3rem;
+  }
+  .a-value { text-align: center; padding: 2rem 1rem; }
+  .a-value-icon {
+    width: 60px; height: 60px; border-radius: 50%;
+    background: rgba(184,129,74,0.1); border: 1px solid #b8814a;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.5rem; color: #b8814a;
+  }
+  .a-value-icon svg { width: 24px; height: 24px; }
+  .a-value-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; font-weight: 500;
+    color: #2a1f15; margin-bottom: 0.5rem;
+  }
+  .a-value-text {
+    font-size: 0.88rem; color: #6b5d4a;
+    line-height: 1.6; font-weight: 300;
+  }
+  
+  .a-partners {
+    padding: 5rem 6vw; background: #fff;
+    text-align: center;
+    border-top: 1px solid rgba(0,0,0,0.06);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .a-partners-label {
+    font-size: 0.7rem; letter-spacing: 0.3em;
+    text-transform: uppercase; color: #8b7355;
+    margin-bottom: 3rem; font-weight: 500;
+  }
+  .a-partners-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;
+    max-width: 1100px; margin: 0 auto;
+    align-items: center;
+  }
+  .a-partner {
+    aspect-ratio: 2/1;
+    border: 1px solid rgba(0,0,0,0.08);
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; padding: 1rem;
+    transition: all 0.3s; cursor: default;
+    flex-direction: column; gap: 0.3rem;
+  }
+  .a-partner:hover { border-color: #b8814a; background: rgba(184,129,74,0.03); }
+  .a-partner-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem; font-weight: 500; color: #2a1f15;
+  }
+  .a-partner-sub {
+    font-size: 0.65rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #8b7355;
+  }
+
+  /* Marquee partenaires — défilement infini, pause au survol */
+  .a-partners-marquee {
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 7%, #000 93%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0%, #000 7%, #000 93%, transparent 100%);
+  }
+  .a-partners-track {
+    display: flex;
+    width: max-content;
+    align-items: center;
+    animation: a-partners-scroll 35s linear infinite;
+  }
+  .a-partners-marquee:hover .a-partners-track {
+    animation-play-state: paused;
+  }
+  @keyframes a-partners-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .a-partner-logo {
+    width: 200px; height: 120px;
+    margin-right: 3rem;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .a-partner-logo img {
+    max-width: 100%; max-height: 100%;
+    width: auto; height: auto;
+    object-fit: contain;
+    display: block;
+    --scale: 1;
+    transform: scale(var(--scale));
+    transform-origin: center;
+    transition: transform 0.4s ease;
+  }
+  .a-partner-logo:hover img {
+    transform: scale(calc(var(--scale) * 1.06));
+  }
+  @media (max-width: 768px) {
+    .a-partner-logo { width: 150px; height: 90px; margin-right: 2rem; }
+    .a-partners-track { animation-duration: 26s; }
+  }
+
+  .a-contact-section {
+    padding: 7rem 6vw;
+    background: linear-gradient(135deg, #2a1f15 0%, #1e1610 100%);
+    color: #faf6f0;
+  }
+  .a-contact-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1.2fr; gap: 5rem;
+  }
+  .a-contact-info-title em { color: #d4a574; }
+  .a-contact-info .a-lead { color: rgba(250,246,240,0.7); }
+  .a-contact-coords { margin-top: 3rem; display: grid; gap: 0; }
+  .a-contact-line {
+    display: flex; gap: 1.5rem; align-items: center;
+    padding: 1.4rem 0;
+    border-top: 1px solid rgba(250,246,240,0.1);
+  }
+  .a-contact-line:last-of-type { border-bottom: 1px solid rgba(250,246,240,0.1); }
+  .a-contact-line-icon {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: rgba(212,165,116,0.1);
+    border: 1px solid #d4a574;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; color: #d4a574;
+  }
+  .a-contact-line-icon svg { width: 18px; height: 18px; }
+  .a-contact-line-label {
+    font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: #d4a574; margin-bottom: 0.3rem; font-weight: 600;
+  }
+  .a-contact-line-value { font-size: 1rem; color: #fff; }
+  .a-contact-line-value a { color: #fff; transition: color 0.3s; }
+  .a-contact-line-value a:hover { color: #d4a574; }
+  
+  .a-form {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(212,165,116,0.2);
+    padding: 2.5rem;
+  }
+  .a-form-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .a-form-field {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .a-form-field label {
+    font-size: 0.7rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: #d4a574; font-weight: 600;
+  }
+  .a-form-field input, .a-form-field textarea {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(250,246,240,0.15);
+    color: #fff; padding: 0.9rem 1rem;
+    font-family: 'Manrope', sans-serif; font-size: 0.95rem;
+    transition: border-color 0.3s, background 0.3s;
+    border-radius: 0;
+  }
+  .a-form-field input:focus, .a-form-field textarea:focus {
+    outline: none; border-color: #d4a574;
+    background: rgba(255,255,255,0.08);
+  }
+  .a-form-field textarea {
+    resize: vertical; min-height: 120px;
+    font-family: 'Manrope', sans-serif;
+  }
+  .a-form-submit {
+    margin-top: 0.5rem; width: 100%;
+    justify-content: center;
+    background: #d4a574; border-color: #d4a574;
+  }
+  .a-form-submit:hover { background: transparent; color: #d4a574; }
+  .a-form-success {
+    display: none; padding: 1rem;
+    background: rgba(212,165,116,0.1);
+    border: 1px solid #d4a574;
+    color: #d4a574; font-size: 0.9rem;
+    margin-top: 1rem; text-align: center;
+  }
+  .a-form-success.shown { display: block; }
+  
+  .a-footer {
+    padding: 3rem 6vw 2rem;
+    background: #1a1308;
+    border-top: 1px solid rgba(212,165,116,0.15);
+    color: #8b7355; text-align: center;
+    font-size: 0.75rem; letter-spacing: 0.15em;
+  }
+  .a-footer-back { color: #d4a574; cursor: pointer; }
+  .a-footer-back:hover { color: #fff; }
+  
+  @media (max-width: 900px) {
+    .a-nav { padding: 1rem 1.2rem; }
+    .a-nav-links { gap: 1rem; }
+    .a-nav-links a:not(.a-nav-back) { display: none; }
+    .a-hero-inner, .a-services, .a-about, .a-realisation-visual, .a-contact-inner, .a-form-row { grid-template-columns: 1fr; gap: 3rem; }
+    .a-form-row { gap: 0; }
+    .a-values-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .a-partners-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .a-section, .a-contact-section { padding: 4rem 6vw; }
+    .a-realisations-row { grid-template-columns: 1fr; gap: 0.5rem; padding: 1.2rem 1.5rem; }
+    .a-realisations-row.header { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TRANSITION FONDU (vers Majel Lift) -->
+<div id="majel-fade">
+  <div class="majel-fade-content">
+    <span class="majel-fade-eyebrow">Métallurgie & Ouvrages</span>
+    <h2 class="majel-fade-name">Majel <em>Lift</em></h2>
+    <div class="majel-fade-line"></div>
+  </div>
+</div>
+
+<!-- TRANSITION FONDU (vers Adamois Renov') -->
+<div id="adamois-fade">
+  <div class="adamois-fade-content">
+    <span class="adamois-fade-eyebrow">Bâtiment & Patrimoine</span>
+    <h2 class="adamois-fade-name">Adamois <em>Renov'</em></h2>
+    <div class="adamois-fade-line"></div>
+  </div>
+</div>
+
+<!-- PAGE D'ACCUEIL -->
+<div id="home-page">
+  <main class="hub" id="hub">
+    <section class="universe adamois" onclick="enter('adamois')">
+      <div class="universe-bg"></div>
+      <div class="universe-content">
+        <div class="universe-top">
+          <span class="badge">Bâtiment & Patrimoine</span>
+          <h2 class="universe-name">Adamois <em>Renov'</em></h2>
+          <p class="universe-tagline">Le savoir-faire père & fils au service des façades et toitures, depuis trois générations.</p>
+        </div>
+        <div class="universe-bottom">
+          <ul class="trades">
+            <li><span class="trade-num">01</span> Ravalement de façade</li>
+            <li><span class="trade-num">02</span> Couverture zinc, ardoise, tuile</li>
+            <li><span class="trade-num">03</span> Zinguerie & ornements</li>
+          </ul>
+          <a class="cta" onclick="event.stopPropagation(); enter('adamois')">
+            Découvrir l'univers BTP
+            <span class="cta-arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+    
+    <div class="divider"></div>
+    
+    <section class="universe majel" onclick="enter('majel')">
+      <div class="universe-bg"></div>
+      <div class="universe-content">
+        <div class="universe-top">
+          <span class="badge">Métallurgie & Ouvrages</span>
+          <h2 class="universe-name">Majel <em>Lift</em></h2>
+          <p class="universe-tagline">L'élévation métallique familiale — façonner l'acier pour des ouvrages durables et sur-mesure.</p>
+          <span class="universe-restriction">Réservé aux professionnels</span>
+        </div>
+        <div class="universe-bottom">
+          <ul class="trades">
+            <li><span class="trade-num">01</span> Tôlerie & travail du métal</li>
+            <li><span class="trade-num">02</span> Serrurerie & garde-corps</li>
+            <li><span class="trade-num">03</span> Structures métalliques</li>
+          </ul>
+          <a class="cta" onclick="event.stopPropagation(); enter('majel')">
+            Découvrir l'univers Métal
+            <span class="cta-arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+    
+    <div class="center-logo">
+      <div class="logo-circle">
+        <div class="logo-mark">GA</div>
+        <div class="logo-sub">Groupe</div>
+      </div>
+      <div class="baseline">Bâtir & façonner, depuis trois générations</div>
+    </div>
+  </main>
+
+  <div class="bottom-bar">
+    <div>Île-de-France · France</div>
+    <div class="scroll-hint">
+      <span>Explorer</span>
+      <span class="scroll-line"></span>
+    </div>
+  </div>
+</div>
+
+<!-- SITE MAJEL LIFT -->
+<div id="majel-site">
+  <nav class="m-nav">
+    <div class="m-nav-brand-block" onclick="goHome()">
+      <div class="m-nav-mark"><img src="https://i.ibb.co/Q3yJKJz0/Logo-moderne-de-MAJEL-LIFT-1-Photoroom.png" alt="Majel Lift"></div>
+      <div class="m-nav-brand">Majel <em>Lift</em></div>
+    </div>
+    <div class="m-nav-links">
+      <a href="#m-vision-section">Notre vision</a>
+      <a href="#m-services-section">Nos services</a>
+      <a href="#m-fondateur-section">Le fondateur</a>
+      <a href="#m-contact-section">Contact</a>
+      <a class="m-nav-back" onclick="goHome()">← Groupe Adamois</a>
+    </div>
+  </nav>
+
+  <section class="m-hero">
+    <div class="m-hero-inner">
+      <div>
+        <span class="m-eyebrow">Tôlerie · Serrurerie · Métal sur mesure</span>
+        <h1 class="m-hero-title">La solution pour vos besoins en <em>tôlerie industrielle</em>.</h1>
+        <p class="m-lead m-hero-lead">Vous êtes à la recherche d'un sous-traitant fiable pour la fabrication de pièces métalliques sur mesure ? Majel Lift accompagne les professionnels du bâtiment et de l'ascensoriste avec une exigence de qualité et de durabilité.</p>
+        <div class="m-actions">
+          <a class="m-btn" onclick="event.preventDefault(); openMajelModal();" href="#">Obtenir un devis <span>→</span></a>
+        </div>
+      </div>
+      <aside class="m-hero-card">
+        <div class="m-hero-card-tag">Atelier · Île-de-France</div>
+        <h3 class="m-hero-card-title">Une tôlerie-serrurerie au cœur du Grand Paris</h3>
+        <p class="m-hero-card-text">Basée à Gennevilliers, à quelques minutes du périphérique et des axes autoroutiers A86 / A15. Interlocuteur idéal pour vos chantiers parisiens et de la petite couronne.</p>
+        <div class="m-hero-card-contact">
+          <div>📞 <a href="tel:0650080337">06 50 08 03 37</a></div>
+          <div>✉ <a href="mailto:Majel.lift@gmail.com">Majel.lift@gmail.com</a></div>
+          <div>📍 <a href="https://www.google.com/maps/search/?api=1&query=Parc%20Louis%20Roche%2C%20114%20avenue%20Louis%20Roche%2C%2092230%20Gennevilliers" target="_blank" rel="noopener">Parc Louis Roche · Bât. 306<br><span style="padding-left:1.4rem;">114 av. Louis Roche, 92230 Gennevilliers</span></a></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="m-usps">
+    <div class="m-usp">
+      <div class="m-usp-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="m-usp-title">Devis gratuit & rapide</div>
+      <div class="m-usp-text">Réponse réactive et étude technique soignée pour chaque demande.</div>
+    </div>
+    <div class="m-usp">
+      <div class="m-usp-icon">
+        <svg viewBox="0 0 24 24" fill="none">
+          <rect x="3" y="6" width="6" height="12" fill="#0055A4"/>
+          <rect x="9" y="6" width="6" height="12" fill="#ffffff"/>
+          <rect x="15" y="6" width="6" height="12" fill="#EF4135"/>
+          <rect x="3" y="6" width="18" height="12" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="0.5"/>
+        </svg>
+      </div>
+      <div class="m-usp-title">Fabrication 100% française</div>
+      <div class="m-usp-text">Atelier à Gennevilliers, traçabilité totale, savoir-faire local.</div>
+    </div>
+    <div class="m-usp">
+      <div class="m-usp-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 10v11h18V10M3 10l9-7 9 7M9 21v-6h6v6"/></svg>
+      </div>
+      <div class="m-usp-title">Entreprise familiale</div>
+      <div class="m-usp-text">Une structure à taille humaine, un interlocuteur unique.</div>
+    </div>
+  </section>
+
+  <section class="m-vision" id="m-vision-section">
+    <div class="m-vision-inner">
+      <span class="m-eyebrow">Notre vision</span>
+      <p class="m-vision-quote">Nous redéfinissons la manière dont le secteur de l'ascenseur perçoit la fabrication de pièces métalliques sur mesure.</p>
+      <p class="m-lead" style="max-width:700px;margin:0 auto;">Chez Majel Lift, nous nous engageons à offrir des solutions sur mesure qui répondent aux besoins spécifiques de nos clients dans le secteur de la construction et de l'ascensoriste. Nous mettons l'accent sur la qualité et la durabilité pour chaque projet.</p>
+      <div class="m-vision-attribution">Majel Lift · Tôlerie-Serrurerie</div>
+    </div>
+  </section>
+
+  <section class="m-section m-section-light" id="m-services-section">
+    <div class="m-section-inner">
+      <div class="m-section-header">
+        <span class="m-eyebrow">Nos expertises</span>
+        <h2 class="m-title">Le métal, <em>façonné sur mesure</em>.</h2>
+        <p class="m-lead">Trois domaines d'intervention pour répondre aux besoins des professionnels du bâtiment et de l'ascensoriste : tôlerie pour ascenseurs, garde-corps sécurisés, portails et clôtures durables. Tout est conçu et fabriqué dans notre atelier de Gennevilliers.</p>
+      </div>
+      <div class="m-expertises">
+        <article class="m-expertise">
+          <div class="m-expertise-num">01</div>
+          <h3 class="m-expertise-title">Professionnel de l'ascenseur</h3>
+          <p class="m-expertise-desc">Fabrication de pièces métalliques destinées aux ascenseurs, selon vos besoins spécifiques et dans le respect des normes en vigueur. Notre cœur de métier depuis l'origine.</p>
+          <ul class="m-expertise-list">
+            <li>Supports & équerres de fixation</li>
+            <li>Platines de montage</li>
+            <li>Supports pour guides & équipements</li>
+            <li>Protections & carters métalliques</li>
+            <li>Pièces de modernisation & maintenance</li>
+          </ul>
+        </article>
+        <article class="m-expertise">
+          <div class="m-expertise-num">02</div>
+          <h3 class="m-expertise-title">Garde-corps sur mesure</h3>
+          <p class="m-expertise-desc">Conception et fabrication de garde-corps pour sécuriser balcons, escaliers et zones en hauteur, dans le respect des normes en vigueur. Sécurité, robustesse et esthétisme.</p>
+          <ul class="m-expertise-list">
+            <li>Acier, inox, aluminium</li>
+            <li>Barreaudage, câbles, panneaux verre</li>
+            <li>Balcons & terrasses</li>
+            <li>Escaliers intérieurs / extérieurs</li>
+            <li>Pose assurée par Adamois Renov'</li>
+          </ul>
+        </article>
+        <article class="m-expertise">
+          <div class="m-expertise-num">03</div>
+          <h3 class="m-expertise-title">Portail & clôture</h3>
+          <p class="m-expertise-desc">Portails et clôtures sur mesure en métal, conçus pour braver le temps et les intempéries. Une protection robuste qui valorise durablement votre patrimoine.</p>
+          <ul class="m-expertise-list">
+            <li>Acier & aluminium haute qualité</li>
+            <li>Maîtrise de la soudure</li>
+            <li>Traitement anti-corrosion</li>
+            <li>Finition thermolaquée</li>
+            <li>Entretien minimal</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="m-section m-section-light">
+    <div class="m-section-inner">
+      <div class="m-detail">
+        <div>
+          <span class="m-eyebrow">Notre cœur de métier</span>
+          <h2 class="m-title">Conception de pièces métalliques <em>de précision</em>.</h2>
+          <p class="m-lead" style="margin-bottom:1.5rem;">Grâce à un savoir-faire en atelier reconnu, Majel Lift réalise des pièces sur mesure parfaitement adaptées aux exigences du métier d'ascensoriste. Chaque pièce est usinée avec précision pour garantir une installation simple et une compatibilité totale avec vos équipements.</p>
+          <p class="m-lead">Notre priorité : la qualité de nos réalisations et votre entière satisfaction. Nous proposons également une <strong style="color:#b56e3f;font-weight:600;">prise de mesure directement sur site</strong> ainsi que la conception des pièces nécessaires, pour vous faire gagner du temps.</p>
+        </div>
+        <div>
+          <p style="font-size:0.72rem;letter-spacing:0.25em;text-transform:uppercase;color:#b56e3f;font-weight:600;margin-bottom:1.5rem;">Pièces fabriquées en atelier</p>
+          <ul class="m-pieces-list">
+            <li>Supports et équerres de fixation</li>
+            <li>Platines de montage</li>
+            <li>Supports pour guides et équipements d'ascenseur</li>
+            <li>Protections et carters métalliques</li>
+            <li>Pièces de renfort et d'adaptation</li>
+            <li>Éléments de fixation spécifiques</li>
+            <li>Pièces sur mesure pour modernisation ou maintenance</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="m-founder" id="m-fondateur-section">
+    <div class="m-founder-inner">
+      <div class="m-founder-visual">
+        <div class="m-founder-stat">
+          <div class="m-founder-stat-num">40+</div>
+          <div class="m-founder-stat-label">Années d'expérience</div>
+        </div>
+      </div>
+      <div>
+        <span class="m-eyebrow">L'expertise du fondateur</span>
+        <h2 class="m-title"><em>Éric Jacob</em>, plus de quatre décennies au service du métal.</h2>
+        <p class="m-lead" style="margin-bottom:1.5rem;">Notre entreprise a été fondée par Éric Jacob, professionnel de la tôlerie industrielle depuis plus de 40 ans. Au cours de sa carrière, il a passé 15 années à superviser la fabrication de pièces destinées au secteur de l'ascenseur, développant une expertise solide et reconnue dans ce domaine exigeant.</p>
+        <p class="m-lead">Aujourd'hui, Majel Lift incarne cette transmission de savoir-faire : être une tôlerie fiable et réactive au service des professionnels de l'ascenseur, avec la promesse d'une exécution soignée et de délais maîtrisés. Situés à Gennevilliers aux portes de Paris, nous offrons la possibilité aux professionnels de venir récupérer facilement leur marchandise directement sur place.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="m-clients">
+    <div class="m-clients-label">Ils nous font confiance</div>
+    <div class="m-clients-grid">
+      <div class="m-clients-track">
+        <!-- Liste des partenaires -->
+        <span class="m-client"><img src="https://i.ibb.co/wZM3Snjv/tke-logo-rgb-standard-gradient-1-scaled.jpg" alt="TKE" loading="lazy"></span>
+        <span class="m-client"><img src="https://i.ibb.co/4wRj0tVS/Modele-logo-otis.png" alt="Otis" loading="lazy"></span>
+        <span class="m-client"><img src="https://i.ibb.co/wZT0wKpP/logo-Foncia.png" alt="Foncia" loading="lazy"></span>
+        <span class="m-client"><img src="https://i.ibb.co/TBJGvdb2/logo-sergic.png" alt="Sergic" loading="lazy"></span>
+        <span class="m-client"><img src="https://i.ibb.co/h1ckL6Jx/8b2b0141-176a-4501-bbc1-9f1e22f9c71b.png" alt="A2M" loading="lazy"></span>
+        <span class="m-client"><img src="https://i.ibb.co/JWrPH2Ts/1767266469759.jpg" alt="Adamois Renov'" loading="lazy"></span>
+        <span class="m-client"><img src="https://i.ibb.co/xt033Sth/logo-oxigen.png" alt="Oxigen" loading="lazy"></span>
+        <!-- Duplicat pour boucle infinie (ne pas modifier indépendamment) -->
+        <span class="m-client" aria-hidden="true"><img src="https://i.ibb.co/wZM3Snjv/tke-logo-rgb-standard-gradient-1-scaled.jpg" alt="" loading="lazy"></span>
+        <span class="m-client" aria-hidden="true"><img src="https://i.ibb.co/4wRj0tVS/Modele-logo-otis.png" alt="" loading="lazy"></span>
+        <span class="m-client" aria-hidden="true"><img src="https://i.ibb.co/wZT0wKpP/logo-Foncia.png" alt="" loading="lazy"></span>
+        <span class="m-client" aria-hidden="true"><img src="https://i.ibb.co/TBJGvdb2/logo-sergic.png" alt="" loading="lazy"></span>
+        <span class="m-client" aria-hidden="true"><img src="https://i.ibb.co/h1ckL6Jx/8b2b0141-176a-4501-bbc1-9f1e22f9c71b.png" alt="" loading="lazy"></span>
+        <span class="m-client" aria-hidden="true"><img src="https://i.ibb.co/JWrPH2Ts/1767266469759.jpg" alt="" loading="lazy"></span>
+        <span class="m-client" aria-hidden="true"><img src="https://i.ibb.co/xt033Sth/logo-oxigen.png" alt="" loading="lazy"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="m-contact" id="m-contact-section">
+    <div class="m-contact-inner">
+      <div>
+        <span class="m-eyebrow">Contact</span>
+        <h2 class="m-title">Parlons de <em>votre projet</em>.</h2>
+        <p class="m-lead" style="margin-bottom:2rem;">Une pièce sur mesure, un garde-corps, un portail, un projet d'ascenseur ? Contactez-nous pour un devis gratuit et rapide.</p>
+        <a class="m-btn" href="mailto:Majel.lift@gmail.com">Obtenir un devis <span>→</span></a>
+      </div>
+      <div class="m-contact-info">
+        <div class="m-contact-line">
+          <div class="m-contact-line-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="m-contact-line-content">
+            <div class="m-contact-line-label">Téléphone</div>
+            <div class="m-contact-line-value"><a href="tel:0650080337">06 50 08 03 37</a></div>
+          </div>
+        </div>
+        <div class="m-contact-line">
+          <div class="m-contact-line-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div class="m-contact-line-content">
+            <div class="m-contact-line-label">Email</div>
+            <div class="m-contact-line-value"><a href="mailto:Majel.lift@gmail.com">Majel.lift@gmail.com</a></div>
+          </div>
+        </div>
+        <div class="m-contact-line">
+          <div class="m-contact-line-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="m-contact-line-content">
+            <div class="m-contact-line-label">Adresse</div>
+            <div class="m-contact-line-value">
+              <a href="https://www.google.com/maps/search/?api=1&query=Parc%20Louis%20Roche%2C%20114%20avenue%20Louis%20Roche%2C%2092230%20Gennevilliers" target="_blank" rel="noopener">
+                Parc Louis Roche · Bâtiment 306<br>
+                114 avenue Louis Roche<br>
+                92230 Gennevilliers
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="m-footer">
+    <div>MAJEL LIFT · TÔLERIE-SERRURERIE FAMILIALE · GENNEVILLIERS</div>
+    <div style="margin-top:0.8rem; opacity:0.7;">© 2025 · <a class="m-footer-back" onclick="goHome()">Retour au Groupe Adamois</a></div>
+  </footer>
+
+  <!-- Modale "Obtenir un devis" Majel Lift -->
+  <div id="majel-quote-modal" class="m-modal" onclick="closeMajelModalIfBackdrop(event)">
+    <div class="m-modal-panel" onclick="event.stopPropagation()">
+      <button class="m-modal-close" onclick="closeMajelModal()" aria-label="Fermer">×</button>
+
+      <div class="m-modal-header">
+        <span class="m-eyebrow">Devis gratuit</span>
+        <h2 class="m-title">Parlons de <em>votre projet</em>.</h2>
+        <p class="m-lead">Une pièce sur mesure, un garde-corps, un portail, un projet d'ascenseur ? Remplissez le formulaire ou contactez-nous directement.</p>
+      </div>
+
+      <div class="m-modal-body">
+        <!-- Coordonnées Majel Lift -->
+        <div class="m-modal-info">
+          <div class="m-contact-line">
+            <div class="m-contact-line-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="m-contact-line-content">
+              <div class="m-contact-line-label">Téléphone</div>
+              <div class="m-contact-line-value"><a href="tel:0650080337">06 50 08 03 37</a></div>
+            </div>
+          </div>
+          <div class="m-contact-line">
+            <div class="m-contact-line-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div class="m-contact-line-content">
+              <div class="m-contact-line-label">Email</div>
+              <div class="m-contact-line-value"><a href="mailto:Majel.lift@gmail.com">Majel.lift@gmail.com</a></div>
+            </div>
+          </div>
+          <div class="m-contact-line">
+            <div class="m-contact-line-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="m-contact-line-content">
+              <div class="m-contact-line-label">Adresse</div>
+              <div class="m-contact-line-value">
+                <a href="https://www.google.com/maps/search/?api=1&query=Parc%20Louis%20Roche%2C%20114%20avenue%20Louis%20Roche%2C%2092230%20Gennevilliers" target="_blank" rel="noopener">
+                  Parc Louis Roche · Bâtiment 306<br>
+                  114 avenue Louis Roche<br>
+                  92230 Gennevilliers
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Formulaire de devis -->
+        <div class="m-form">
+          <div class="m-form-row">
+            <div class="m-form-field">
+              <label for="m-firstname">Prénom</label>
+              <input type="text" id="m-firstname" placeholder="Votre prénom">
+            </div>
+            <div class="m-form-field">
+              <label for="m-lastname">Nom</label>
+              <input type="text" id="m-lastname" placeholder="Votre nom">
+            </div>
+          </div>
+          <div class="m-form-field">
+            <label for="m-company">Société</label>
+            <input type="text" id="m-company" placeholder="Nom de votre entreprise">
+          </div>
+          <div class="m-form-field">
+            <label for="m-email">Email *</label>
+            <input type="email" id="m-email" placeholder="votre@email.com" required>
+          </div>
+          <div class="m-form-field">
+            <label for="m-phone">Téléphone</label>
+            <input type="tel" id="m-phone" placeholder="06 12 34 56 78">
+          </div>
+          <div class="m-form-field">
+            <label for="m-message">Votre projet</label>
+            <textarea id="m-message" placeholder="Décrivez votre besoin en quelques lignes..."></textarea>
+          </div>
+          <div class="m-form-field">
+            <label>Pièces jointes <span class="m-form-hint">(plans, PDF, photos — 10 Mo max par fichier)</span></label>
+            <div class="m-dropzone" id="m-dropzone"
+                 onclick="document.getElementById('m-files-input').click()"
+                 ondragover="event.preventDefault(); this.classList.add('dragover');"
+                 ondragleave="this.classList.remove('dragover');"
+                 ondrop="handleMajelDrop(event)">
+              <div class="m-dropzone-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <polyline points="17 8 12 3 7 8"/>
+                  <line x1="12" y1="3" x2="12" y2="15"/>
+                </svg>
+              </div>
+              <div class="m-dropzone-text">
+                <strong>Glisser-déposer vos fichiers</strong>
+                <span>ou cliquer pour parcourir</span>
+              </div>
+              <input type="file" id="m-files-input" multiple
+                     accept=".pdf,.jpg,.jpeg,.png,.dwg,.dxf,.doc,.docx,.zip"
+                     style="display:none"
+                     onchange="handleMajelFiles(this.files); this.value='';">
+            </div>
+            <div class="m-file-list" id="m-file-list"></div>
+          </div>
+          <button class="m-btn m-form-submit" onclick="submitMajelForm()">
+            Envoyer ma demande <span>→</span>
+          </button>
+          <div class="m-form-success" id="m-form-success">
+            Merci ! Votre demande a bien été envoyée, nous vous répondrons rapidement.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SITE ADAMOIS RENOV -->
+<div id="adamois-site">
+  <nav class="a-nav">
+    <div class="a-nav-brand-block" onclick="goHome()">
+      <div class="a-nav-mark"><img src="https://i.ibb.co/v4rjhgby/ADAMOIS-Logo.jpg" alt="Adamois Renov'"></div>
+      <div class="a-nav-brand">Adamois <em>Renov'</em></div>
+    </div>
+    <div class="a-nav-links">
+      <a href="#a-services-section">Nos services</a>
+      <a href="#a-realisations-section">Réalisations</a>
+      <a href="#a-about-section">Qui sommes-nous</a>
+      <a href="#a-contact-section">Contact</a>
+      <a class="a-nav-back" onclick="goHome()">← Groupe Adamois</a>
+    </div>
+  </nav>
+
+  <section class="a-hero">
+    <div class="a-hero-inner">
+      <div>
+        <span class="a-eyebrow">Toiture · Ravalement</span>
+        <h1 class="a-hero-title">L'univers BTP — Notre savoir-faire en <em>toiture et ravalement</em>.</h1>
+        <p class="a-hero-subtitle">Une entreprise familiale forte de 20 ans d'expertise dans le BTP.</p>
+        <p class="a-lead a-hero-lead">De la conception au suivi de chantier, nous coordonnons vos projets de toiture et de ravalement avec exigence, en valorisant durablement votre patrimoine.</p>
+        <div class="a-actions">
+          <a class="a-btn" href="#a-realisations-section">Découvrir nos réalisations <span>→</span></a>
+          <a class="a-btn a-btn-ghost" href="#a-contact-section">Nous contacter</a>
+        </div>
+      </div>
+      <div>
+        <div class="a-hero-photo"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="a-section a-section-cream" id="a-services-section">
+    <div class="a-section-inner">
+      <div class="a-section-header">
+        <span class="a-eyebrow">Nos services</span>
+        <h2 class="a-title">Trois expertises, <em>une exigence</em>.</h2>
+        <p class="a-lead">De la protection de votre bâtiment à la valorisation de son enveloppe, nous coordonnons les travaux essentiels au patrimoine bâti avec un savoir-faire artisanal et un suivi rigoureux à chaque étape.</p>
+      </div>
+      <div class="a-services">
+        <article class="a-service">
+          <div class="a-service-num">01</div>
+          <h3 class="a-service-title">Toiture</h3>
+          <p class="a-service-subtitle">Une expertise complète pour la protection de votre bâtiment</p>
+          <p class="a-service-desc">La toiture est un élément crucial pour garantir la sécurité et l'étanchéité de votre bâtiment. Forts de notre expérience, nous supervisons l'ensemble des travaux relatifs à la toiture, en veillant à ce que chaque étape soit réalisée dans les règles de l'art.</p>
+          <div class="a-service-list">
+            <div class="a-service-item">
+              <div class="a-service-item-bullet"></div>
+              <div>
+                <strong>Conception et choix de la toiture</strong>
+                <span>Accompagnement dans le choix du type de toiture le plus adapté à votre projet, selon les besoins et contraintes techniques.</span>
+              </div>
+            </div>
+            <div class="a-service-item">
+              <div class="a-service-item-bullet"></div>
+              <div>
+                <strong>Réalisation et rénovation</strong>
+                <span>Coordination des travaux de pose, rénovation ou réparation de toitures, dans le respect des normes de qualité et de sécurité.</span>
+              </div>
+            </div>
+            <div class="a-service-item">
+              <div class="a-service-item-bullet"></div>
+              <div>
+                <strong>Entretien et suivi</strong>
+                <span>Services d'entretien régulier : nettoyage des gouttières, démoussage, vérification de l'étanchéité du toit.</span>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article class="a-service">
+          <div class="a-service-num">02</div>
+          <h3 class="a-service-title">Ravalement</h3>
+          <p class="a-service-subtitle">Valorisation et protection de votre bâtiment</p>
+          <p class="a-service-desc">Le ravalement de façade est essentiel pour conserver l'intégrité de votre bien, tout en améliorant son aspect extérieur. Nous supervisons et coordonnons les travaux de réfection et de rénovation de vos façades, pour garantir leur durabilité et leur esthétique.</p>
+          <div class="a-service-list">
+            <div class="a-service-item">
+              <div class="a-service-item-bullet"></div>
+              <div>
+                <strong>Diagnostic et préparation des travaux</strong>
+                <span>Diagnostic précis de l'état des façades et définition des travaux nécessaires, dans le respect des règles de l'art et des exigences locales.</span>
+              </div>
+            </div>
+            <div class="a-service-item">
+              <div class="a-service-item-bullet"></div>
+              <div>
+                <strong>Réparation et restauration</strong>
+                <span>Coordination des travaux de réparation des fissures, application de traitements d'étanchéité, remise en état des surfaces.</span>
+              </div>
+            </div>
+            <div class="a-service-item">
+              <div class="a-service-item-bullet"></div>
+              <div>
+                <strong>Peinture et isolation</strong>
+                <span>Finitions : peinture extérieure, isolation thermique par l'extérieur (ITE) pour améliorer l'efficacité énergétique du bâtiment.</span>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article class="a-service">
+          <div class="a-service-num">03</div>
+          <h3 class="a-service-title">Balcons en plomb</h3>
+          <p class="a-service-subtitle">Restauration &amp; habillage traditionnel</p>
+          <p class="a-service-desc">L'habillage des balcons en plomb est un savoir-faire artisanal au cœur du patrimoine haussmannien. Nous restaurons, étanchéifions et habillons vos balcons dans le respect des techniques traditionnelles.</p>
+          <div class="a-service-list">
+            <div class="a-service-item">
+              <div class="a-service-item-bullet"></div>
+              <div>
+                <strong>Diagnostic et expertise</strong>
+                <span>Évaluation de l'état des plombs existants, repérage des fuites et des zones à reprendre.</span>
+              </div>
+            </div>
+            <div class="a-service-item">
+              <div class="a-service-item-bullet"></div>
+              <div>
+                <strong>Pose et restauration</strong>
+                <span>Habillage neuf ou réfection à l'identique des balcons en plomb, dans le respect des règles de l'art.</span>
+              </div>
+            </div>
+            <div class="a-service-item">
+              <div class="a-service-item-bullet"></div>
+              <div>
+                <strong>Étanchéité et finitions</strong>
+                <span>Reprise des soudures, étanchéité des relevés et raccords, finitions soignées pour une durabilité maximale.</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="a-section a-section-light" id="a-realisations-section">
+    <div class="a-section-inner">
+      <div class="a-section-header">
+        <span class="a-eyebrow">Nos chantiers</span>
+        <h2 class="a-title">Nos <em>réalisations</em>.</h2>
+        <p class="a-lead">Chaque chantier est l'occasion de mettre en pratique notre exigence et notre savoir-faire. Voici un aperçu de nos interventions récentes en région parisienne.</p>
+      </div>
+      
+      <div class="chantiers-slider" id="chantiers-slider">
+        <div class="chantiers-viewport">
+          <div class="chantiers-track" id="chantiers-track">
+
+            <div class="a-realisation-visual">
+              <div class="a-realisation-text">
+                <h3>Rue Coquillière, <em>Paris 1er</em></h3>
+                <p class="a-lead">Réfection complète d'une toiture parisienne avec ravalement de la façade haussmannienne. Un chantier mené en trois mois, dans le respect du patrimoine architectural du quartier des Halles.</p>
+              </div>
+              <div class="ba-slider">
+                <div class="ba-img ba-after" style="background-image: url('https://i.ibb.co/gZhfG2zK/caisse-d-epargne-APRES.jpg')"></div>
+                <div class="ba-img ba-before" style="background-image: url('https://i.ibb.co/qL86kk78/caisse-d-epargne-AVANT.jpg')"></div>
+                <div class="ba-label ba-label-before">Avant</div>
+                <div class="ba-label ba-label-after">Après</div>
+                <div class="ba-handle"></div>
+              </div>
+            </div>
+
+            <div class="a-realisation-visual">
+              <div class="a-realisation-text">
+                <h3>Avenue Foch, <em>Paris 16ème</em></h3>
+                <p class="a-lead">Ravalement complet d'une façade haussmannienne avec restauration des moulures et corniches. Un chantier prestigieux dans l'un des quartiers les plus exigeants de Paris.</p>
+              </div>
+              <div class="ba-slider">
+                <div class="ba-img ba-after" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.1) 100%), url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=900&q=85&auto=format&fit=crop')"></div>
+                <div class="ba-img ba-before" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.25) 100%), url('https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=900&q=85&auto=format&fit=crop'); filter: sepia(0.25) saturate(0.7) brightness(0.92)"></div>
+                <div class="ba-label ba-label-before">Avant</div>
+                <div class="ba-label ba-label-after">Après</div>
+                <div class="ba-handle"></div>
+              </div>
+            </div>
+
+            <div class="a-realisation-visual">
+              <div class="a-realisation-text">
+                <h3>Boulevard Haussmann, <em>Paris 9ème</em></h3>
+                <p class="a-lead">Réfection complète de toiture zinc avec reprise des ornements et lucarnes d'origine. Une intervention technique au cœur du Paris haussmannien.</p>
+              </div>
+              <div class="ba-slider" style="aspect-ratio: 3/4">
+                <div class="ba-img ba-after" style="background-image: url('https://i.ibb.co/5gXtWqLF/IMG-1750.avif')"></div>
+                <div class="ba-img ba-before" style="background-image: url('https://i.ibb.co/Lhnq6gws/IMG-1356.avif')"></div>
+                <div class="ba-label ba-label-before">Avant</div>
+                <div class="ba-label ba-label-after">Après</div>
+                <div class="ba-handle"></div>
+              </div>
+            </div>
+
+            <div class="a-realisation-visual">
+              <div class="a-realisation-text">
+                <h3>Chantier en <em>quatre regards</em></h3>
+                <p class="a-lead">Un aperçu en plusieurs angles d'une intervention récente — du diagnostic initial aux finitions, chaque détail révèle le soin porté à l'ouvrage.</p>
+              </div>
+              <div class="a-gallery-grid">
+                <div class="a-gallery-cell" style="background-image: url('https://i.ibb.co/qMPwM3Vp/IMG-1017.jpg')"></div>
+                <div class="a-gallery-cell" style="background-image: url('https://i.ibb.co/HTfk3yMk/IMG-1019-1.jpg')"></div>
+                <div class="a-gallery-cell" style="background-image: url('https://i.ibb.co/Kj8Ws0dj/IMG-1020.jpg')"></div>
+                <div class="a-gallery-cell" style="background-image: url('https://i.ibb.co/s9H7jhk1/IMG-1021.jpg')"></div>
+              </div>
+            </div>
+
+            <div class="a-realisation-visual">
+              <div class="a-realisation-text">
+                <h3>Vue détaillée, <em>à deux échelles</em></h3>
+                <p class="a-lead">Deux moments capturés sur le terrain, qui illustrent la précision et le suivi minutieux de chaque intervention.</p>
+              </div>
+              <div class="a-gallery-grid a-gallery-grid--duo">
+                <div class="a-gallery-cell" style="background-image: url('https://i.ibb.co/S48N3WCy/IMG-4368.png')"></div>
+                <div class="a-gallery-cell" style="background-image: url('https://i.ibb.co/pBWdXct8/IMG-4369.png')"></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <button type="button" class="chantiers-arrow chantiers-arrow-prev" aria-label="Chantier précédent" onclick="chantiersPrev()">‹</button>
+        <button type="button" class="chantiers-arrow chantiers-arrow-next" aria-label="Chantier suivant" onclick="chantiersNext()">›</button>
+
+        <div class="chantiers-dots" id="chantiers-dots">
+          <button type="button" class="chantiers-dot active" onclick="chantiersGoTo(0)" aria-label="Chantier 1"></button>
+          <button type="button" class="chantiers-dot" onclick="chantiersGoTo(1)" aria-label="Chantier 2"></button>
+          <button type="button" class="chantiers-dot" onclick="chantiersGoTo(2)" aria-label="Chantier 3"></button>
+          <button type="button" class="chantiers-dot" onclick="chantiersGoTo(3)" aria-label="Chantier 4"></button>
+          <button type="button" class="chantiers-dot" onclick="chantiersGoTo(4)" aria-label="Chantier 5"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="a-section a-section-cream" id="a-about-section">
+    <div class="a-section-inner">
+      <div class="a-section-header">
+        <span class="a-eyebrow">Qui sommes-nous ?</span>
+        <h2 class="a-title">Une entreprise familiale <em>en plein essor</em>.</h2>
+      </div>
+      
+      <div class="a-about">
+        <div class="a-about-visual">
+          <div class="a-about-stat">
+            <div class="a-about-stat-num">20</div>
+            <div class="a-about-stat-label">Ans d'expertise BTP</div>
+          </div>
+        </div>
+        <div>
+          <span class="a-about-tag">Adamois Renov'</span>
+          <p class="a-lead">Chez <strong style="color:#2a1f15;font-weight:600;">Adamois Renov'</strong>, nous sommes une entreprise à taille humaine et familiale, forte de 20 ans d'expertise dans le BTP.</p>
+          <p class="a-lead">Forts de notre longue expérience, nous accompagnons nos clients dans la gestion de leurs projets de construction, de rénovation et d'entretien, avec un savoir-faire et un engagement qui font notre différence.</p>
+          <p class="a-lead">Notre équipe passionnée et dévouée met un point d'honneur à offrir des solutions personnalisées, adaptées aux besoins spécifiques de chaque client. Que ce soit pour un projet de toiture, de ravalement de façade ou toute autre prestation liée à la gestion de chantier, nous assurons une gestion rigoureuse et un suivi constant tout au long des travaux.</p>
+        </div>
+      </div>
+      
+      <div class="a-values">
+        <h3 class="a-values-title">Notre <em>valeur ajoutée</em></h3>
+        <p class="a-lead" style="text-align:center;max-width:800px;margin:0 auto 2rem;">En tant qu'entreprise familiale, nous cultivons des valeurs de proximité, transparence et confiance. Chaque projet est une nouvelle aventure que nous abordons avec attention, rigueur et passion.</p>
+        
+        <div class="a-values-grid">
+          <div class="a-value">
+            <div class="a-value-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 10v11h18V10M3 10l9-7 9 7M9 21v-6h6v6"/></svg>
+            </div>
+            <div class="a-value-title">Proximité</div>
+            <div class="a-value-text">Une entreprise familiale à taille humaine, à votre écoute à chaque étape.</div>
+          </div>
+          <div class="a-value">
+            <div class="a-value-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="a-value-title">Transparence</div>
+            <div class="a-value-text">Devis clair, suivi de chantier précis, respect des délais et des budgets fixés.</div>
+          </div>
+          <div class="a-value">
+            <div class="a-value-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+            </div>
+            <div class="a-value-title">Confiance</div>
+            <div class="a-value-text">20 ans d'expertise et des solutions sur mesure pour la satisfaction de nos clients.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="a-partners">
+    <div class="a-partners-label">Nos partenaires de confiance</div>
+    <div class="a-partners-marquee">
+      <div class="a-partners-track">
+        <span class="a-partner-logo"><img src="https://i.ibb.co/kTtDSkD/pro-btp.jpg" alt="Pro BTP" loading="lazy"></span>
+        <span class="a-partner-logo"><img src="https://i.ibb.co/Q7nsTjQM/STO.jpg" style="--scale: 1.5" alt="STO" loading="lazy"></span>
+        <span class="a-partner-logo"><img src="https://i.ibb.co/Cxv1k2D/velux-2.png" style="--scale: 0.85" alt="Velux" loading="lazy"></span>
+        <span class="a-partner-logo"><img src="https://i.ibb.co/2Y7MQH76/images.jpg" alt="Sergic" loading="lazy"></span>
+        <span class="a-partner-logo"><img src="https://i.ibb.co/bjt2PCpy/5d399cd2a40000992bbdae5a.jpg" alt="Oxigen" loading="lazy"></span>
+        <span class="a-partner-logo"><img src="https://i.ibb.co/Qv4XtmkT/Logo-Foncia.png" alt="Foncia" loading="lazy"></span>
+        <!-- Duplicate set for seamless infinite loop -->
+        <span class="a-partner-logo" aria-hidden="true"><img src="https://i.ibb.co/kTtDSkD/pro-btp.jpg" alt="" loading="lazy"></span>
+        <span class="a-partner-logo" aria-hidden="true"><img src="https://i.ibb.co/Q7nsTjQM/STO.jpg" style="--scale: 1.5" alt="" loading="lazy"></span>
+        <span class="a-partner-logo" aria-hidden="true"><img src="https://i.ibb.co/Cxv1k2D/velux-2.png" style="--scale: 0.85" alt="" loading="lazy"></span>
+        <span class="a-partner-logo" aria-hidden="true"><img src="https://i.ibb.co/2Y7MQH76/images.jpg" alt="" loading="lazy"></span>
+        <span class="a-partner-logo" aria-hidden="true"><img src="https://i.ibb.co/bjt2PCpy/5d399cd2a40000992bbdae5a.jpg" alt="" loading="lazy"></span>
+        <span class="a-partner-logo" aria-hidden="true"><img src="https://i.ibb.co/Qv4XtmkT/Logo-Foncia.png" alt="" loading="lazy"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="a-contact-section" id="a-contact-section">
+    <div class="a-contact-inner">
+      <div class="a-contact-info">
+        <span class="a-eyebrow" style="color:#d4a574;">Contact</span>
+        <h2 class="a-title a-contact-info-title" style="color:#fff;">Vous avez <em>un projet</em> ?</h2>
+        <p class="a-lead">Chez Adamois Renov', nous mettons notre expertise à votre service pour vos travaux de toiture et ravalement. Contactez-nous pour toute question ou demande de devis, nous vous répondrons rapidement.</p>
+        
+        <div class="a-contact-coords">
+          <div class="a-contact-line">
+            <div class="a-contact-line-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <div class="a-contact-line-label">Téléphone</div>
+              <div class="a-contact-line-value"><a href="tel:0123456789">01 23 45 67 89</a></div>
+            </div>
+          </div>
+          <div class="a-contact-line">
+            <div class="a-contact-line-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div>
+              <div class="a-contact-line-label">Email</div>
+              <div class="a-contact-line-value"><a href="mailto:info@monsite.fr">info@monsite.fr</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="a-form">
+        <div class="a-form-row">
+          <div class="a-form-field">
+            <label for="a-firstname">Prénom</label>
+            <input type="text" id="a-firstname" placeholder="Votre prénom">
+          </div>
+          <div class="a-form-field">
+            <label for="a-lastname">Nom</label>
+            <input type="text" id="a-lastname" placeholder="Votre nom">
+          </div>
+        </div>
+        <div class="a-form-field">
+          <label for="a-email">Email *</label>
+          <input type="email" id="a-email" placeholder="votre@email.com" required>
+        </div>
+        <div class="a-form-field">
+          <label for="a-message">Message</label>
+          <textarea id="a-message" placeholder="Décrivez votre projet en quelques lignes..."></textarea>
+        </div>
+        <button class="a-btn a-form-submit" onclick="submitAdamoisForm()">
+          Envoyer <span>→</span>
+        </button>
+        <div class="a-form-success" id="a-form-success">
+          Merci ! Votre message a bien été envoyé, nous vous répondrons rapidement.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="a-footer">
+    <div>ADAMOIS RENOV' · 20 ANS D'EXPERTISE BTP</div>
+    <div style="margin-top:0.8rem; opacity:0.7;">© 2025 · <a class="a-footer-back" onclick="goHome()">Retour au Groupe Adamois</a></div>
+  </footer>
+</div>
+
+<script>
+  function enter(universe) {
+    if (universe === 'majel') {
+      enterMajel();
+    } else {
+      enterAdamois();
+    }
+  }
+
+  // Majel : fondu cinéma acier + révélation du site
+  function enterMajel() {
+    const fade = document.getElementById('majel-fade');
+
+    fade.classList.add('active');
+    // Force le reflow pour que la transition se déclenche depuis opacity:0
+    void fade.offsetWidth;
+    fade.classList.add('fade-in');
+
+    // Swap vers le site Majel pendant que l'écran est couvert
+    setTimeout(function() {
+      showMajelSite();
+    }, 900);
+
+    // Début du fondu de sortie
+    setTimeout(function() {
+      fade.classList.add('fade-out');
+    }, 1150);
+
+    // Nettoyage des classes
+    setTimeout(function() {
+      fade.classList.remove('active', 'fade-in', 'fade-out');
+    }, 2050);
+  }
+
+  // Adamois : fondu cinéma chaud + révélation du site
+  function enterAdamois() {
+    const fade = document.getElementById('adamois-fade');
+
+    // Activation immédiate puis transition vers opacité 1
+    fade.classList.add('active');
+    // Force le reflow pour que la transition se déclenche depuis opacity:0
+    void fade.offsetWidth;
+    fade.classList.add('fade-in');
+
+    // Swap vers le site Adamois pendant que l'écran est couvert
+    setTimeout(function() {
+      showAdamoisSite();
+    }, 900);
+
+    // Début du fondu de sortie
+    setTimeout(function() {
+      fade.classList.add('fade-out');
+    }, 1150);
+
+    // Nettoyage des classes
+    setTimeout(function() {
+      fade.classList.remove('active', 'fade-in', 'fade-out');
+    }, 2050);
+  }
+  
+  function showMajelSite() {
+    document.getElementById('home-page').classList.add('hidden');
+    document.getElementById('majel-site').classList.add('visible');
+    document.getElementById('adamois-site').classList.remove('visible');
+    document.body.classList.add('scrolling');
+    window.scrollTo(0, 0);
+  }
+  
+  function showAdamoisSite() {
+    document.getElementById('home-page').classList.add('hidden');
+    document.getElementById('adamois-site').classList.add('visible');
+    document.getElementById('majel-site').classList.remove('visible');
+    document.body.classList.add('scrolling');
+    window.scrollTo(0, 0);
+    setTimeout(initBeforeAfterSliders, 100);
+    setTimeout(initChantiersSlider, 120);
+  }
+  
+  function goHome() {
+    document.getElementById('majel-site').classList.remove('visible');
+    document.getElementById('adamois-site').classList.remove('visible');
+    document.getElementById('home-page').classList.remove('hidden');
+    document.body.classList.remove('scrolling');
+    window.scrollTo(0, 0);
+  }
+  
+  function initBeforeAfterSliders() {
+    const sliders = document.querySelectorAll('.ba-slider');
+    sliders.forEach(function(slider) {
+      if (slider.dataset.initialized === 'true') return;
+      slider.dataset.initialized = 'true';
+      
+      const before = slider.querySelector('.ba-before');
+      const handle = slider.querySelector('.ba-handle');
+      let isDragging = false;
+      
+      function setPosition(percent) {
+        percent = Math.max(0, Math.min(100, percent));
+        before.style.clipPath = 'inset(0 ' + (100 - percent) + '% 0 0)';
+        handle.style.left = percent + '%';
+      }
+      
+      function onMove(clientX) {
+        const rect = slider.getBoundingClientRect();
+        const percent = ((clientX - rect.left) / rect.width) * 100;
+        setPosition(percent);
+      }
+      
+      slider.addEventListener('mousedown', function(e) {
+        isDragging = true;
+        onMove(e.clientX);
+        e.preventDefault();
+      });
+      window.addEventListener('mousemove', function(e) {
+        if (isDragging) onMove(e.clientX);
+      });
+      window.addEventListener('mouseup', function() { isDragging = false; });
+      
+      slider.addEventListener('touchstart', function(e) {
+        isDragging = true;
+        onMove(e.touches[0].clientX);
+      }, { passive: true });
+      window.addEventListener('touchmove', function(e) {
+        if (isDragging) onMove(e.touches[0].clientX);
+      }, { passive: true });
+      window.addEventListener('touchend', function() { isDragging = false; });
+      
+      setPosition(50);
+    });
+  }
+
+  /* ============================================
+     Slider de chantiers — défilement auto + flèches/points
+     ============================================ */
+  let chantiersIdx = 0;
+  let chantiersTimer = null;
+  let chantiersCount = 0;
+
+  function chantiersUpdate() {
+    const track = document.getElementById('chantiers-track');
+    if (!track) return;
+    track.style.transform = 'translateX(-' + (chantiersIdx * 100) + '%)';
+    const viewport = track.parentElement;
+    const activeSlide = track.children[chantiersIdx];
+    if (viewport && activeSlide) {
+      viewport.style.height = activeSlide.getBoundingClientRect().height + 'px';
+    }
+    const dots = document.querySelectorAll('#chantiers-dots .chantiers-dot');
+    dots.forEach(function(d, i) { d.classList.toggle('active', i === chantiersIdx); });
+  }
+  function chantiersGoTo(i) {
+    if (chantiersCount === 0) return;
+    chantiersIdx = ((i % chantiersCount) + chantiersCount) % chantiersCount;
+    chantiersUpdate();
+    chantiersResetAutoplay();
+  }
+  function chantiersNext() { chantiersGoTo(chantiersIdx + 1); }
+  function chantiersPrev() { chantiersGoTo(chantiersIdx - 1); }
+  function chantiersStartAutoplay() {
+    if (chantiersTimer || chantiersCount < 2) return;
+    chantiersTimer = setInterval(function() {
+      chantiersIdx = (chantiersIdx + 1) % chantiersCount;
+      chantiersUpdate();
+    }, 6000);
+  }
+  function chantiersStopAutoplay() {
+    if (chantiersTimer) { clearInterval(chantiersTimer); chantiersTimer = null; }
+  }
+  function chantiersResetAutoplay() {
+    chantiersStopAutoplay();
+    chantiersStartAutoplay();
+  }
+  function initChantiersSlider() {
+    const slider = document.getElementById('chantiers-slider');
+    if (!slider || slider.dataset.initialized === 'true') return;
+    slider.dataset.initialized = 'true';
+    chantiersCount = slider.querySelectorAll('.chantiers-track > .a-realisation-visual').length;
+    chantiersUpdate();
+    setTimeout(chantiersUpdate, 200);
+    chantiersStartAutoplay();
+    slider.addEventListener('mouseenter', chantiersStopAutoplay);
+    slider.addEventListener('mouseleave', chantiersStartAutoplay);
+    window.addEventListener('resize', function() {
+      if (chantiersCount > 0) chantiersUpdate();
+    });
+  }
+
+  function submitAdamoisForm() {
+    const email = document.getElementById('a-email').value.trim();
+    if (!email || !email.includes('@')) {
+      alert('Veuillez renseigner une adresse email valide.');
+      return;
+    }
+    document.getElementById('a-form-success').classList.add('shown');
+    document.getElementById('a-firstname').value = '';
+    document.getElementById('a-lastname').value = '';
+    document.getElementById('a-email').value = '';
+    document.getElementById('a-message').value = '';
+    setTimeout(function() {
+      document.getElementById('a-form-success').classList.remove('shown');
+    }, 5000);
+  }
+
+  // ============================================
+  // Modale "Obtenir un devis" — Majel Lift
+  // ============================================
+  function openMajelModal() {
+    const modal = document.getElementById('majel-quote-modal');
+    modal.classList.add('shown');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMajelModal() {
+    const modal = document.getElementById('majel-quote-modal');
+    modal.classList.remove('shown');
+    document.body.style.overflow = '';
+  }
+  function closeMajelModalIfBackdrop(e) {
+    if (e.target.id === 'majel-quote-modal') closeMajelModal();
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      const modal = document.getElementById('majel-quote-modal');
+      if (modal && modal.classList.contains('shown')) closeMajelModal();
+    }
+  });
+  function submitMajelForm() {
+    const email = document.getElementById('m-email').value.trim();
+    if (!email || !email.includes('@')) {
+      alert('Veuillez renseigner une adresse email valide.');
+      return;
+    }
+    document.getElementById('m-form-success').classList.add('shown');
+    document.getElementById('m-firstname').value = '';
+    document.getElementById('m-lastname').value = '';
+    document.getElementById('m-company').value = '';
+    document.getElementById('m-email').value = '';
+    document.getElementById('m-phone').value = '';
+    document.getElementById('m-message').value = '';
+    majelAttachedFiles = [];
+    renderMajelFileList();
+    setTimeout(function() {
+      document.getElementById('m-form-success').classList.remove('shown');
+    }, 5000);
+  }
+
+  // ============================================
+  // Pièces jointes du formulaire Majel
+  // ============================================
+  let majelAttachedFiles = [];
+  const MAJEL_MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 Mo par fichier
+
+  function handleMajelFiles(fileList) {
+    let rejected = [];
+    for (let i = 0; i < fileList.length; i++) {
+      const f = fileList[i];
+      if (f.size > MAJEL_MAX_FILE_SIZE) {
+        rejected.push(f.name);
+        continue;
+      }
+      // évite les doublons (même nom + même taille)
+      const already = majelAttachedFiles.some(function(x) {
+        return x.name === f.name && x.size === f.size;
+      });
+      if (!already) majelAttachedFiles.push(f);
+    }
+    if (rejected.length) {
+      alert('Fichier(s) trop volumineux (max 10 Mo) :\n• ' + rejected.join('\n• '));
+    }
+    renderMajelFileList();
+  }
+
+  function handleMajelDrop(e) {
+    e.preventDefault();
+    const zone = e.currentTarget;
+    zone.classList.remove('dragover');
+    if (e.dataTransfer && e.dataTransfer.files) {
+      handleMajelFiles(e.dataTransfer.files);
+    }
+  }
+
+  function removeMajelFile(idx) {
+    majelAttachedFiles.splice(idx, 1);
+    renderMajelFileList();
+  }
+
+  function formatMajelFileSize(bytes) {
+    if (bytes < 1024) return bytes + ' o';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' Ko';
+    return (bytes / (1024 * 1024)).toFixed(1) + ' Mo';
+  }
+
+  function escapeMajelHtml(s) {
+    return String(s).replace(/[&<>"']/g, function(c) {
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
+  function renderMajelFileList() {
+    const list = document.getElementById('m-file-list');
+    if (!list) return;
+    list.innerHTML = '';
+    majelAttachedFiles.forEach(function(f, idx) {
+      const item = document.createElement('div');
+      item.className = 'm-file-item';
+      item.innerHTML =
+        '<div class="m-file-item-icon">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">' +
+            '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>' +
+            '<polyline points="14 2 14 8 20 8"/>' +
+          '</svg>' +
+        '</div>' +
+        '<div class="m-file-item-name">' + escapeMajelHtml(f.name) + '</div>' +
+        '<div class="m-file-item-size">' + formatMajelFileSize(f.size) + '</div>' +
+        '<button type="button" class="m-file-item-remove" onclick="removeMajelFile(' + idx + ')" aria-label="Retirer">×</button>';
+      list.appendChild(item);
+    });
+  }
+</script>
+
+</body>
+</html>
