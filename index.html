@@ -372,16 +372,21 @@
   .hub:hover .universe:not(:hover) .universe-bg { filter: brightness(0.5) saturate(0.6); }
   
   @media (max-width: 768px) {
-    .hub { flex-direction: column; }
-    .universe { flex: 1; min-height: 50vh; }
-    .universe-content { padding: 8vh 8vw 4vh; }
+    /* Page d'accueil scrollable verticalement sur mobile */
+    body { height: auto; overflow-x: hidden; overflow-y: auto; }
+    #home-page { height: auto; min-height: 100vh; overflow: visible; }
+    .hub { flex-direction: column; height: auto; min-height: 100vh; overflow: visible; }
+    /* Chaque univers occupe un plein écran : tout le contenu (dont le bouton) est visible */
+    .universe { flex: none; min-height: 100vh; }
+    .universe-content { padding: 9vh 8vw; }
+    /* Neutralise les effets de survol desktop (inutiles/genants au tactile) */
+    .hub:hover .universe:not(:hover),
+    .hub:hover .universe:hover { flex: none; }
     .divider {
-      width: 100%; height: 1px; top: 50%; left: 0;
+      width: 100%; height: 1px; top: 100vh; left: 0;
       transform: translateY(-50%);
       background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
     }
-    .hub:hover .universe:not(:hover) { flex: 0.7; }
-    .hub:hover .universe:hover { flex: 1.3; }
     .center-logo { display: none; }
     .top-nav { padding: 1.2rem; }
     .nav-links { gap: 1rem; }
