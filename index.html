@@ -372,21 +372,18 @@
   .hub:hover .universe:not(:hover) .universe-bg { filter: brightness(0.5) saturate(0.6); }
   
   @media (max-width: 768px) {
-    /* Page d'accueil : écran divisé en deux (Adamois en haut / Majel en bas), sans défilement */
-    body { height: 100%; overflow: hidden; }
-    #home-page { height: 100vh; overflow: hidden; }
-    .hub { flex-direction: column; height: 100vh; overflow: hidden; }
-    .universe { flex: 1; min-height: 0; }
-    .universe-content { padding: 5vh 7vw; }
-    /* Liste des métiers masquée sur mobile pour que tout tienne dans chaque moitié (bouton compris) */
-    .universe .trades { display: none; }
-    .universe-tagline { font-size: 0.92rem; line-height: 1.5; }
-    .cta { padding: 0.85rem 1.4rem; font-size: 0.78rem; }
-    /* Neutralise les effets de survol desktop au tactile (pas de redimensionnement) */
+    /* Page d'accueil scrollable verticalement sur mobile */
+    body { height: auto; overflow-x: hidden; overflow-y: auto; }
+    #home-page { height: auto; min-height: 100vh; overflow: visible; }
+    .hub { flex-direction: column; height: auto; min-height: 100vh; overflow: visible; }
+    /* Chaque univers occupe un plein écran : tout le contenu (dont le bouton) est visible */
+    .universe { flex: none; min-height: 100vh; }
+    .universe-content { padding: 9vh 8vw; }
+    /* Neutralise les effets de survol desktop (inutiles/genants au tactile) */
     .hub:hover .universe:not(:hover),
-    .hub:hover .universe:hover { flex: 1; }
+    .hub:hover .universe:hover { flex: none; }
     .divider {
-      width: 100%; height: 1px; top: 50%; left: 0;
+      width: 100%; height: 1px; top: 100vh; left: 0;
       transform: translateY(-50%);
       background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
     }
@@ -395,6 +392,7 @@
     .nav-links { gap: 1rem; }
     .nav-links a { font-size: 0.65rem; }
     .bottom-bar { padding: 1rem; font-size: 0.6rem; }
+    .trades li { font-size: 0.85rem; padding: 0.45rem 0; }
   }
   
   /* ============================================
