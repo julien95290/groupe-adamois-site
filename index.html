@@ -721,7 +721,87 @@
     transition: opacity 0.35s ease;
   }
   .m-client:hover img { opacity: 1; }
-  
+
+  /* ===== Galerie réalisations (mosaïque compacte) ===== */
+  .m-gallery {
+    padding: 7rem 6vw;
+    background: #0e0f11;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .m-gallery-head { max-width: 1300px; margin: 0 auto 3.5rem; }
+  .m-gallery-grid {
+    max-width: 1300px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 240px;
+    grid-auto-flow: dense;
+    gap: 14px;
+  }
+  .m-gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.08);
+    cursor: pointer;
+    /* Fond studio harmonieux pour les pièces détourées (PNG transparents) */
+    background:
+      radial-gradient(circle at 50% 36%, rgba(196,130,90,0.10) 0%, transparent 60%),
+      radial-gradient(circle at 50% 40%, #23272d 0%, #121417 78%);
+  }
+  .m-gallery-item.is-wide { grid-column: span 2; }
+  .m-gallery-item.is-tall { grid-row: span 2; }
+  .m-gallery-item.is-big  { grid-column: span 2; grid-row: span 2; }
+  /* Zoom renforcé sur une pièce précise : agrandir l'image sans changer la tuile */
+  .m-gallery-item.is-zoom img { padding: 0; transform: scale(1.35); }
+  .m-gallery-item.is-zoom:hover img { transform: scale(1.4); }
+  /* 2e vue composée de deux photos côte à côte */
+  .m-gallery-alt-split { position: absolute; inset: 0; z-index: 0; display: flex; gap: 3px; }
+  .m-gallery-item .m-gallery-alt-split img {
+    position: static; inset: auto;
+    width: 50%; height: 100%; object-fit: cover;
+    padding: 0; filter: none;
+  }
+  /* Pièce détourée : centrée, entièrement visible, ombre portée pour le relief */
+  .m-gallery-item img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%; object-fit: contain;
+    padding: 0.25rem 0.25rem 1.5rem;
+    filter: drop-shadow(0 14px 24px rgba(0,0,0,0.55));
+    transition: transform 0.7s cubic-bezier(0.22,1,0.36,1), opacity 0.6s ease;
+  }
+  /* Tuile à plusieurs vues : la 2e photo (même pièce) apparaît au survol */
+  .m-gallery-alt { opacity: 0; }
+  .m-gallery-item.has-alt:hover img.m-gallery-primary { opacity: 0; }
+  .m-gallery-item.has-alt:hover .m-gallery-alt { opacity: 1; }
+  .m-gallery-multi {
+    position: absolute; top: 0.7rem; right: 0.7rem; z-index: 2;
+    display: flex; align-items: center; gap: 0.3rem;
+    padding: 0.3rem 0.55rem; border-radius: 100px;
+    background: rgba(8,9,10,0.7); backdrop-filter: blur(4px);
+    border: 1px solid rgba(255,255,255,0.14);
+    font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: #e9d8c8; font-weight: 600;
+  }
+  .m-gallery-multi svg { width: 13px; height: 13px; stroke: #d4a07e; }
+  /* Vignette douce pour fondre les bords dans le fond de section */
+  .m-gallery-item::after {
+    content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    box-shadow: inset 0 0 70px 10px rgba(14,15,17,0.55);
+  }
+  .m-gallery-item:hover img { transform: scale(1.05); }
+  /* Descriptifs masqués : on n'affiche que la signature "Majel Lift" en filigrane */
+  .m-gallery-cap { display: none; }
+  .m-gallery-item::before {
+    content: "Majel Lift"; position: absolute; left: 0.95rem; bottom: 0.7rem; z-index: 2;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem; letter-spacing: 0.04em; font-weight: 500;
+    color: rgba(255,255,255,0.92);
+    text-shadow: 0 1px 8px rgba(0,0,0,0.7);
+    opacity: 0.82; pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+  .m-gallery-item:hover::before { opacity: 1; }
+
   .m-contact {
     padding: 7rem 6vw;
     background: linear-gradient(135deg, #16181b 0%, #0e0f11 100%);
@@ -977,6 +1057,10 @@
     .m-section, .m-vision, .m-founder, .m-contact { padding: 4rem 6vw; }
     .m-client { width: 116px; height: 60px; padding: 0.6rem 0.9rem; margin-right: 1.5rem; }
     .m-clients-track { animation-duration: 22s; }
+    .m-gallery { padding: 4rem 6vw; }
+    .m-gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 190px; gap: 10px; }
+    .m-gallery-item.is-big, .m-gallery-item.is-wide { grid-column: span 2; }
+    .m-gallery-item.is-big, .m-gallery-item.is-tall { grid-row: span 1; }
   }
   
   /* ============================================
@@ -1741,8 +1825,8 @@
       <div class="m-nav-brand">Majel <em>Lift</em></div>
     </div>
     <div class="m-nav-links">
-      <a href="#m-vision-section">Notre vision</a>
       <a href="#m-services-section">Nos services</a>
+      <a href="#m-realisations-section">Réalisations</a>
       <a href="#m-fondateur-section">Le fondateur</a>
       <a href="#m-contact-section">Contact</a>
       <a class="m-nav-back" onclick="goHome()">← Groupe Adamois</a>
@@ -1883,6 +1967,134 @@
     </div>
   </section>
 
+  <section class="m-gallery" id="m-realisations-section">
+    <div class="m-gallery-head">
+      <span class="m-eyebrow">Nos réalisations</span>
+      <h2 class="m-title">Quelques <em>pièces que nous réalisons</em>.</h2>
+      <p class="m-lead" style="max-width:720px;">Un aperçu de notre savoir-faire en tôlerie et serrurerie : pièces sur mesure, supports d'ascenseur, garde-corps et ouvrages métalliques façonnés dans notre atelier de Gennevilliers.</p>
+    </div>
+    <!-- Pour renommer une pièce : modifier le texte de .m-gallery-cat (catégorie) et .m-gallery-name (intitulé) -->
+    <div class="m-gallery-grid">
+      <figure class="m-gallery-item is-big has-alt">
+        <img class="m-gallery-primary" src="https://i.ibb.co/1t1nCgsr/Chat-GPT-Image-21-mai-2026-13-25-46-Photoroom.png" alt="Réalisation Majel Lift" loading="lazy">
+        <img class="m-gallery-alt" src="https://i.ibb.co/RGWkZYH2/Chat-GPT-Image-21-mai-2026-11-55-24-Photoroom.png" alt="Réalisation Majel Lift — autre vue" loading="lazy">
+        <span class="m-gallery-multi" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M3 16V5a2 2 0 0 1 2-2h11"/></svg>
+          2 vues
+        </span>
+        <figcaption class="m-gallery-cap">
+          <span class="m-gallery-cat">Tôlerie</span>
+          <span class="m-gallery-name">Pièce sur mesure</span>
+        </figcaption>
+      </figure>
+      <figure class="m-gallery-item has-alt">
+        <img class="m-gallery-primary" src="https://i.ibb.co/ZzsGZJgV/IMG-7225-Photoroom.png" alt="Réalisation Majel Lift" loading="lazy">
+        <img class="m-gallery-alt" src="https://i.ibb.co/NgHpb6c8/IMG-7223-Photoroom.png" alt="Réalisation Majel Lift — autre vue" loading="lazy">
+        <span class="m-gallery-multi" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M3 16V5a2 2 0 0 1 2-2h11"/></svg>
+          2 vues
+        </span>
+        <figcaption class="m-gallery-cap">
+          <span class="m-gallery-cat">Atelier</span>
+          <span class="m-gallery-name">Ouvrage métallique</span>
+        </figcaption>
+      </figure>
+      <figure class="m-gallery-item is-tall">
+        <img src="https://i.ibb.co/1GvWV19t/IMG-7228-Photoroom.png" alt="Réalisation Majel Lift" loading="lazy">
+        <figcaption class="m-gallery-cap">
+          <span class="m-gallery-cat">Serrurerie</span>
+          <span class="m-gallery-name">Pièce façonnée</span>
+        </figcaption>
+      </figure>
+      <figure class="m-gallery-item is-tall has-alt is-zoom">
+        <img class="m-gallery-primary" src="https://i.ibb.co/n87DKcy4/IMG-7230-Photoroom.png" alt="Réalisation Majel Lift" loading="lazy">
+        <img class="m-gallery-alt" src="https://i.ibb.co/mFby5ptC/IMG-7232-Photoroom.png" alt="Réalisation Majel Lift — autre vue" loading="lazy">
+        <span class="m-gallery-multi" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M3 16V5a2 2 0 0 1 2-2h11"/></svg>
+          2 vues
+        </span>
+        <figcaption class="m-gallery-cap">
+          <span class="m-gallery-cat">Métallerie</span>
+          <span class="m-gallery-name">Réalisation atelier</span>
+        </figcaption>
+      </figure>
+      <figure class="m-gallery-item">
+        <img src="https://i.ibb.co/bg5NxpJT/IMG-7234-Photoroom.png" alt="Réalisation Majel Lift" loading="lazy">
+        <figcaption class="m-gallery-cap">
+          <span class="m-gallery-cat">Tôlerie</span>
+          <span class="m-gallery-name">Pièce de précision</span>
+        </figcaption>
+      </figure>
+      <figure class="m-gallery-item is-tall">
+        <img src="https://i.ibb.co/svhCQZM1/IMG-7238-Photoroom.png" alt="Réalisation Majel Lift" loading="lazy">
+        <figcaption class="m-gallery-cap">
+          <span class="m-gallery-cat">Sur mesure</span>
+          <span class="m-gallery-name">Ouvrage acier</span>
+        </figcaption>
+      </figure>
+      <figure class="m-gallery-item is-wide">
+        <img src="https://i.ibb.co/Fk6KZM8Z/IMG-7239-Photoroom.png" alt="Réalisation Majel Lift" loading="lazy">
+        <figcaption class="m-gallery-cap">
+          <span class="m-gallery-cat">Ascenseur</span>
+          <span class="m-gallery-name">Support & fixation</span>
+        </figcaption>
+      </figure>
+      <figure class="m-gallery-item">
+        <img src="https://i.ibb.co/1tqJWzjr/IMG-7241-Photoroom.png" alt="Réalisation Majel Lift" loading="lazy">
+        <figcaption class="m-gallery-cap">
+          <span class="m-gallery-cat">Tôlerie</span>
+          <span class="m-gallery-name">Pièce de précision</span>
+        </figcaption>
+      </figure>
+      <figure class="m-gallery-item is-big">
+        <img src="https://i.ibb.co/rRxYxwVk/IMG-7244-Photoroom.png" alt="Réalisation Majel Lift" loading="lazy">
+        <figcaption class="m-gallery-cap">
+          <span class="m-gallery-cat">Métallerie</span>
+          <span class="m-gallery-name">Fabrication sur mesure</span>
+        </figcaption>
+      </figure>
+      <figure class="m-gallery-item has-alt">
+        <img class="m-gallery-primary" src="https://i.ibb.co/WmJQtsH/IMG-7247-Photoroom.png" alt="Réalisation Majel Lift" loading="lazy">
+        <img class="m-gallery-alt" src="https://i.ibb.co/MyN1dJQZ/IMG-7246-Photoroom.png" alt="Réalisation Majel Lift — autre vue" loading="lazy">
+        <span class="m-gallery-multi" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M3 16V5a2 2 0 0 1 2-2h11"/></svg>
+          2 vues
+        </span>
+        <figcaption class="m-gallery-cap">
+          <span class="m-gallery-cat">Atelier</span>
+          <span class="m-gallery-name">Réalisation sur mesure</span>
+        </figcaption>
+      </figure>
+      <figure class="m-gallery-item is-wide has-alt">
+        <img class="m-gallery-primary" src="https://i.ibb.co/fdFc2wFd/IMG-7248-Photoroom.png" alt="Réalisation Majel Lift" loading="lazy">
+        <img class="m-gallery-alt" src="https://i.ibb.co/wZRW5z82/IMG-7249-Photoroom.png" alt="Réalisation Majel Lift — autre vue" loading="lazy">
+        <span class="m-gallery-multi" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M3 16V5a2 2 0 0 1 2-2h11"/></svg>
+          2 vues
+        </span>
+        <figcaption class="m-gallery-cap">
+          <span class="m-gallery-cat">Serrurerie</span>
+          <span class="m-gallery-name">Ouvrage façonné</span>
+        </figcaption>
+      </figure>
+      <figure class="m-gallery-item is-wide has-alt">
+        <img class="m-gallery-primary" src="https://i.ibb.co/35d6JhKJ/0be1f931-76dd-4009-af28-45ab8d3c8a1f-Photoroom.png" alt="Réalisation Majel Lift" loading="lazy">
+        <div class="m-gallery-alt m-gallery-alt-split">
+          <img src="https://i.ibb.co/bj6RLs0F/20b3a0d3-1db0-41c9-bc4a-5729731d123e.jpg" alt="Réalisation Majel Lift — vue 2" loading="lazy">
+          <img src="https://i.ibb.co/Hp9Js4xL/a43320d6-d906-498a-8c54-cca41e94ec82.jpg" alt="Réalisation Majel Lift — vue 3" loading="lazy">
+        </div>
+        <span class="m-gallery-multi" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M3 16V5a2 2 0 0 1 2-2h11"/></svg>
+          2 vues
+        </span>
+        <figcaption class="m-gallery-cap">
+          <span class="m-gallery-cat">Sur mesure</span>
+          <span class="m-gallery-name">Ouvrage métallique</span>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
   <section class="m-founder" id="m-fondateur-section">
     <div class="m-founder-inner">
       <div class="m-founder-visual">
@@ -1930,7 +2142,7 @@
         <span class="m-eyebrow">Contact</span>
         <h2 class="m-title">Parlons de <em>votre projet</em>.</h2>
         <p class="m-lead" style="margin-bottom:2rem;">Une pièce sur mesure, un garde-corps, un portail, un projet d'ascenseur ? Contactez-nous pour un devis gratuit et rapide.</p>
-        <a class="m-btn" href="mailto:Majel.lift@gmail.com">Obtenir un devis <span>→</span></a>
+        <a class="m-btn" onclick="event.preventDefault(); openMajelModal();" href="#">Obtenir un devis <span>→</span></a>
       </div>
       <div class="m-contact-info">
         <div class="m-contact-line">
@@ -2414,7 +2626,7 @@
             </div>
             <div>
               <div class="a-contact-line-label">Email</div>
-              <div class="a-contact-line-value"><a href="mailto:info@monsite.fr">info@monsite.fr</a></div>
+              <div class="a-contact-line-value"><a href="mailto:adamois.renov@gmail.com">adamois.renov@gmail.com</a></div>
             </div>
           </div>
         </div>
