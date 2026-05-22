@@ -373,11 +373,12 @@
   
   @media (max-width: 768px) {
     /* Page d'accueil : écran divisé en deux (Adamois en haut / Majel en bas), les 2 visibles sans défilement */
+    /* 100dvh = hauteur réellement visible sur mobile (exclut la barre du navigateur iOS/Android) */
     body { height: 100%; overflow: hidden; }
-    #home-page { height: 100vh; overflow: hidden; }
-    .hub { flex-direction: column; height: 100vh; overflow: hidden; }
+    #home-page { height: 100vh; height: 100dvh; overflow: hidden; }
+    .hub { flex-direction: column; height: 100vh; height: 100dvh; overflow: hidden; }
     .universe { flex: 1; min-height: 0; }
-    .universe-content { padding: 5vh 7vw; }
+    .universe-content { padding: 4.5vh 7vw; }
     /* Liste des métiers masquée sur mobile pour que tout tienne dans chaque moitié (bouton compris) */
     .universe .trades { display: none; }
     .universe-tagline { font-size: 0.92rem; line-height: 1.5; }
