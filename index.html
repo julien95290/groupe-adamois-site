@@ -2317,31 +2317,6 @@
             <label for="m-message">Votre projet</label>
             <textarea id="m-message" placeholder="Décrivez votre besoin en quelques lignes..."></textarea>
           </div>
-          <div class="m-form-field">
-            <label>Pièces jointes <span class="m-form-hint">(plans, PDF, photos — 10 Mo max par fichier)</span></label>
-            <div class="m-dropzone" id="m-dropzone"
-                 onclick="document.getElementById('m-files-input').click()"
-                 ondragover="event.preventDefault(); this.classList.add('dragover');"
-                 ondragleave="this.classList.remove('dragover');"
-                 ondrop="handleMajelDrop(event)">
-              <div class="m-dropzone-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                  <polyline points="17 8 12 3 7 8"/>
-                  <line x1="12" y1="3" x2="12" y2="15"/>
-                </svg>
-              </div>
-              <div class="m-dropzone-text">
-                <strong>Glisser-déposer vos fichiers</strong>
-                <span>ou cliquer pour parcourir</span>
-              </div>
-              <input type="file" id="m-files-input" multiple
-                     accept=".pdf,.jpg,.jpeg,.png,.dwg,.dxf,.doc,.docx,.zip"
-                     style="display:none"
-                     onchange="handleMajelFiles(this.files); this.value='';">
-            </div>
-            <div class="m-file-list" id="m-file-list"></div>
-          </div>
           <button class="m-btn m-form-submit" onclick="submitMajelForm()">
             Envoyer ma demande <span>→</span>
           </button>
@@ -2708,31 +2683,6 @@
           <label for="a-message">Message</label>
           <textarea id="a-message" placeholder="Décrivez votre projet en quelques lignes..."></textarea>
         </div>
-        <div class="a-form-field">
-          <label>Pièces jointes <span class="a-form-hint">(plans, PDF, photos — 10 Mo max par fichier)</span></label>
-          <div class="a-dropzone" id="a-dropzone"
-               onclick="document.getElementById('a-files-input').click()"
-               ondragover="event.preventDefault(); this.classList.add('dragover');"
-               ondragleave="this.classList.remove('dragover');"
-               ondrop="handleAdamoisDrop(event)">
-            <div class="a-dropzone-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                <polyline points="17 8 12 3 7 8"/>
-                <line x1="12" y1="3" x2="12" y2="15"/>
-              </svg>
-            </div>
-            <div class="a-dropzone-text">
-              <strong>Glisser-déposer vos fichiers</strong>
-              <span>ou cliquer pour parcourir</span>
-            </div>
-            <input type="file" id="a-files-input" multiple
-                   accept=".pdf,.jpg,.jpeg,.png,.dwg,.dxf,.doc,.docx,.zip"
-                   style="display:none"
-                   onchange="handleAdamoisFiles(this.files); this.value='';">
-          </div>
-          <div class="a-file-list" id="a-file-list"></div>
-        </div>
         <button class="a-btn a-form-submit" onclick="submitAdamoisForm()">
           Envoyer <span>→</span>
         </button>
@@ -2957,9 +2907,6 @@
     fd.append('Société', document.getElementById('a-company').value.trim());
     fd.append('email', email);
     fd.append('Message', document.getElementById('a-message').value.trim());
-    adamoisAttachedFiles.forEach(function(f, i) {
-      fd.append('attachment_' + (i + 1), f, f.name);
-    });
 
     try {
       const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: fd });
@@ -3030,9 +2977,6 @@
     fd.append('email', email);
     fd.append('Téléphone', document.getElementById('m-phone').value.trim());
     fd.append('Projet', document.getElementById('m-message').value.trim());
-    majelAttachedFiles.forEach(function(f, i) {
-      fd.append('attachment_' + (i + 1), f, f.name);
-    });
 
     try {
       const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: fd });
