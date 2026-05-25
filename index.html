@@ -1713,7 +1713,46 @@
     margin-top: 1rem; text-align: center;
   }
   .a-form-success.shown { display: block; }
-  
+
+  /* Pièces jointes — formulaire Adamois */
+  .a-form-hint { text-transform: none; letter-spacing: 0; font-size: 0.7rem; color: rgba(255,255,255,0.4); font-weight: 400; margin-left: 0.4rem; }
+  .a-dropzone {
+    border: 1.5px dashed rgba(212,165,116,0.4);
+    background: rgba(255,255,255,0.02);
+    padding: 1.2rem; display: flex; align-items: center; gap: 1rem;
+    cursor: pointer; transition: all 0.25s ease;
+  }
+  .a-dropzone:hover, .a-dropzone.dragover { border-color: #d4a574; background: rgba(212,165,116,0.08); }
+  .a-dropzone.dragover { transform: scale(1.01); }
+  .a-dropzone-icon {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: rgba(212,165,116,0.14);
+    display: flex; align-items: center; justify-content: center;
+    color: #d4a574; flex-shrink: 0;
+  }
+  .a-dropzone-icon svg { width: 20px; height: 20px; }
+  .a-dropzone-text { display: flex; flex-direction: column; gap: 0.15rem; pointer-events: none; }
+  .a-dropzone-text strong { font-size: 0.92rem; color: #fff; font-weight: 500; }
+  .a-dropzone-text span { font-size: 0.78rem; color: rgba(255,255,255,0.5); }
+  .a-file-list { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.65rem; }
+  .a-file-list:empty { margin-top: 0; }
+  .a-file-item {
+    display: flex; align-items: center; gap: 0.8rem;
+    padding: 0.6rem 0.85rem;
+    background: rgba(212,165,116,0.08);
+    border: 1px solid rgba(212,165,116,0.22);
+    font-size: 0.85rem; animation: fileItemIn 0.25s ease;
+  }
+  .a-file-item-icon { width: 22px; height: 22px; color: #d4a574; flex-shrink: 0; }
+  .a-file-item-icon svg { width: 100%; height: 100%; }
+  .a-file-item-name { flex: 1; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .a-file-item-size { font-size: 0.75rem; color: rgba(255,255,255,0.5); flex-shrink: 0; }
+  .a-file-item-remove {
+    background: transparent; border: none; color: rgba(255,255,255,0.5);
+    cursor: pointer; font-size: 1.2rem; line-height: 1; padding: 0 0.3rem; transition: color 0.2s;
+  }
+  .a-file-item-remove:hover { color: #d4a574; }
+
   .a-footer {
     padding: 3rem 6vw 2rem;
     background: #1a1308;
@@ -2658,12 +2697,41 @@
           </div>
         </div>
         <div class="a-form-field">
+          <label for="a-company">Société</label>
+          <input type="text" id="a-company" placeholder="Nom de votre entreprise">
+        </div>
+        <div class="a-form-field">
           <label for="a-email">Email *</label>
           <input type="email" id="a-email" placeholder="votre@email.com" required>
         </div>
         <div class="a-form-field">
           <label for="a-message">Message</label>
           <textarea id="a-message" placeholder="Décrivez votre projet en quelques lignes..."></textarea>
+        </div>
+        <div class="a-form-field">
+          <label>Pièces jointes <span class="a-form-hint">(plans, PDF, photos — 10 Mo max par fichier)</span></label>
+          <div class="a-dropzone" id="a-dropzone"
+               onclick="document.getElementById('a-files-input').click()"
+               ondragover="event.preventDefault(); this.classList.add('dragover');"
+               ondragleave="this.classList.remove('dragover');"
+               ondrop="handleAdamoisDrop(event)">
+            <div class="a-dropzone-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
+              </svg>
+            </div>
+            <div class="a-dropzone-text">
+              <strong>Glisser-déposer vos fichiers</strong>
+              <span>ou cliquer pour parcourir</span>
+            </div>
+            <input type="file" id="a-files-input" multiple
+                   accept=".pdf,.jpg,.jpeg,.png,.dwg,.dxf,.doc,.docx,.zip"
+                   style="display:none"
+                   onchange="handleAdamoisFiles(this.files); this.value='';">
+          </div>
+          <div class="a-file-list" id="a-file-list"></div>
         </div>
         <button class="a-btn a-form-submit" onclick="submitAdamoisForm()">
           Envoyer <span>→</span>
@@ -2886,8 +2954,12 @@
     fd.append('from_name', 'Site Adamois Renov\'');
     fd.append('Prénom', document.getElementById('a-firstname').value.trim());
     fd.append('Nom', document.getElementById('a-lastname').value.trim());
+    fd.append('Société', document.getElementById('a-company').value.trim());
     fd.append('email', email);
     fd.append('Message', document.getElementById('a-message').value.trim());
+    adamoisAttachedFiles.forEach(function(f, i) {
+      fd.append('attachment_' + (i + 1), f, f.name);
+    });
 
     try {
       const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: fd });
@@ -2896,8 +2968,11 @@
         document.getElementById('a-form-success').classList.add('shown');
         document.getElementById('a-firstname').value = '';
         document.getElementById('a-lastname').value = '';
+        document.getElementById('a-company').value = '';
         document.getElementById('a-email').value = '';
         document.getElementById('a-message').value = '';
+        adamoisAttachedFiles = [];
+        renderAdamoisFileList();
         setTimeout(function() {
           document.getElementById('a-form-success').classList.remove('shown');
         }, 6000);
@@ -3054,6 +3129,59 @@
         '<div class="m-file-item-name">' + escapeMajelHtml(f.name) + '</div>' +
         '<div class="m-file-item-size">' + formatMajelFileSize(f.size) + '</div>' +
         '<button type="button" class="m-file-item-remove" onclick="removeMajelFile(' + idx + ')" aria-label="Retirer">×</button>';
+      list.appendChild(item);
+    });
+  }
+
+  // ============================================
+  // Pièces jointes du formulaire Adamois
+  // ============================================
+  let adamoisAttachedFiles = [];
+  const ADAMOIS_MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 Mo par fichier
+
+  function handleAdamoisFiles(fileList) {
+    let rejected = [];
+    for (let i = 0; i < fileList.length; i++) {
+      const f = fileList[i];
+      if (f.size > ADAMOIS_MAX_FILE_SIZE) { rejected.push(f.name); continue; }
+      const already = adamoisAttachedFiles.some(function(x) { return x.name === f.name && x.size === f.size; });
+      if (!already) adamoisAttachedFiles.push(f);
+    }
+    if (rejected.length) {
+      alert('Fichier(s) trop volumineux (max 10 Mo) :\n• ' + rejected.join('\n• '));
+    }
+    renderAdamoisFileList();
+  }
+
+  function handleAdamoisDrop(e) {
+    e.preventDefault();
+    const zone = e.currentTarget;
+    zone.classList.remove('dragover');
+    if (e.dataTransfer && e.dataTransfer.files) { handleAdamoisFiles(e.dataTransfer.files); }
+  }
+
+  function removeAdamoisFile(idx) {
+    adamoisAttachedFiles.splice(idx, 1);
+    renderAdamoisFileList();
+  }
+
+  function renderAdamoisFileList() {
+    const list = document.getElementById('a-file-list');
+    if (!list) return;
+    list.innerHTML = '';
+    adamoisAttachedFiles.forEach(function(f, idx) {
+      const item = document.createElement('div');
+      item.className = 'a-file-item';
+      item.innerHTML =
+        '<div class="a-file-item-icon">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">' +
+            '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>' +
+            '<polyline points="14 2 14 8 20 8"/>' +
+          '</svg>' +
+        '</div>' +
+        '<div class="a-file-item-name">' + escapeMajelHtml(f.name) + '</div>' +
+        '<div class="a-file-item-size">' + formatMajelFileSize(f.size) + '</div>' +
+        '<button type="button" class="a-file-item-remove" onclick="removeAdamoisFile(' + idx + ')" aria-label="Retirer">×</button>';
       list.appendChild(item);
     });
   }
