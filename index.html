@@ -1448,6 +1448,12 @@
     padding: 0 0.5rem;
     align-self: flex-start;
   }
+  /* Chantiers : photos seules (texte descriptif masqué), centrées */
+  .chantiers-track .a-realisation-text { display: none; }
+  .chantiers-track .a-realisation-visual {
+    grid-template-columns: minmax(0, 760px);
+    justify-content: center;
+  }
   .chantiers-arrow {
     position: absolute; top: 50%;
     transform: translateY(-50%);
