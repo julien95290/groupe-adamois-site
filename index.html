@@ -2900,11 +2900,11 @@
 
     const fd = new FormData();
     fd.append('access_key', ADAMOIS_WEB3FORMS_KEY);
-    fd.append('subject', 'Nouveau message de contact — Adamois Renov\'');
-    fd.append('from_name', 'Site Adamois Renov\'');
-    fd.append('Prénom', document.getElementById('a-firstname').value.trim());
+    fd.append('subject', 'Nouveau message de contact - Adamois Renov');
+    fd.append('from_name', 'Site Adamois Renov');
+    fd.append('Prenom', document.getElementById('a-firstname').value.trim());
     fd.append('Nom', document.getElementById('a-lastname').value.trim());
-    fd.append('Société', document.getElementById('a-company').value.trim());
+    fd.append('Societe', document.getElementById('a-company').value.trim());
     fd.append('email', email);
     fd.append('Message', document.getElementById('a-message').value.trim());
 
@@ -2969,13 +2969,13 @@
 
     const fd = new FormData();
     fd.append('access_key', MAJEL_WEB3FORMS_KEY);
-    fd.append('subject', 'Nouvelle demande de devis — Majel Lift');
+    fd.append('subject', 'Nouvelle demande de devis - Majel Lift');
     fd.append('from_name', 'Site Majel Lift');
-    fd.append('Prénom', document.getElementById('m-firstname').value.trim());
+    fd.append('Prenom', document.getElementById('m-firstname').value.trim());
     fd.append('Nom', document.getElementById('m-lastname').value.trim());
-    fd.append('Société', document.getElementById('m-company').value.trim());
+    fd.append('Societe', document.getElementById('m-company').value.trim());
     fd.append('email', email);
-    fd.append('Téléphone', document.getElementById('m-phone').value.trim());
+    fd.append('Telephone', document.getElementById('m-phone').value.trim());
     fd.append('Projet', document.getElementById('m-message').value.trim());
 
     try {
