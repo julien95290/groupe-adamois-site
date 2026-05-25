@@ -1393,6 +1393,42 @@
   .a-gallery-cell:hover { transform: scale(1.035); }
   .a-gallery-cell:hover::after { opacity: 1; }
 
+  /* Carrousel photos (diaporama auto en fondu) */
+  .a-photo-carousel {
+    position: relative; width: 100%; aspect-ratio: 4/3;
+    overflow: hidden; background: #f0e8db;
+    box-shadow: 0 30px 80px rgba(60,45,30,0.15);
+  }
+  .a-photo-carousel .pc-img {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center;
+    opacity: 0; animation: pcFade 18s infinite;
+  }
+  .a-photo-carousel .pc-img:nth-child(1) { animation-delay: 0s; }
+  .a-photo-carousel .pc-img:nth-child(2) { animation-delay: 6s; }
+  .a-photo-carousel .pc-img:nth-child(3) { animation-delay: 12s; }
+  @keyframes pcFade {
+    0% { opacity: 0; } 3% { opacity: 1; } 30% { opacity: 1; }
+    35% { opacity: 0; } 100% { opacity: 0; }
+  }
+  .a-photo-carousel .pc-dots {
+    position: absolute; bottom: 14px; left: 0; right: 0; z-index: 2;
+    display: flex; justify-content: center; gap: 8px; pointer-events: none;
+  }
+  .a-photo-carousel .pc-dots span {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: rgba(255,255,255,0.45);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+    animation: pcDot 18s infinite;
+  }
+  .a-photo-carousel .pc-dots span:nth-child(1) { animation-delay: 0s; }
+  .a-photo-carousel .pc-dots span:nth-child(2) { animation-delay: 6s; }
+  .a-photo-carousel .pc-dots span:nth-child(3) { animation-delay: 12s; }
+  @keyframes pcDot {
+    0% { background: #fff; } 33% { background: #fff; }
+    34% { background: rgba(255,255,255,0.45); } 100% { background: rgba(255,255,255,0.45); }
+  }
+
   /* Slider de chantiers (défilement automatique) */
   .chantiers-slider { position: relative; margin-top: 4rem; }
   .chantiers-viewport {
@@ -2518,14 +2554,14 @@
 
             <div class="a-realisation-visual">
               <div class="a-realisation-text">
-                <h3>Chantier en <em>quatre regards</em></h3>
-                <p class="a-lead">Un aperçu en plusieurs angles d'une intervention récente — du diagnostic initial aux finitions, chaque détail révèle le soin porté à l'ouvrage.</p>
+                <h3>Chantier <em>en images</em></h3>
+                <p class="a-lead">Quelques vues d'une réfection de toiture en zinc sur les toits de Paris — du faîtage aux lucarnes, le soin apporté à chaque détail.</p>
               </div>
-              <div class="a-gallery-grid">
-                <div class="a-gallery-cell" style="background-image: url('images/qMPwM3Vp_IMG-1017.jpg')"></div>
-                <div class="a-gallery-cell" style="background-image: url('images/HTfk3yMk_IMG-1019-1.jpg')"></div>
-                <div class="a-gallery-cell" style="background-image: url('images/Kj8Ws0dj_IMG-1020.jpg')"></div>
-                <div class="a-gallery-cell" style="background-image: url('images/s9H7jhk1_IMG-1021.jpg')"></div>
+              <div class="a-photo-carousel">
+                <div class="pc-img" style="background-image: url('images/chantier-vue-1.jpg')"></div>
+                <div class="pc-img" style="background-image: url('images/chantier-vue-2.jpg')"></div>
+                <div class="pc-img" style="background-image: url('images/chantier-vue-3.jpg')"></div>
+                <div class="pc-dots"><span></span><span></span><span></span></div>
               </div>
             </div>
 
