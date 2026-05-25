@@ -2868,20 +2868,47 @@
     });
   }
 
-  function submitAdamoisForm() {
+  // Clé d'accès Web3Forms pour Adamois Renov' (envoi vers adamois.renov@gmail.com) — indépendante de Majel
+  const ADAMOIS_WEB3FORMS_KEY = '13ee2438-2f7b-4530-8793-3af83657e8dd';
+  async function submitAdamoisForm() {
     const email = document.getElementById('a-email').value.trim();
     if (!email || !email.includes('@')) {
       alert('Veuillez renseigner une adresse email valide.');
       return;
     }
-    document.getElementById('a-form-success').classList.add('shown');
-    document.getElementById('a-firstname').value = '';
-    document.getElementById('a-lastname').value = '';
-    document.getElementById('a-email').value = '';
-    document.getElementById('a-message').value = '';
-    setTimeout(function() {
-      document.getElementById('a-form-success').classList.remove('shown');
-    }, 5000);
+    const btn = document.querySelector('#a-contact-section .a-form-submit');
+    const originalHtml = btn ? btn.innerHTML : '';
+    if (btn) { btn.disabled = true; btn.innerHTML = 'Envoi en cours…'; }
+
+    const fd = new FormData();
+    fd.append('access_key', ADAMOIS_WEB3FORMS_KEY);
+    fd.append('subject', 'Nouveau message de contact — Adamois Renov\'');
+    fd.append('from_name', 'Site Adamois Renov\'');
+    fd.append('Prénom', document.getElementById('a-firstname').value.trim());
+    fd.append('Nom', document.getElementById('a-lastname').value.trim());
+    fd.append('email', email);
+    fd.append('Message', document.getElementById('a-message').value.trim());
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: fd });
+      const data = await res.json();
+      if (data.success) {
+        document.getElementById('a-form-success').classList.add('shown');
+        document.getElementById('a-firstname').value = '';
+        document.getElementById('a-lastname').value = '';
+        document.getElementById('a-email').value = '';
+        document.getElementById('a-message').value = '';
+        setTimeout(function() {
+          document.getElementById('a-form-success').classList.remove('shown');
+        }, 6000);
+      } else {
+        alert("Une erreur est survenue lors de l'envoi. Vous pouvez nous écrire directement à adamois.renov@gmail.com." + (data.message ? '\n(' + data.message + ')' : ''));
+      }
+    } catch (err) {
+      alert("Impossible d'envoyer le message (problème de connexion). Écrivez-nous directement à adamois.renov@gmail.com.");
+    } finally {
+      if (btn) { btn.disabled = false; btn.innerHTML = originalHtml; }
+    }
   }
 
   // ============================================
@@ -2906,24 +2933,56 @@
       if (modal && modal.classList.contains('shown')) closeMajelModal();
     }
   });
-  function submitMajelForm() {
+  // Clé d'accès Web3Forms pour Majel Lift (envoi vers Majel.lift@gmail.com) — propre à Majel, indépendante d'Adamois
+  const MAJEL_WEB3FORMS_KEY = '6509f5a3-3ad6-498f-a405-023dbfa1a3c1';
+  async function submitMajelForm() {
     const email = document.getElementById('m-email').value.trim();
     if (!email || !email.includes('@')) {
       alert('Veuillez renseigner une adresse email valide.');
       return;
     }
-    document.getElementById('m-form-success').classList.add('shown');
-    document.getElementById('m-firstname').value = '';
-    document.getElementById('m-lastname').value = '';
-    document.getElementById('m-company').value = '';
-    document.getElementById('m-email').value = '';
-    document.getElementById('m-phone').value = '';
-    document.getElementById('m-message').value = '';
-    majelAttachedFiles = [];
-    renderMajelFileList();
-    setTimeout(function() {
-      document.getElementById('m-form-success').classList.remove('shown');
-    }, 5000);
+    const btn = document.querySelector('#majel-quote-modal .m-form-submit');
+    const originalHtml = btn ? btn.innerHTML : '';
+    if (btn) { btn.disabled = true; btn.innerHTML = 'Envoi en cours…'; }
+
+    const fd = new FormData();
+    fd.append('access_key', MAJEL_WEB3FORMS_KEY);
+    fd.append('subject', 'Nouvelle demande de devis — Majel Lift');
+    fd.append('from_name', 'Site Majel Lift');
+    fd.append('Prénom', document.getElementById('m-firstname').value.trim());
+    fd.append('Nom', document.getElementById('m-lastname').value.trim());
+    fd.append('Société', document.getElementById('m-company').value.trim());
+    fd.append('email', email);
+    fd.append('Téléphone', document.getElementById('m-phone').value.trim());
+    fd.append('Projet', document.getElementById('m-message').value.trim());
+    majelAttachedFiles.forEach(function(f, i) {
+      fd.append('attachment_' + (i + 1), f, f.name);
+    });
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: fd });
+      const data = await res.json();
+      if (data.success) {
+        document.getElementById('m-form-success').classList.add('shown');
+        document.getElementById('m-firstname').value = '';
+        document.getElementById('m-lastname').value = '';
+        document.getElementById('m-company').value = '';
+        document.getElementById('m-email').value = '';
+        document.getElementById('m-phone').value = '';
+        document.getElementById('m-message').value = '';
+        majelAttachedFiles = [];
+        renderMajelFileList();
+        setTimeout(function() {
+          document.getElementById('m-form-success').classList.remove('shown');
+        }, 6000);
+      } else {
+        alert("Une erreur est survenue lors de l'envoi. Vous pouvez nous écrire directement à Majel.lift@gmail.com." + (data.message ? '\n(' + data.message + ')' : ''));
+      }
+    } catch (err) {
+      alert("Impossible d'envoyer la demande (problème de connexion). Écrivez-nous directement à Majel.lift@gmail.com.");
+    } finally {
+      if (btn) { btn.disabled = false; btn.innerHTML = originalHtml; }
+    }
   }
 
   // ============================================
