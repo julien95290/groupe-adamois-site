@@ -1174,6 +1174,23 @@
     color: #6b5d4a; max-width: 540px; font-weight: 300;
   }
   .a-hero-lead { margin-bottom: 2.5rem; }
+
+  /* Barre de confiance (garanties / certifications) */
+  .a-trust {
+    background: #f3ebdf;
+    border-top: 1px solid rgba(42,31,21,0.08);
+    border-bottom: 1px solid rgba(42,31,21,0.08);
+    padding: 1.5rem 6vw;
+  }
+  .a-trust-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 1rem 2.8rem;
+  }
+  .a-trust-item { display: flex; align-items: center; gap: 0.7rem; color: #2a1f15; }
+  .a-trust-item svg { width: 24px; height: 24px; stroke: #b8814a; fill: none; flex-shrink: 0; }
+  .a-trust-item b { font-weight: 600; font-size: 0.9rem; display: block; line-height: 1.2; }
+  .a-trust-item small { color: #8a7a68; font-size: 0.72rem; }
   .a-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
   .a-btn {
     display: inline-flex; align-items: center; gap: 0.7rem;
@@ -2417,6 +2434,27 @@
     </div>
   </section>
 
+  <section class="a-trust">
+    <div class="a-trust-inner">
+      <div class="a-trust-item">
+        <svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+        <span><b>Assurance décennale</b></span>
+      </div>
+      <div class="a-trust-item">
+        <svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M8.5 12.5 7 22l5-3 5 3-1.5-9.5"/></svg>
+        <span><b>Qualibat RGE</b><small>Isolation toiture</small></span>
+      </div>
+      <div class="a-trust-item">
+        <svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span><b>Toute l'Île-de-France</b></span>
+      </div>
+      <div class="a-trust-item">
+        <svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="m9 15 2 2 4-4"/></svg>
+        <span><b>Devis gratuit</b></span>
+      </div>
+    </div>
+  </section>
+
   <section class="a-section a-section-cream" id="a-services-section">
     <div class="a-section-inner">
       <div class="a-section-header">
@@ -2712,7 +2750,7 @@
             </div>
             <div>
               <div class="a-contact-line-label">Téléphone</div>
-              <div class="a-contact-line-value"><a href="tel:0123456789">01 23 45 67 89</a></div>
+              <div class="a-contact-line-value"><a href="tel:0667961480">06 67 96 14 80</a></div>
             </div>
           </div>
           <div class="a-contact-line">
