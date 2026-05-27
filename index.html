@@ -823,6 +823,25 @@
   }
   .m-gallery-item:hover::before { opacity: 1; }
 
+  /* Section atelier (galerie photos machines / atelier) */
+  .m-atelier { padding: 7rem 6vw; background: #0e0f11; border-top: 1px solid rgba(255,255,255,0.08); }
+  .m-atelier-inner { max-width: 1300px; margin: 0 auto; }
+  .m-atelier-head { max-width: 780px; margin: 0 0 3.5rem; }
+  .m-atelier-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .m-atelier-item {
+    position: relative; overflow: hidden; border-radius: 6px;
+    aspect-ratio: 4/3; border: 1px solid rgba(255,255,255,0.08);
+  }
+  .m-atelier-item img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform 0.7s cubic-bezier(0.22,1,0.36,1);
+  }
+  .m-atelier-item:hover img { transform: scale(1.05); }
+  @media (max-width: 768px) {
+    .m-atelier { padding: 4rem 6vw; }
+    .m-atelier-grid { grid-template-columns: 1fr; }
+  }
+
   .m-contact {
     padding: 7rem 6vw;
     background: linear-gradient(135deg, #16181b 0%, #0e0f11 100%);
@@ -1940,6 +1959,7 @@
       <a href="#m-services-section">Nos services</a>
       <a href="#m-realisations-section">Réalisations</a>
       <a href="#m-fondateur-section">Le fondateur</a>
+      <a href="#m-atelier-section">Atelier</a>
       <a href="#m-contact-section">Contact</a>
       <a class="m-nav-back" onclick="goHome()">← Groupe Adamois</a>
     </div>
@@ -2232,6 +2252,22 @@
         <h2 class="m-title"><em>Éric Jacob</em>, plus de quatre décennies au service du métal.</h2>
         <p class="m-lead" style="margin-bottom:1.5rem;">Notre entreprise a été fondée par Éric Jacob, professionnel de la tôlerie industrielle depuis plus de 40 ans. Au cours de sa carrière, il a passé 15 années à superviser la fabrication de pièces destinées au secteur de l'ascenseur, développant une expertise solide et reconnue dans ce domaine exigeant.</p>
         <p class="m-lead">Aujourd'hui, Majel Lift incarne cette transmission de savoir-faire : être une tôlerie fiable et réactive au service des professionnels de l'ascenseur, avec la promesse d'une exécution soignée et de délais maîtrisés. Situés à Gennevilliers aux portes de Paris, nous offrons la possibilité aux professionnels de venir récupérer facilement leur marchandise directement sur place.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="m-atelier" id="m-atelier-section">
+    <div class="m-atelier-inner">
+      <div class="m-atelier-head">
+        <span class="m-eyebrow">Notre atelier</span>
+        <h2 class="m-title">L'atelier, <em>cœur de notre savoir-faire</em>.</h2>
+        <p class="m-lead">Au cœur de Gennevilliers, notre atelier réunit le parc de machines nécessaire au travail du métal : pliage, découpe, soudure et façonnage. Un outil de production complet qui nous permet de réaliser vos pièces sur mesure avec précision et réactivité.</p>
+      </div>
+      <div class="m-atelier-grid">
+        <figure class="m-atelier-item"><img src="images/atelier-1.jpg" alt="Atelier Majel Lift à Gennevilliers" loading="lazy"></figure>
+        <figure class="m-atelier-item"><img src="images/atelier-2.jpg" alt="Machine de tôlerie — atelier Majel Lift" loading="lazy"></figure>
+        <figure class="m-atelier-item"><img src="images/atelier-3.jpg" alt="Parc machines — atelier Majel Lift" loading="lazy"></figure>
+        <figure class="m-atelier-item"><img src="images/atelier-4.jpg" alt="Atelier de travail du métal Majel Lift" loading="lazy"></figure>
       </div>
     </div>
   </section>
