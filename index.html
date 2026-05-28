@@ -2866,6 +2866,9 @@
 
   // Majel : fondu cinéma acier + révélation du site
   function enterMajel() {
+    if (!history.state || history.state.view !== 'majel') {
+      history.pushState({view: 'majel'}, '', '#majel');
+    }
     const fade = document.getElementById('majel-fade');
 
     fade.classList.add('active');
@@ -2891,6 +2894,9 @@
 
   // Adamois : fondu cinéma chaud + révélation du site
   function enterAdamois() {
+    if (!history.state || history.state.view !== 'adamois') {
+      history.pushState({view: 'adamois'}, '', '#adamois');
+    }
     const fade = document.getElementById('adamois-fade');
 
     // Activation immédiate puis transition vers opacité 1
@@ -2933,13 +2939,45 @@
     setTimeout(initChantiersSlider, 120);
   }
   
-  function goHome() {
+  function goHome(skipPush) {
     document.getElementById('majel-site').classList.remove('visible');
     document.getElementById('adamois-site').classList.remove('visible');
     document.getElementById('home-page').classList.remove('hidden');
     document.body.classList.remove('scrolling');
     window.scrollTo(0, 0);
+    if (!skipPush && (!history.state || history.state.view !== 'home')) {
+      history.pushState({view: 'home'}, '', location.pathname + location.search);
+    }
   }
+
+  // Bouton "Retour" du navigateur -> on reste à l'intérieur du site
+  window.addEventListener('popstate', function(e) {
+    const stateView = e.state && e.state.view;
+    let view;
+    if (stateView) view = stateView;
+    else {
+      const h = location.hash || '';
+      if (h === '#majel' || h.indexOf('#m-') === 0) view = 'majel';
+      else if (h === '#adamois' || h.indexOf('#a-') === 0) view = 'adamois';
+      else view = 'home';
+    }
+    if (view === 'majel') showMajelSite();
+    else if (view === 'adamois') showAdamoisSite();
+    else goHome(true);
+  });
+  // Lien profond initial (ex. URL #majel partagée) + état initial pour le retour
+  (function initFromHash() {
+    const h = location.hash || '';
+    if (h === '#majel' || h.indexOf('#m-') === 0) {
+      history.replaceState({view: 'majel'}, '', h || '#majel');
+      showMajelSite();
+    } else if (h === '#adamois' || h.indexOf('#a-') === 0) {
+      history.replaceState({view: 'adamois'}, '', h || '#adamois');
+      showAdamoisSite();
+    } else {
+      history.replaceState({view: 'home'}, '', location.pathname + location.search);
+    }
+  })();
   
   function initBeforeAfterSliders() {
     const sliders = document.querySelectorAll('.ba-slider');
