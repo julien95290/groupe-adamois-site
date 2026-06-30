@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://adamoisrenov.com/sitemap.xml
+Sitemap: https://majel-lift.com/sitemap.xml
