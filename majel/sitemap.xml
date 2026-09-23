@@ -1,32 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemaps-image/1.1">
-
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://majel-lift.com/</loc>
     <lastmod>2026-09-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <image:image>
-      <image:loc>https://majel-lift.com/images/Q3yJKJz0_Logo-moderne-de-MAJEL-LIFT-1-Photoroom.png</image:loc>
-      <image:title>Logo Majel Lift — Tôlerie &amp; serrurerie pour ascensoristes</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://majel-lift.com/images/atelier-1.jpg</image:loc>
-      <image:title>Atelier de tôlerie Majel Lift à Gennevilliers — fabrication pour ascensoristes</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://majel-lift.com/images/atelier-2.jpg</image:loc>
-      <image:title>Presse plieuse et machines de tôlerie industrielle Majel Lift</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://majel-lift.com/images/atelier-3.jpg</image:loc>
-      <image:title>Parc machines Majel Lift — découpe et façonnage métal pour ascenseurs</image:title>
-    </image:image>
-    <image:image>
-      <image:loc>https://majel-lift.com/images/atelier-4.jpg</image:loc>
-      <image:title>Atelier serrurerie Majel Lift — spécialiste ascensoristes Île-de-France</image:title>
-    </image:image>
   </url>
-
 </urlset>
