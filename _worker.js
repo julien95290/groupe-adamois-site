@@ -18,12 +18,13 @@ export default {
 
     // 1) Toujours servir tel quel : ressources partagées et fichiers déjà
     //    préfixés par /adamois/ ou /majel/ (accès direct pour QA).
+    //    NOTE : /sitemap.xml et /robots.txt sont volontairement EXCLUS de cette
+    //    liste — ils doivent être rewrite par domaine pour éviter les erreurs
+    //    "cross-domain URL" dans Google Search Console.
     const isSharedOrPrefixed =
       pathname.startsWith('/images/')        ||
       pathname.startsWith('/adamois/')       ||
       pathname.startsWith('/majel/')         ||
-      pathname === '/sitemap.xml'            ||
-      pathname === '/robots.txt'             ||
       pathname === '/favicon.ico'            ||
       pathname === '/index.backup-2026-05-13.html'; // évite qu'il soit rewrité
 
