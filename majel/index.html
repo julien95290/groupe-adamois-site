@@ -1895,8 +1895,89 @@
   }
 </style>
 </head>
-<body class="scrolling">
-<div id="majel-site" class="visible">
+<body>
+
+<!-- TRANSITION FONDU (vers Majel Lift) -->
+<div id="majel-fade">
+  <div class="majel-fade-content">
+    <span class="majel-fade-eyebrow">Métallurgie & Ouvrages</span>
+    <h2 class="majel-fade-name">Majel <em>Lift</em></h2>
+    <div class="majel-fade-line"></div>
+  </div>
+</div>
+
+<!-- TRANSITION FONDU (vers Adamois Renov') -->
+<div id="adamois-fade">
+  <div class="adamois-fade-content">
+    <span class="adamois-fade-eyebrow">Bâtiment & Patrimoine</span>
+    <h2 class="adamois-fade-name">Adamois <em>Renov'</em></h2>
+    <div class="adamois-fade-line"></div>
+  </div>
+</div>
+
+<!-- PAGE D'ACCUEIL -->
+<div id="home-page">
+  <main class="hub" id="hub">
+    <section class="universe adamois" onclick="enter('adamois')">
+      <div class="universe-bg"></div>
+      <div class="universe-content">
+        <div class="universe-top">
+          <span class="badge">Bâtiment & Patrimoine</span>
+          <h2 class="universe-name">Adamois <em>Renov'</em></h2>
+          <p class="universe-tagline">Le savoir-faire père & fils au service des façades et toitures, avec plus de 20 ans d'expérience.</p>
+        </div>
+        <div class="universe-bottom">
+          <ul class="trades">
+            <li><span class="trade-num">01</span> Ravalement de façade</li>
+            <li><span class="trade-num">02</span> Couverture zinc, ardoise, tuile</li>
+            <li><span class="trade-num">03</span> Zinguerie & ornements</li>
+          </ul>
+          <a class="cta" onclick="event.stopPropagation(); enter('adamois')">
+            Découvrir l'univers BTP
+            <span class="cta-arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+    
+    <div class="divider"></div>
+    
+    <section class="universe majel" onclick="enter('majel')">
+      <div class="universe-bg"></div>
+      <div class="universe-content">
+        <div class="universe-top">
+          <span class="badge">Métallurgie & Ouvrages</span>
+          <h2 class="universe-name">Majel <em>Lift</em></h2>
+          <p class="universe-tagline">L'élévation métallique familiale — façonner l'acier pour des ouvrages durables et sur-mesure.</p>
+          <span class="universe-restriction">Réservé aux professionnels</span>
+        </div>
+        <div class="universe-bottom">
+          <ul class="trades">
+            <li><span class="trade-num">01</span> Tôlerie & travail du métal</li>
+            <li><span class="trade-num">02</span> Serrurerie & garde-corps</li>
+            <li><span class="trade-num">03</span> Structures métalliques</li>
+          </ul>
+          <a class="cta" onclick="event.stopPropagation(); enter('majel')">
+            Découvrir l'univers Métal
+            <span class="cta-arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+    
+    <div class="center-logo">
+      <div class="logo-circle">
+        <div class="logo-mark">GA</div>
+        <div class="logo-sub">Groupe</div>
+      </div>
+      <div class="baseline">Bâtir & façonner</div>
+    </div>
+  </main>
+
+</div>
+
+<!-- SITE MAJEL LIFT -->
+<div id="majel-site">
   <nav class="m-nav">
     <div class="m-nav-brand-block" onclick="goHome()">
       <div class="m-nav-mark"><img src="images/Q3yJKJz0_Logo-moderne-de-MAJEL-LIFT-1-Photoroom.png" alt="Majel Lift"></div>
@@ -2384,19 +2465,547 @@
 </div>
 
 <!-- SITE ADAMOIS RENOV -->
-<script>
-  // Page dédiée Majel Lift — pas de hub ni de site Adamois sur ce domaine,
-  // stubs sécurisés pour ne pas casser d'anciens onclick.
-  function goHome() {
-    window.scrollTo({top: 0, behavior: 'smooth'});
-  }
-  function enter() {}
-  function enterMajel() {}
-  function enterAdamois() {}
-  function showMajelSite() {}
-  function showAdamoisSite() {}
+<div id="adamois-site">
+  <nav class="a-nav">
+    <div class="a-nav-brand-block" onclick="goHome()">
+      <div class="a-nav-mark"><img src="images/v4rjhgby_ADAMOIS-Logo.jpg" alt="Adamois Renov'"></div>
+      <div class="a-nav-brand">Adamois <em>Renov'</em></div>
+    </div>
+    <div class="a-nav-links">
+      <a href="#a-services-section">Nos services</a>
+      <a href="#a-realisations-section">Réalisations</a>
+      <a href="#a-about-section">Qui sommes-nous</a>
+      <a href="#a-contact-section">Contact</a>
+      <a class="a-nav-back" onclick="goHome()">← Groupe Adamois</a>
+    </div>
+  </nav>
 
-  // Page dédiée Majel : un seul univers, pas de navigation entre vues.
+  <section class="a-hero">
+    <div class="a-hero-inner">
+      <div>
+        <span class="a-eyebrow">Toiture · Ravalement</span>
+        <h1 class="a-hero-title">L'univers BTP — Notre savoir-faire en <em>toiture et ravalement</em>.</h1>
+        <p class="a-hero-subtitle">Une entreprise familiale forte de 20 ans d'expertise dans le BTP.</p>
+        <p class="a-lead a-hero-lead">De la conception au suivi de chantier, nous coordonnons vos projets de toiture et de ravalement avec exigence, en valorisant durablement votre patrimoine.</p>
+        <div class="a-actions">
+          <a class="a-btn" href="#a-realisations-section">Découvrir nos réalisations <span>→</span></a>
+          <a class="a-btn a-btn-ghost" href="#a-contact-section">Nous contacter</a>
+        </div>
+      </div>
+      <div>
+        <div class="a-hero-photo"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="a-trust">
+    <div class="a-trust-inner">
+      <div class="a-trust-item">
+        <svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+        <span><b>Assurance décennale</b></span>
+      </div>
+      <div class="a-trust-item">
+        <svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M8.5 12.5 7 22l5-3 5 3-1.5-9.5"/></svg>
+        <span><b>Qualibat RGE</b><small>Isolation toiture</small></span>
+      </div>
+      <div class="a-trust-item">
+        <svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span><b>Toute l'Île-de-France</b></span>
+      </div>
+      <div class="a-trust-item">
+        <svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="m9 15 2 2 4-4"/></svg>
+        <span><b>Devis gratuit</b></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="a-section a-section-cream" id="a-services-section">
+    <div class="a-section-inner">
+      <div class="a-section-header">
+        <span class="a-eyebrow">Nos services</span>
+        <h2 class="a-title">Trois expertises, <em>une exigence</em>.</h2>
+        <p class="a-lead">De la protection de votre bâtiment à la valorisation de son enveloppe, nous coordonnons les travaux essentiels au patrimoine bâti avec un savoir-faire artisanal et un suivi rigoureux à chaque étape.</p>
+      </div>
+      <div class="a-services">
+        <article class="a-service">
+          <div class="a-service-num">01</div>
+          <h3 class="a-service-title">Toiture</h3>
+          <p class="a-service-subtitle">Une expertise complète pour la protection de votre bâtiment</p>
+          <p class="a-service-desc">La toiture est un élément crucial pour garantir la sécurité et l'étanchéité de votre bâtiment. Forts de notre expérience, nous supervisons l'ensemble des travaux relatifs à la toiture, en veillant à ce que chaque étape soit réalisée dans les règles de l'art.</p>
+          <div class="a-service-list">
+            <div class="a-service-item">
+              <div class="a-service-item-bullet"></div>
+              <div>
+                <strong>Conception et choix de la toiture</strong>
+                <span>Accompagnement dans le choix du type de toiture le plus adapté à votre projet, selon les besoins et contraintes techniques.</span>
+              </div>
+            </div>
+            <div class="a-service-item">
+              <div class="a-service-item-bullet"></div>
+              <div>
+                <strong>Réalisation et rénovation</strong>
+                <span>Coordination des travaux de pose, rénovation ou réparation de toitures, dans le respect des normes de qualité et de sécurité.</span>
+              </div>
+            </div>
+            <div class="a-service-item">
+              <div class="a-service-item-bullet"></div>
+              <div>
+                <strong>Entretien et suivi</strong>
+                <span>Services d'entretien régulier : nettoyage des gouttières, démoussage, vérification de l'étanchéité du toit.</span>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article class="a-service">
+          <div class="a-service-num">02</div>
+          <h3 class="a-service-title">Ravalement</h3>
+          <p class="a-service-subtitle">Valorisation et protection de votre bâtiment</p>
+          <p class="a-service-desc">Le ravalement de façade est essentiel pour conserver l'intégrité de votre bien, tout en améliorant son aspect extérieur. Nous supervisons et coordonnons les travaux de réfection et de rénovation de vos façades, pour garantir leur durabilité et leur esthétique.</p>
+          <div class="a-service-list">
+            <div class="a-service-item">
+              <div class="a-service-item-bullet"></div>
+              <div>
+                <strong>Diagnostic et préparation des travaux</strong>
+                <span>Diagnostic précis de l'état des façades et définition des travaux nécessaires, dans le respect des règles de l'art et des exigences locales.</span>
+              </div>
+            </div>
+            <div class="a-service-item">
+              <div class="a-service-item-bullet"></div>
+              <div>
+                <strong>Réparation et restauration</strong>
+                <span>Coordination des travaux de réparation des fissures, application de traitements d'étanchéité, remise en état des surfaces.</span>
+              </div>
+            </div>
+            <div class="a-service-item">
+              <div class="a-service-item-bullet"></div>
+              <div>
+                <strong>Peinture et isolation</strong>
+                <span>Finitions : peinture extérieure, isolation thermique par l'extérieur (ITE) pour améliorer l'efficacité énergétique du bâtiment.</span>
+              </div>
+            </div>
+          </div>
+        </article>
+        <article class="a-service">
+          <div class="a-service-num">03</div>
+          <h3 class="a-service-title">Balcons en plomb</h3>
+          <p class="a-service-subtitle">Restauration &amp; habillage traditionnel</p>
+          <p class="a-service-desc">L'habillage des balcons en plomb est un savoir-faire artisanal au cœur du patrimoine haussmannien. Nous restaurons, étanchéifions et habillons vos balcons dans le respect des techniques traditionnelles.</p>
+          <div class="a-service-list">
+            <div class="a-service-item">
+              <div class="a-service-item-bullet"></div>
+              <div>
+                <strong>Diagnostic et expertise</strong>
+                <span>Évaluation de l'état des plombs existants, repérage des fuites et des zones à reprendre.</span>
+              </div>
+            </div>
+            <div class="a-service-item">
+              <div class="a-service-item-bullet"></div>
+              <div>
+                <strong>Pose et restauration</strong>
+                <span>Habillage neuf ou réfection à l'identique des balcons en plomb, dans le respect des règles de l'art.</span>
+              </div>
+            </div>
+            <div class="a-service-item">
+              <div class="a-service-item-bullet"></div>
+              <div>
+                <strong>Étanchéité et finitions</strong>
+                <span>Reprise des soudures, étanchéité des relevés et raccords, finitions soignées pour une durabilité maximale.</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="a-section a-section-light" id="a-realisations-section">
+    <div class="a-section-inner">
+      <div class="a-section-header">
+        <span class="a-eyebrow">Nos chantiers</span>
+        <h2 class="a-title">Nos <em>réalisations</em>.</h2>
+        <p class="a-lead">Chaque chantier est l'occasion de mettre en pratique notre exigence et notre savoir-faire. Voici un aperçu de nos interventions récentes en région parisienne.</p>
+      </div>
+      
+      <div class="chantiers-slider" id="chantiers-slider">
+        <div class="chantiers-viewport">
+          <div class="chantiers-track" id="chantiers-track">
+
+            <div class="a-realisation-visual">
+              <div class="a-realisation-text">
+                <h3>Rue Coquillière, <em>Paris 1er</em></h3>
+                <p class="a-lead">Réfection complète d'une toiture parisienne avec ravalement de la façade haussmannienne. Un chantier mené en trois mois, dans le respect du patrimoine architectural du quartier des Halles.</p>
+              </div>
+              <div class="ba-slider">
+                <div class="ba-img ba-after" style="background-image: url('images/gZhfG2zK_caisse-d-epargne-APRES.jpg')"></div>
+                <div class="ba-img ba-before" style="background-image: url('images/qL86kk78_caisse-d-epargne-AVANT.jpg')"></div>
+                <div class="ba-label ba-label-before">Avant</div>
+                <div class="ba-label ba-label-after">Après</div>
+                <div class="ba-handle"></div>
+              </div>
+            </div>
+
+            <div class="a-realisation-visual">
+              <div class="a-realisation-text">
+                <h3>Réfection de toiture, <em>Paris</em></h3>
+                <p class="a-lead">Réfection complète d'une couverture en zinc sur un immeuble haussmannien : dépose de l'ancienne toiture, pose de zinc neuf et zinguerie. Étanchéité et finitions soignées.</p>
+              </div>
+              <div class="ba-slider" style="aspect-ratio: 5/4">
+                <div class="ba-img ba-after" style="background-image: url('images/chantier-toiture-apres.png')"></div>
+                <div class="ba-img ba-before" style="background-image: url('images/chantier-toiture-avant.jpg')"></div>
+                <div class="ba-label ba-label-before">Avant</div>
+                <div class="ba-label ba-label-after">Après</div>
+                <div class="ba-handle"></div>
+              </div>
+            </div>
+
+            <div class="a-realisation-visual">
+              <div class="a-realisation-text">
+                <h3>Boulevard Haussmann, <em>Paris 9ème</em></h3>
+                <p class="a-lead">Réfection complète de toiture zinc avec reprise des ornements et lucarnes d'origine. Une intervention technique au cœur du Paris haussmannien.</p>
+              </div>
+              <div class="ba-slider" style="aspect-ratio: 5/4">
+                <div class="ba-img ba-after" style="background-image: url('images/5gXtWqLF_IMG-1750.avif')"></div>
+                <div class="ba-img ba-before" style="background-image: url('images/Lhnq6gws_IMG-1356.avif')"></div>
+                <div class="ba-label ba-label-before">Avant</div>
+                <div class="ba-label ba-label-after">Après</div>
+                <div class="ba-handle"></div>
+              </div>
+            </div>
+
+            <div class="a-realisation-visual">
+              <div class="a-realisation-text">
+                <h3>Chantier en <em>quatre regards</em></h3>
+                <p class="a-lead">Un aperçu en plusieurs angles d'une intervention récente — du diagnostic initial aux finitions, chaque détail révèle le soin porté à l'ouvrage.</p>
+              </div>
+              <div class="a-gallery-grid">
+                <div class="a-gallery-cell" style="background-image: url('images/qMPwM3Vp_IMG-1017.jpg')"></div>
+                <div class="a-gallery-cell" style="background-image: url('images/HTfk3yMk_IMG-1019-1.jpg')"></div>
+                <div class="a-gallery-cell" style="background-image: url('images/Kj8Ws0dj_IMG-1020.jpg')"></div>
+                <div class="a-gallery-cell" style="background-image: url('images/s9H7jhk1_IMG-1021.jpg')"></div>
+              </div>
+            </div>
+
+            <div class="a-realisation-visual">
+              <div class="a-realisation-text">
+                <h3>Chantier <em>en images</em></h3>
+                <p class="a-lead">Quelques vues d'une réfection de toiture en zinc sur les toits de Paris — du faîtage aux lucarnes, le soin apporté à chaque détail.</p>
+              </div>
+              <div class="a-photo-carousel">
+                <div class="pc-img" style="background-image: url('images/chantier-vue-1.jpg')"></div>
+                <div class="pc-img" style="background-image: url('images/chantier-vue-2.jpg')"></div>
+                <div class="pc-img" style="background-image: url('images/chantier-vue-3.jpg')"></div>
+                <div class="pc-dots"><span></span><span></span><span></span></div>
+              </div>
+            </div>
+
+            <div class="a-realisation-visual">
+              <div class="a-realisation-text">
+                <h3>Vue détaillée, <em>à deux échelles</em></h3>
+                <p class="a-lead">Deux moments capturés sur le terrain, qui illustrent la précision et le suivi minutieux de chaque intervention.</p>
+              </div>
+              <div class="a-gallery-grid a-gallery-grid--duo">
+                <div class="a-gallery-cell" style="background-image: url('images/S48N3WCy_IMG-4368.png')"></div>
+                <div class="a-gallery-cell" style="background-image: url('images/pBWdXct8_IMG-4369.png')"></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <button type="button" class="chantiers-arrow chantiers-arrow-prev" aria-label="Chantier précédent" onclick="chantiersPrev()">‹</button>
+        <button type="button" class="chantiers-arrow chantiers-arrow-next" aria-label="Chantier suivant" onclick="chantiersNext()">›</button>
+
+        <div class="chantiers-dots" id="chantiers-dots">
+          <button type="button" class="chantiers-dot active" onclick="chantiersGoTo(0)" aria-label="Chantier 1"></button>
+          <button type="button" class="chantiers-dot" onclick="chantiersGoTo(1)" aria-label="Chantier 2"></button>
+          <button type="button" class="chantiers-dot" onclick="chantiersGoTo(2)" aria-label="Chantier 3"></button>
+          <button type="button" class="chantiers-dot" onclick="chantiersGoTo(3)" aria-label="Chantier 4"></button>
+          <button type="button" class="chantiers-dot" onclick="chantiersGoTo(4)" aria-label="Chantier 5"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="a-section a-section-cream" id="a-about-section">
+    <div class="a-section-inner">
+      <div class="a-section-header">
+        <span class="a-eyebrow">Qui sommes-nous ?</span>
+        <h2 class="a-title">Une entreprise familiale <em>en plein essor</em>.</h2>
+      </div>
+      
+      <div class="a-about">
+        <div class="a-about-visual">
+          <div class="a-about-stat">
+            <div class="a-about-stat-num">20</div>
+            <div class="a-about-stat-label">Ans d'expertise BTP</div>
+          </div>
+        </div>
+        <div>
+          <span class="a-about-tag">Adamois Renov'</span>
+          <p class="a-lead">Chez <strong style="color:#2a1f15;font-weight:600;">Adamois Renov'</strong>, nous sommes une entreprise à taille humaine et familiale, forte de 20 ans d'expertise dans le BTP.</p>
+          <p class="a-lead">Forts de notre longue expérience, nous accompagnons nos clients dans la gestion de leurs projets de construction, de rénovation et d'entretien, avec un savoir-faire et un engagement qui font notre différence.</p>
+          <p class="a-lead">Notre équipe passionnée et dévouée met un point d'honneur à offrir des solutions personnalisées, adaptées aux besoins spécifiques de chaque client. Que ce soit pour un projet de toiture, de ravalement de façade ou toute autre prestation liée à la gestion de chantier, nous assurons une gestion rigoureuse et un suivi constant tout au long des travaux.</p>
+        </div>
+      </div>
+      
+      <div class="a-values">
+        <h3 class="a-values-title">Notre <em>valeur ajoutée</em></h3>
+        <p class="a-lead" style="text-align:center;max-width:800px;margin:0 auto 2rem;">En tant qu'entreprise familiale, nous cultivons des valeurs de proximité, transparence et confiance. Chaque projet est une nouvelle aventure que nous abordons avec attention, rigueur et passion.</p>
+        
+        <div class="a-values-grid">
+          <div class="a-value">
+            <div class="a-value-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 10v11h18V10M3 10l9-7 9 7M9 21v-6h6v6"/></svg>
+            </div>
+            <div class="a-value-title">Proximité</div>
+            <div class="a-value-text">Une entreprise familiale à taille humaine, à votre écoute à chaque étape.</div>
+          </div>
+          <div class="a-value">
+            <div class="a-value-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="a-value-title">Transparence</div>
+            <div class="a-value-text">Devis clair, suivi de chantier précis, respect des délais et des budgets fixés.</div>
+          </div>
+          <div class="a-value">
+            <div class="a-value-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+            </div>
+            <div class="a-value-title">Confiance</div>
+            <div class="a-value-text">20 ans d'expertise et des solutions sur mesure pour la satisfaction de nos clients.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="a-partners">
+    <div class="a-partners-label">Nos partenaires de confiance</div>
+    <div class="a-partners-marquee">
+      <div class="a-partners-track">
+        <span class="a-partner-logo"><img src="images/kTtDSkD_pro-btp.jpg" alt="Pro BTP" loading="lazy"></span>
+        <span class="a-partner-logo"><img src="images/Q7nsTjQM_STO.jpg" style="--scale: 1.5" alt="STO" loading="lazy"></span>
+        <span class="a-partner-logo"><img src="images/Cxv1k2D_velux-2.png" style="--scale: 0.85" alt="Velux" loading="lazy"></span>
+        <span class="a-partner-logo"><img src="images/2Y7MQH76_images.jpg" alt="Sergic" loading="lazy"></span>
+        <span class="a-partner-logo"><img src="images/bjt2PCpy_5d399cd2a40000992bbdae5a.jpg" alt="Oxigen" loading="lazy"></span>
+        <span class="a-partner-logo"><img src="images/Qv4XtmkT_Logo-Foncia.png" alt="Foncia" loading="lazy"></span>
+        <!-- Duplicate set for seamless infinite loop -->
+        <span class="a-partner-logo" aria-hidden="true"><img src="images/kTtDSkD_pro-btp.jpg" alt="" loading="lazy"></span>
+        <span class="a-partner-logo" aria-hidden="true"><img src="images/Q7nsTjQM_STO.jpg" style="--scale: 1.5" alt="" loading="lazy"></span>
+        <span class="a-partner-logo" aria-hidden="true"><img src="images/Cxv1k2D_velux-2.png" style="--scale: 0.85" alt="" loading="lazy"></span>
+        <span class="a-partner-logo" aria-hidden="true"><img src="images/2Y7MQH76_images.jpg" alt="" loading="lazy"></span>
+        <span class="a-partner-logo" aria-hidden="true"><img src="images/bjt2PCpy_5d399cd2a40000992bbdae5a.jpg" alt="" loading="lazy"></span>
+        <span class="a-partner-logo" aria-hidden="true"><img src="images/Qv4XtmkT_Logo-Foncia.png" alt="" loading="lazy"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="a-contact-section" id="a-contact-section">
+    <div class="a-contact-inner">
+      <div class="a-contact-info">
+        <span class="a-eyebrow" style="color:#d4a574;">Contact</span>
+        <h2 class="a-title a-contact-info-title" style="color:#fff;">Vous avez <em>un projet</em> ?</h2>
+        <p class="a-lead">Chez Adamois Renov', nous mettons notre expertise à votre service pour vos travaux de toiture et ravalement. Contactez-nous pour toute question ou demande de devis, nous vous répondrons rapidement.</p>
+        
+        <div class="a-contact-coords">
+          <div class="a-contact-line">
+            <div class="a-contact-line-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <div class="a-contact-line-label">Téléphone</div>
+              <div class="a-contact-line-value"><a href="tel:0667961480">06 67 96 14 80</a></div>
+            </div>
+          </div>
+          <div class="a-contact-line">
+            <div class="a-contact-line-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div>
+              <div class="a-contact-line-label">Email</div>
+              <div class="a-contact-line-value"><a href="mailto:adamois.renov@gmail.com">adamois.renov@gmail.com</a></div>
+            </div>
+          </div>
+          <div class="a-contact-line">
+            <div class="a-contact-line-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <div class="a-contact-line-label">Adresse</div>
+              <div class="a-contact-line-value">
+                <a href="https://www.google.com/maps/search/?api=1&query=Parc%20Louis%20Roche%2C%20114%20avenue%20Louis%20Roche%2C%2092230%20Gennevilliers" target="_blank" rel="noopener">
+                  Parc Louis Roche · Bâtiment 306<br>
+                  114 avenue Louis Roche<br>
+                  92230 Gennevilliers
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="a-form">
+        <div class="a-form-row">
+          <div class="a-form-field">
+            <label for="a-firstname">Prénom</label>
+            <input type="text" id="a-firstname" placeholder="Votre prénom">
+          </div>
+          <div class="a-form-field">
+            <label for="a-lastname">Nom</label>
+            <input type="text" id="a-lastname" placeholder="Votre nom">
+          </div>
+        </div>
+        <div class="a-form-field">
+          <label for="a-company">Société</label>
+          <input type="text" id="a-company" placeholder="Nom de votre entreprise">
+        </div>
+        <div class="a-form-field">
+          <label for="a-email">Email *</label>
+          <input type="email" id="a-email" placeholder="votre@email.com" required>
+        </div>
+        <div class="a-form-field">
+          <label for="a-message">Message</label>
+          <textarea id="a-message" placeholder="Décrivez votre projet en quelques lignes..."></textarea>
+        </div>
+        <button class="a-btn a-form-submit" onclick="submitAdamoisForm()">
+          Envoyer <span>→</span>
+        </button>
+        <div class="a-form-success" id="a-form-success">
+          Merci ! Votre message a bien été envoyé, nous vous répondrons rapidement.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="a-footer">
+    <div>ADAMOIS RENOV' · 20 ANS D'EXPERTISE BTP</div>
+    <div style="margin-top:0.8rem; opacity:0.7;">© 2025 · <a class="a-footer-back" onclick="goHome()">Retour au Groupe Adamois</a></div>
+  </footer>
+</div>
+
+<script>
+  function enter(universe) {
+    if (universe === 'majel') {
+      enterMajel();
+    } else {
+      enterAdamois();
+    }
+  }
+
+  // Majel : fondu cinéma acier + révélation du site
+  function enterMajel() {
+    if (!history.state || history.state.view !== 'majel') {
+      history.pushState({view: 'majel'}, '', '#majel');
+    }
+    const fade = document.getElementById('majel-fade');
+
+    fade.classList.add('active');
+    // Force le reflow pour que la transition se déclenche depuis opacity:0
+    void fade.offsetWidth;
+    fade.classList.add('fade-in');
+
+    // Swap vers le site Majel pendant que l'écran est couvert
+    setTimeout(function() {
+      showMajelSite();
+    }, 900);
+
+    // Début du fondu de sortie
+    setTimeout(function() {
+      fade.classList.add('fade-out');
+    }, 1150);
+
+    // Nettoyage des classes
+    setTimeout(function() {
+      fade.classList.remove('active', 'fade-in', 'fade-out');
+    }, 2050);
+  }
+
+  // Adamois : fondu cinéma chaud + révélation du site
+  function enterAdamois() {
+    if (!history.state || history.state.view !== 'adamois') {
+      history.pushState({view: 'adamois'}, '', '#adamois');
+    }
+    const fade = document.getElementById('adamois-fade');
+
+    // Activation immédiate puis transition vers opacité 1
+    fade.classList.add('active');
+    // Force le reflow pour que la transition se déclenche depuis opacity:0
+    void fade.offsetWidth;
+    fade.classList.add('fade-in');
+
+    // Swap vers le site Adamois pendant que l'écran est couvert
+    setTimeout(function() {
+      showAdamoisSite();
+    }, 900);
+
+    // Début du fondu de sortie
+    setTimeout(function() {
+      fade.classList.add('fade-out');
+    }, 1150);
+
+    // Nettoyage des classes
+    setTimeout(function() {
+      fade.classList.remove('active', 'fade-in', 'fade-out');
+    }, 2050);
+  }
+  
+  function showMajelSite() {
+    document.getElementById('home-page').classList.add('hidden');
+    document.getElementById('majel-site').classList.add('visible');
+    document.getElementById('adamois-site').classList.remove('visible');
+    document.body.classList.add('scrolling');
+    window.scrollTo(0, 0);
+  }
+  
+  function showAdamoisSite() {
+    document.getElementById('home-page').classList.add('hidden');
+    document.getElementById('adamois-site').classList.add('visible');
+    document.getElementById('majel-site').classList.remove('visible');
+    document.body.classList.add('scrolling');
+    window.scrollTo(0, 0);
+    setTimeout(initBeforeAfterSliders, 100);
+    setTimeout(initChantiersSlider, 120);
+  }
+  
+  function goHome(skipPush) {
+    document.getElementById('majel-site').classList.remove('visible');
+    document.getElementById('adamois-site').classList.remove('visible');
+    document.getElementById('home-page').classList.remove('hidden');
+    document.body.classList.remove('scrolling');
+    window.scrollTo(0, 0);
+    if (!skipPush && (!history.state || history.state.view !== 'home')) {
+      history.pushState({view: 'home'}, '', location.pathname + location.search);
+    }
+  }
+
+  // Bouton "Retour" du navigateur -> on reste à l'intérieur du site
+  window.addEventListener('popstate', function(e) {
+    const stateView = e.state && e.state.view;
+    let view;
+    if (stateView) view = stateView;
+    else {
+      const h = location.hash || '';
+      if (h === '#majel' || h.indexOf('#m-') === 0) view = 'majel';
+      else if (h === '#adamois' || h.indexOf('#a-') === 0) view = 'adamois';
+      else view = 'home';
+    }
+    if (view === 'majel') showMajelSite();
+    else if (view === 'adamois') showAdamoisSite();
+    else goHome(true);
+  });
+  // Lien profond initial (ex. URL #majel partagée) + état initial pour le retour
+  (function initFromHash() {
+    const h = location.hash || '';
+    if (h === '#majel' || h.indexOf('#m-') === 0) {
+      history.replaceState({view: 'majel'}, '', h || '#majel');
+      showMajelSite();
+    } else if (h === '#adamois' || h.indexOf('#a-') === 0) {
+      history.replaceState({view: 'adamois'}, '', h || '#adamois');
+      showAdamoisSite();
+    } else {
+      history.replaceState({view: 'home'}, '', location.pathname + location.search);
+    }
+  })();
   
   function initBeforeAfterSliders() {
     const sliders = document.querySelectorAll('.ba-slider');
@@ -2745,5 +3354,4 @@
 </script>
 
 </body>
-
 </html>

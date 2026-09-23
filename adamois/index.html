@@ -1899,8 +1899,577 @@
   }
 </style>
 </head>
-<body class="scrolling">
-<div id="adamois-site" class="visible">
+<body>
+
+<!-- TRANSITION FONDU (vers Majel Lift) -->
+<div id="majel-fade">
+  <div class="majel-fade-content">
+    <span class="majel-fade-eyebrow">Métallurgie & Ouvrages</span>
+    <h2 class="majel-fade-name">Majel <em>Lift</em></h2>
+    <div class="majel-fade-line"></div>
+  </div>
+</div>
+
+<!-- TRANSITION FONDU (vers Adamois Renov') -->
+<div id="adamois-fade">
+  <div class="adamois-fade-content">
+    <span class="adamois-fade-eyebrow">Bâtiment & Patrimoine</span>
+    <h2 class="adamois-fade-name">Adamois <em>Renov'</em></h2>
+    <div class="adamois-fade-line"></div>
+  </div>
+</div>
+
+<!-- PAGE D'ACCUEIL -->
+<div id="home-page">
+  <main class="hub" id="hub">
+    <section class="universe adamois" onclick="enter('adamois')">
+      <div class="universe-bg"></div>
+      <div class="universe-content">
+        <div class="universe-top">
+          <span class="badge">Bâtiment & Patrimoine</span>
+          <h2 class="universe-name">Adamois <em>Renov'</em></h2>
+          <p class="universe-tagline">Le savoir-faire père & fils au service des façades et toitures, avec plus de 20 ans d'expérience.</p>
+        </div>
+        <div class="universe-bottom">
+          <ul class="trades">
+            <li><span class="trade-num">01</span> Ravalement de façade</li>
+            <li><span class="trade-num">02</span> Couverture zinc, ardoise, tuile</li>
+            <li><span class="trade-num">03</span> Zinguerie & ornements</li>
+          </ul>
+          <a class="cta" onclick="event.stopPropagation(); enter('adamois')">
+            Découvrir l'univers BTP
+            <span class="cta-arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+    
+    <div class="divider"></div>
+    
+    <section class="universe majel" onclick="enter('majel')">
+      <div class="universe-bg"></div>
+      <div class="universe-content">
+        <div class="universe-top">
+          <span class="badge">Métallurgie & Ouvrages</span>
+          <h2 class="universe-name">Majel <em>Lift</em></h2>
+          <p class="universe-tagline">L'élévation métallique familiale — façonner l'acier pour des ouvrages durables et sur-mesure.</p>
+          <span class="universe-restriction">Réservé aux professionnels</span>
+        </div>
+        <div class="universe-bottom">
+          <ul class="trades">
+            <li><span class="trade-num">01</span> Tôlerie & travail du métal</li>
+            <li><span class="trade-num">02</span> Serrurerie & garde-corps</li>
+            <li><span class="trade-num">03</span> Structures métalliques</li>
+          </ul>
+          <a class="cta" onclick="event.stopPropagation(); enter('majel')">
+            Découvrir l'univers Métal
+            <span class="cta-arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+    
+    <div class="center-logo">
+      <div class="logo-circle">
+        <div class="logo-mark">GA</div>
+        <div class="logo-sub">Groupe</div>
+      </div>
+      <div class="baseline">Bâtir & façonner</div>
+    </div>
+  </main>
+
+</div>
+
+<!-- SITE MAJEL LIFT -->
+<div id="majel-site">
+  <nav class="m-nav">
+    <div class="m-nav-brand-block" onclick="goHome()">
+      <div class="m-nav-mark"><img src="images/Q3yJKJz0_Logo-moderne-de-MAJEL-LIFT-1-Photoroom.png" alt="Majel Lift"></div>
+      <div class="m-nav-brand">Majel <em>Lift</em></div>
+    </div>
+    <div class="m-nav-links">
+      <a href="#m-services-section">Nos services</a>
+      <a href="#m-realisations-section">Réalisations</a>
+      <a href="#m-atelier-section">Atelier</a>
+      <a href="#m-fondateur-section">Le fondateur</a>
+      <a href="#m-contact-section">Contact</a>
+      <a class="m-nav-back" onclick="goHome()">← Groupe Adamois</a>
+    </div>
+  </nav>
+
+  <section class="m-hero">
+    <div class="m-hero-inner">
+      <div>
+        <span class="m-eyebrow">Tôlerie · Serrurerie · Métal sur mesure</span>
+        <h1 class="m-hero-title">La solution pour vos besoins en <em>tôlerie industrielle</em>.</h1>
+        <p class="m-lead m-hero-lead">Vous êtes à la recherche d'un sous-traitant fiable pour la fabrication de pièces métalliques sur mesure ? Majel Lift accompagne les professionnels du bâtiment et de l'ascensoriste avec une exigence de qualité et de durabilité.</p>
+        <div class="m-actions">
+          <a class="m-btn" onclick="event.preventDefault(); openMajelModal();" href="#">Obtenir un devis <span>→</span></a>
+        </div>
+      </div>
+      <aside class="m-hero-card">
+        <div class="m-hero-card-tag">Atelier · Île-de-France</div>
+        <h3 class="m-hero-card-title">Une tôlerie-serrurerie au cœur du Grand Paris</h3>
+        <p class="m-hero-card-text">Basée à Gennevilliers, à quelques minutes du périphérique et des axes autoroutiers A86 / A15. Interlocuteur idéal pour vos chantiers parisiens et de la petite couronne.</p>
+        <div class="m-hero-card-contact">
+          <div>📞 <a href="tel:0650080337">06 50 08 03 37</a></div>
+          <div>✉ <a href="mailto:Majel.lift@gmail.com">Majel.lift@gmail.com</a></div>
+          <div>📍 <a href="https://www.google.com/maps/search/?api=1&query=Parc%20Louis%20Roche%2C%20114%20avenue%20Louis%20Roche%2C%2092230%20Gennevilliers" target="_blank" rel="noopener">Parc Louis Roche · Bât. 306<br><span style="padding-left:1.4rem;">114 av. Louis Roche, 92230 Gennevilliers</span></a></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="m-usps">
+    <div class="m-usp">
+      <div class="m-usp-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="m-usp-title">Devis gratuit & rapide</div>
+      <div class="m-usp-text">Réponse réactive et étude technique soignée pour chaque demande.</div>
+    </div>
+    <div class="m-usp">
+      <div class="m-usp-icon">
+        <svg viewBox="0 0 24 24" fill="none">
+          <rect x="3" y="6" width="6" height="12" fill="#0055A4"/>
+          <rect x="9" y="6" width="6" height="12" fill="#ffffff"/>
+          <rect x="15" y="6" width="6" height="12" fill="#EF4135"/>
+          <rect x="3" y="6" width="18" height="12" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="0.5"/>
+        </svg>
+      </div>
+      <div class="m-usp-title">Fabrication 100% française</div>
+      <div class="m-usp-text">Atelier à Gennevilliers, traçabilité totale, savoir-faire local.</div>
+    </div>
+    <div class="m-usp">
+      <div class="m-usp-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 10v11h18V10M3 10l9-7 9 7M9 21v-6h6v6"/></svg>
+      </div>
+      <div class="m-usp-title">Entreprise familiale</div>
+      <div class="m-usp-text">Une structure à taille humaine, un interlocuteur unique.</div>
+    </div>
+  </section>
+
+  <section class="m-vision" id="m-vision-section">
+    <div class="m-vision-inner">
+      <span class="m-eyebrow">Notre vision</span>
+      <p class="m-vision-quote">Nous redéfinissons la manière dont le secteur de l'ascenseur perçoit la fabrication de pièces métalliques sur mesure.</p>
+      <p class="m-lead" style="max-width:700px;margin:0 auto;">Chez Majel Lift, nous nous engageons à offrir des solutions sur mesure qui répondent aux besoins spécifiques de nos clients dans le secteur de la construction et de l'ascensoriste. Nous mettons l'accent sur la qualité et la durabilité pour chaque projet.</p>
+      <div class="m-vision-attribution">Majel Lift · Tôlerie-Serrurerie</div>
+    </div>
+  </section>
+
+  <section class="m-section m-section-light" id="m-services-section">
+    <div class="m-section-inner">
+      <div class="m-section-header">
+        <span class="m-eyebrow">Nos expertises</span>
+        <h2 class="m-title">Le métal, <em>façonné sur mesure</em>.</h2>
+        <p class="m-lead">Trois domaines d'intervention pour répondre aux besoins des professionnels du bâtiment et de l'ascensoriste : tôlerie pour ascenseurs, garde-corps sécurisés, portails et clôtures durables. Tout est conçu et fabriqué dans notre atelier de Gennevilliers.</p>
+      </div>
+      <div class="m-expertises">
+        <article class="m-expertise">
+          <div class="m-expertise-num">01</div>
+          <h3 class="m-expertise-title">Professionnel de l'ascenseur</h3>
+          <p class="m-expertise-desc">Fabrication de pièces métalliques destinées aux ascenseurs, selon vos besoins spécifiques et dans le respect des normes en vigueur. Notre cœur de métier depuis l'origine.</p>
+          <ul class="m-expertise-list">
+            <li>Supports & équerres de fixation</li>
+            <li>Platines de montage</li>
+            <li>Supports pour guides & équipements</li>
+            <li>Protections & carters métalliques</li>
+            <li>Pièces de modernisation & maintenance</li>
+          </ul>
+        </article>
+        <article class="m-expertise">
+          <div class="m-expertise-num">02</div>
+          <h3 class="m-expertise-title">Garde-corps sur mesure</h3>
+          <p class="m-expertise-desc">Conception et fabrication de garde-corps pour sécuriser balcons, escaliers et zones en hauteur, dans le respect des normes en vigueur. Sécurité, robustesse et esthétisme.</p>
+          <ul class="m-expertise-list">
+            <li>Acier, inox, aluminium</li>
+            <li>Barreaudage, câbles, panneaux verre</li>
+            <li>Balcons & terrasses</li>
+            <li>Escaliers intérieurs / extérieurs</li>
+            <li>Pose assurée par Adamois Renov'</li>
+          </ul>
+        </article>
+        <article class="m-expertise">
+          <div class="m-expertise-num">03</div>
+          <h3 class="m-expertise-title">Portail & clôture</h3>
+          <p class="m-expertise-desc">Portails et clôtures sur mesure en métal, conçus pour braver le temps et les intempéries. Une protection robuste qui valorise durablement votre patrimoine.</p>
+          <ul class="m-expertise-list">
+            <li>Acier & aluminium haute qualité</li>
+            <li>Maîtrise de la soudure</li>
+            <li>Traitement anti-corrosion</li>
+            <li>Finition thermolaquée</li>
+            <li>Entretien minimal</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="m-section m-section-light">
+    <div class="m-section-inner">
+      <div class="m-detail">
+        <div>
+          <span class="m-eyebrow">Notre cœur de métier</span>
+          <h2 class="m-title">Conception de pièces métalliques <em>de précision</em>.</h2>
+          <p class="m-lead" style="margin-bottom:1.5rem;">Grâce à un savoir-faire en atelier reconnu, Majel Lift réalise des pièces sur mesure parfaitement adaptées aux exigences du métier d'ascensoriste. Chaque pièce est usinée avec précision pour garantir une installation simple et une compatibilité totale avec vos équipements.</p>
+          <p class="m-lead">Notre priorité : la qualité de nos réalisations et votre entière satisfaction. Nous proposons également une <strong style="color:#b56e3f;font-weight:600;">prise de mesure directement sur site</strong> ainsi que la conception des pièces nécessaires, pour vous faire gagner du temps.</p>
+        </div>
+        <div>
+          <p style="font-size:0.72rem;letter-spacing:0.25em;text-transform:uppercase;color:#b56e3f;font-weight:600;margin-bottom:1.5rem;">Pièces fabriquées en atelier</p>
+          <ul class="m-pieces-list">
+            <li>Supports et équerres de fixation</li>
+            <li>Platines de montage</li>
+            <li>Supports pour guides et équipements d'ascenseur</li>
+            <li>Protections et carters métalliques</li>
+            <li>Pièces de renfort et d'adaptation</li>
+            <li>Éléments de fixation spécifiques</li>
+            <li>Pièces sur mesure pour modernisation ou maintenance</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="m-gallery" id="m-realisations-section">
+    <div class="m-gallery-head">
+      <span class="m-eyebrow">Nos réalisations</span>
+      <h2 class="m-title">Quelques <em>pièces que nous réalisons</em>.</h2>
+      <p class="m-lead" style="max-width:720px;">Un aperçu de notre savoir-faire en tôlerie et serrurerie : pièces sur mesure, supports d'ascenseur, garde-corps et ouvrages métalliques façonnés dans notre atelier de Gennevilliers.</p>
+    </div>
+    <!-- Pour renommer une pièce : modifier le texte de .m-gallery-cat (catégorie) et .m-gallery-name (intitulé) -->
+    <div class="m-gallery-grid">
+      <figure class="m-gallery-item is-tall has-alt">
+        <img class="m-gallery-primary" src="images/1t1nCgsr_Chat-GPT-Image-21-mai-2026-13-25-46-Photoroom.png" alt="Réalisation Majel Lift" loading="lazy">
+        <img class="m-gallery-alt" src="images/RGWkZYH2_Chat-GPT-Image-21-mai-2026-11-55-24-Photoroom.png" alt="Réalisation Majel Lift — autre vue" loading="lazy">
+        <span class="m-gallery-multi" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M3 16V5a2 2 0 0 1 2-2h11"/></svg>
+          2 vues
+        </span>
+        <figcaption class="m-gallery-cap">
+          <span class="m-gallery-cat">Tôlerie</span>
+          <span class="m-gallery-name">Pièce sur mesure</span>
+        </figcaption>
+      </figure>
+      <figure class="m-gallery-item has-alt">
+        <img class="m-gallery-primary" src="images/ZzsGZJgV_IMG-7225-Photoroom.png" alt="Réalisation Majel Lift" loading="lazy">
+        <img class="m-gallery-alt" src="images/NgHpb6c8_IMG-7223-Photoroom.png" alt="Réalisation Majel Lift — autre vue" loading="lazy">
+        <span class="m-gallery-multi" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M3 16V5a2 2 0 0 1 2-2h11"/></svg>
+          2 vues
+        </span>
+        <figcaption class="m-gallery-cap">
+          <span class="m-gallery-cat">Atelier</span>
+          <span class="m-gallery-name">Ouvrage métallique</span>
+        </figcaption>
+      </figure>
+      <figure class="m-gallery-item">
+        <img src="images/1GvWV19t_IMG-7228-Photoroom.png" alt="Réalisation Majel Lift" loading="lazy">
+        <figcaption class="m-gallery-cap">
+          <span class="m-gallery-cat">Serrurerie</span>
+          <span class="m-gallery-name">Pièce façonnée</span>
+        </figcaption>
+      </figure>
+      <figure class="m-gallery-item is-tall has-alt is-zoom">
+        <img class="m-gallery-primary" src="images/n87DKcy4_IMG-7230-Photoroom.png" alt="Réalisation Majel Lift" loading="lazy">
+        <img class="m-gallery-alt" src="images/mFby5ptC_IMG-7232-Photoroom.png" alt="Réalisation Majel Lift — autre vue" loading="lazy">
+        <span class="m-gallery-multi" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M3 16V5a2 2 0 0 1 2-2h11"/></svg>
+          2 vues
+        </span>
+        <figcaption class="m-gallery-cap">
+          <span class="m-gallery-cat">Métallerie</span>
+          <span class="m-gallery-name">Réalisation atelier</span>
+        </figcaption>
+      </figure>
+      <figure class="m-gallery-item">
+        <img src="images/bg5NxpJT_IMG-7234-Photoroom.png" alt="Réalisation Majel Lift" loading="lazy">
+        <figcaption class="m-gallery-cap">
+          <span class="m-gallery-cat">Tôlerie</span>
+          <span class="m-gallery-name">Pièce de précision</span>
+        </figcaption>
+      </figure>
+      <figure class="m-gallery-item">
+        <img src="images/svhCQZM1_IMG-7238-Photoroom.png" alt="Réalisation Majel Lift" loading="lazy">
+        <figcaption class="m-gallery-cap">
+          <span class="m-gallery-cat">Sur mesure</span>
+          <span class="m-gallery-name">Ouvrage acier</span>
+        </figcaption>
+      </figure>
+      <figure class="m-gallery-item is-wide">
+        <img src="images/Fk6KZM8Z_IMG-7239-Photoroom.png" alt="Réalisation Majel Lift" loading="lazy">
+        <figcaption class="m-gallery-cap">
+          <span class="m-gallery-cat">Ascenseur</span>
+          <span class="m-gallery-name">Support & fixation</span>
+        </figcaption>
+      </figure>
+      <figure class="m-gallery-item">
+        <img src="images/1tqJWzjr_IMG-7241-Photoroom.png" alt="Réalisation Majel Lift" loading="lazy">
+        <figcaption class="m-gallery-cap">
+          <span class="m-gallery-cat">Tôlerie</span>
+          <span class="m-gallery-name">Pièce de précision</span>
+        </figcaption>
+      </figure>
+      <figure class="m-gallery-item is-big">
+        <img src="images/rRxYxwVk_IMG-7244-Photoroom.png" alt="Réalisation Majel Lift" loading="lazy">
+        <figcaption class="m-gallery-cap">
+          <span class="m-gallery-cat">Métallerie</span>
+          <span class="m-gallery-name">Fabrication sur mesure</span>
+        </figcaption>
+      </figure>
+      <figure class="m-gallery-item has-alt">
+        <img class="m-gallery-primary" src="images/WmJQtsH_IMG-7247-Photoroom.png" alt="Réalisation Majel Lift" loading="lazy">
+        <img class="m-gallery-alt" src="images/MyN1dJQZ_IMG-7246-Photoroom.png" alt="Réalisation Majel Lift — autre vue" loading="lazy">
+        <span class="m-gallery-multi" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M3 16V5a2 2 0 0 1 2-2h11"/></svg>
+          2 vues
+        </span>
+        <figcaption class="m-gallery-cap">
+          <span class="m-gallery-cat">Atelier</span>
+          <span class="m-gallery-name">Réalisation sur mesure</span>
+        </figcaption>
+      </figure>
+      <figure class="m-gallery-item is-wide has-alt">
+        <img class="m-gallery-primary" src="images/fdFc2wFd_IMG-7248-Photoroom.png" alt="Réalisation Majel Lift" loading="lazy">
+        <img class="m-gallery-alt" src="images/wZRW5z82_IMG-7249-Photoroom.png" alt="Réalisation Majel Lift — autre vue" loading="lazy">
+        <span class="m-gallery-multi" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M3 16V5a2 2 0 0 1 2-2h11"/></svg>
+          2 vues
+        </span>
+        <figcaption class="m-gallery-cap">
+          <span class="m-gallery-cat">Serrurerie</span>
+          <span class="m-gallery-name">Ouvrage façonné</span>
+        </figcaption>
+      </figure>
+      <figure class="m-gallery-item is-wide has-alt">
+        <img class="m-gallery-primary" src="images/35d6JhKJ_0be1f931-76dd-4009-af28-45ab8d3c8a1f-Photoroom.png" alt="Réalisation Majel Lift" loading="lazy">
+        <div class="m-gallery-alt m-gallery-alt-split">
+          <img src="images/bj6RLs0F_20b3a0d3-1db0-41c9-bc4a-5729731d123e.jpg" alt="Réalisation Majel Lift — vue 2" loading="lazy">
+          <img src="images/Hp9Js4xL_a43320d6-d906-498a-8c54-cca41e94ec82.jpg" alt="Réalisation Majel Lift — vue 3" loading="lazy">
+        </div>
+        <span class="m-gallery-multi" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M3 16V5a2 2 0 0 1 2-2h11"/></svg>
+          2 vues
+        </span>
+        <figcaption class="m-gallery-cap">
+          <span class="m-gallery-cat">Sur mesure</span>
+          <span class="m-gallery-name">Ouvrage métallique</span>
+        </figcaption>
+      </figure>
+      <figure class="m-gallery-item has-alt">
+        <img class="m-gallery-primary" src="images/RMBGzG7_IMG-7257-Photoroom.png" alt="Réalisation Majel Lift" loading="lazy">
+        <img class="m-gallery-alt" src="images/9knZCy0H_IMG-7256-Photoroom.png" alt="Réalisation Majel Lift — autre vue" loading="lazy">
+        <span class="m-gallery-multi" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M3 16V5a2 2 0 0 1 2-2h11"/></svg>
+          2 vues
+        </span>
+        <figcaption class="m-gallery-cap">
+          <span class="m-gallery-cat">Sur mesure</span>
+          <span class="m-gallery-name">Réalisation atelier</span>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="m-atelier" id="m-atelier-section">
+    <div class="m-atelier-inner">
+      <div class="m-atelier-head">
+        <span class="m-eyebrow">Notre atelier</span>
+        <h2 class="m-title">L'atelier, <em>cœur de notre savoir-faire</em>.</h2>
+        <p class="m-lead">Au cœur de Gennevilliers, notre atelier réunit le parc de machines nécessaire au travail du métal : pliage, découpe, soudure et façonnage. Un outil de production complet qui nous permet de réaliser vos pièces sur mesure avec précision et réactivité.</p>
+      </div>
+      <div class="m-atelier-grid">
+        <figure class="m-atelier-item"><img src="images/atelier-1.jpg" alt="Atelier Majel Lift à Gennevilliers" loading="lazy"></figure>
+        <figure class="m-atelier-item"><img src="images/atelier-2.jpg" alt="Machine de tôlerie — atelier Majel Lift" loading="lazy"></figure>
+        <figure class="m-atelier-item"><img src="images/atelier-3.jpg" alt="Parc machines — atelier Majel Lift" loading="lazy"></figure>
+        <figure class="m-atelier-item"><img src="images/atelier-4.jpg" alt="Atelier de travail du métal Majel Lift" loading="lazy"></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="m-founder" id="m-fondateur-section">
+    <div class="m-founder-inner">
+      <div class="m-founder-visual">
+        <div class="m-founder-stat">
+          <div class="m-founder-stat-num">40+</div>
+          <div class="m-founder-stat-label">Années d'expérience</div>
+        </div>
+      </div>
+      <div>
+        <span class="m-eyebrow">L'expertise du fondateur</span>
+        <h2 class="m-title"><em>Éric Jacob</em>, plus de quatre décennies au service du métal.</h2>
+        <p class="m-lead" style="margin-bottom:1.5rem;">Notre entreprise a été fondée par Éric Jacob, professionnel de la tôlerie industrielle depuis plus de 40 ans. Au cours de sa carrière, il a passé 15 années à superviser la fabrication de pièces destinées au secteur de l'ascenseur, développant une expertise solide et reconnue dans ce domaine exigeant.</p>
+        <p class="m-lead">Aujourd'hui, Majel Lift incarne cette transmission de savoir-faire : être une tôlerie fiable et réactive au service des professionnels de l'ascenseur, avec la promesse d'une exécution soignée et de délais maîtrisés. Situés à Gennevilliers aux portes de Paris, nous offrons la possibilité aux professionnels de venir récupérer facilement leur marchandise directement sur place.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="m-clients">
+    <div class="m-clients-label">Ils nous font confiance</div>
+    <div class="m-clients-grid">
+      <div class="m-clients-track">
+        <!-- Liste des partenaires -->
+        <span class="m-client"><img src="images/wZM3Snjv_tke-logo-rgb-standard-gradient-1-scaled.jpg" alt="TKE" loading="lazy"></span>
+        <span class="m-client"><img src="images/4wRj0tVS_Modele-logo-otis.png" alt="Otis" loading="lazy"></span>
+        <span class="m-client"><img src="images/wZT0wKpP_logo-Foncia.png" alt="Foncia" loading="lazy"></span>
+        <span class="m-client"><img src="images/TBJGvdb2_logo-sergic.png" alt="Sergic" loading="lazy"></span>
+        <span class="m-client"><img src="images/h1ckL6Jx_8b2b0141-176a-4501-bbc1-9f1e22f9c71b.png" alt="A2M" loading="lazy"></span>
+        <span class="m-client"><img src="images/JWrPH2Ts_1767266469759.jpg" alt="Adamois Renov'" loading="lazy"></span>
+        <span class="m-client"><img src="images/xt033Sth_logo-oxigen.png" alt="Oxigen" loading="lazy"></span>
+        <!-- Duplicat pour boucle infinie (ne pas modifier indépendamment) -->
+        <span class="m-client" aria-hidden="true"><img src="images/wZM3Snjv_tke-logo-rgb-standard-gradient-1-scaled.jpg" alt="" loading="lazy"></span>
+        <span class="m-client" aria-hidden="true"><img src="images/4wRj0tVS_Modele-logo-otis.png" alt="" loading="lazy"></span>
+        <span class="m-client" aria-hidden="true"><img src="images/wZT0wKpP_logo-Foncia.png" alt="" loading="lazy"></span>
+        <span class="m-client" aria-hidden="true"><img src="images/TBJGvdb2_logo-sergic.png" alt="" loading="lazy"></span>
+        <span class="m-client" aria-hidden="true"><img src="images/h1ckL6Jx_8b2b0141-176a-4501-bbc1-9f1e22f9c71b.png" alt="" loading="lazy"></span>
+        <span class="m-client" aria-hidden="true"><img src="images/JWrPH2Ts_1767266469759.jpg" alt="" loading="lazy"></span>
+        <span class="m-client" aria-hidden="true"><img src="images/xt033Sth_logo-oxigen.png" alt="" loading="lazy"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="m-contact" id="m-contact-section">
+    <div class="m-contact-inner">
+      <div>
+        <span class="m-eyebrow">Contact</span>
+        <h2 class="m-title">Parlons de <em>votre projet</em>.</h2>
+        <p class="m-lead" style="margin-bottom:2rem;">Une pièce sur mesure, un garde-corps, un portail, un projet d'ascenseur ? Contactez-nous pour un devis gratuit et rapide.</p>
+        <a class="m-btn" onclick="event.preventDefault(); openMajelModal();" href="#">Obtenir un devis <span>→</span></a>
+      </div>
+      <div class="m-contact-info">
+        <div class="m-contact-line">
+          <div class="m-contact-line-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="m-contact-line-content">
+            <div class="m-contact-line-label">Téléphone</div>
+            <div class="m-contact-line-value"><a href="tel:0650080337">06 50 08 03 37</a></div>
+          </div>
+        </div>
+        <div class="m-contact-line">
+          <div class="m-contact-line-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div class="m-contact-line-content">
+            <div class="m-contact-line-label">Email</div>
+            <div class="m-contact-line-value"><a href="mailto:Majel.lift@gmail.com">Majel.lift@gmail.com</a></div>
+          </div>
+        </div>
+        <div class="m-contact-line">
+          <div class="m-contact-line-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="m-contact-line-content">
+            <div class="m-contact-line-label">Adresse</div>
+            <div class="m-contact-line-value">
+              <a href="https://www.google.com/maps/search/?api=1&query=Parc%20Louis%20Roche%2C%20114%20avenue%20Louis%20Roche%2C%2092230%20Gennevilliers" target="_blank" rel="noopener">
+                Parc Louis Roche · Bâtiment 306<br>
+                114 avenue Louis Roche<br>
+                92230 Gennevilliers
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="m-footer">
+    <div>MAJEL LIFT · TÔLERIE-SERRURERIE FAMILIALE · GENNEVILLIERS</div>
+    <div style="margin-top:0.8rem; opacity:0.7;">© 2025 · <a class="m-footer-back" onclick="goHome()">Retour au Groupe Adamois</a></div>
+  </footer>
+
+  <!-- Modale "Obtenir un devis" Majel Lift -->
+  <div id="majel-quote-modal" class="m-modal" onclick="closeMajelModalIfBackdrop(event)">
+    <div class="m-modal-panel" onclick="event.stopPropagation()">
+      <button class="m-modal-close" onclick="closeMajelModal()" aria-label="Fermer">×</button>
+
+      <div class="m-modal-header">
+        <span class="m-eyebrow">Devis gratuit</span>
+        <h2 class="m-title">Parlons de <em>votre projet</em>.</h2>
+        <p class="m-lead">Une pièce sur mesure, un garde-corps, un portail, un projet d'ascenseur ? Remplissez le formulaire ou contactez-nous directement.</p>
+      </div>
+
+      <div class="m-modal-body">
+        <!-- Coordonnées Majel Lift -->
+        <div class="m-modal-info">
+          <div class="m-contact-line">
+            <div class="m-contact-line-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="m-contact-line-content">
+              <div class="m-contact-line-label">Téléphone</div>
+              <div class="m-contact-line-value"><a href="tel:0650080337">06 50 08 03 37</a></div>
+            </div>
+          </div>
+          <div class="m-contact-line">
+            <div class="m-contact-line-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div class="m-contact-line-content">
+              <div class="m-contact-line-label">Email</div>
+              <div class="m-contact-line-value"><a href="mailto:Majel.lift@gmail.com">Majel.lift@gmail.com</a></div>
+            </div>
+          </div>
+          <div class="m-contact-line">
+            <div class="m-contact-line-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="m-contact-line-content">
+              <div class="m-contact-line-label">Adresse</div>
+              <div class="m-contact-line-value">
+                <a href="https://www.google.com/maps/search/?api=1&query=Parc%20Louis%20Roche%2C%20114%20avenue%20Louis%20Roche%2C%2092230%20Gennevilliers" target="_blank" rel="noopener">
+                  Parc Louis Roche · Bâtiment 306<br>
+                  114 avenue Louis Roche<br>
+                  92230 Gennevilliers
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Formulaire de devis -->
+        <div class="m-form">
+          <div class="m-form-row">
+            <div class="m-form-field">
+              <label for="m-firstname">Prénom</label>
+              <input type="text" id="m-firstname" placeholder="Votre prénom">
+            </div>
+            <div class="m-form-field">
+              <label for="m-lastname">Nom</label>
+              <input type="text" id="m-lastname" placeholder="Votre nom">
+            </div>
+          </div>
+          <div class="m-form-field">
+            <label for="m-company">Société</label>
+            <input type="text" id="m-company" placeholder="Nom de votre entreprise">
+          </div>
+          <div class="m-form-field">
+            <label for="m-email">Email *</label>
+            <input type="email" id="m-email" placeholder="votre@email.com" required>
+          </div>
+          <div class="m-form-field">
+            <label for="m-phone">Téléphone</label>
+            <input type="tel" id="m-phone" placeholder="06 12 34 56 78">
+          </div>
+          <div class="m-form-field">
+            <label for="m-message">Votre projet</label>
+            <textarea id="m-message" placeholder="Décrivez votre besoin en quelques lignes..."></textarea>
+          </div>
+          <button class="m-btn m-form-submit" onclick="submitMajelForm()">
+            Envoyer ma demande <span>→</span>
+          </button>
+          <div class="m-form-success" id="m-form-success">
+            Merci ! Votre demande a bien été envoyée, nous vous répondrons rapidement.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SITE ADAMOIS RENOV -->
+<div id="adamois-site">
   <nav class="a-nav">
     <div class="a-nav-brand-block" onclick="goHome()">
       <div class="a-nav-mark"><img src="images/v4rjhgby_ADAMOIS-Logo.jpg" alt="Adamois Renov'"></div>
@@ -2319,31 +2888,128 @@
 </div>
 
 <script>
-  // Page dédiée Adamois Renov' — le hub double-univers et le site Majel n'existent
-  // pas sur ce domaine, on n'a donc que quelques stubs sécurisés pour compatibilité.
-  function goHome() {
-    window.scrollTo({top: 0, behavior: 'smooth'});
+  function enter(universe) {
+    if (universe === 'majel') {
+      enterMajel();
+    } else {
+      enterAdamois();
+    }
   }
+
+  // Majel : fondu cinéma acier + révélation du site
+  function enterMajel() {
+    if (!history.state || history.state.view !== 'majel') {
+      history.pushState({view: 'majel'}, '', '#majel');
+    }
+    const fade = document.getElementById('majel-fade');
+
+    fade.classList.add('active');
+    // Force le reflow pour que la transition se déclenche depuis opacity:0
+    void fade.offsetWidth;
+    fade.classList.add('fade-in');
+
+    // Swap vers le site Majel pendant que l'écran est couvert
+    setTimeout(function() {
+      showMajelSite();
+    }, 900);
+
+    // Début du fondu de sortie
+    setTimeout(function() {
+      fade.classList.add('fade-out');
+    }, 1150);
+
+    // Nettoyage des classes
+    setTimeout(function() {
+      fade.classList.remove('active', 'fade-in', 'fade-out');
+    }, 2050);
+  }
+
+  // Adamois : fondu cinéma chaud + révélation du site
+  function enterAdamois() {
+    if (!history.state || history.state.view !== 'adamois') {
+      history.pushState({view: 'adamois'}, '', '#adamois');
+    }
+    const fade = document.getElementById('adamois-fade');
+
+    // Activation immédiate puis transition vers opacité 1
+    fade.classList.add('active');
+    // Force le reflow pour que la transition se déclenche depuis opacity:0
+    void fade.offsetWidth;
+    fade.classList.add('fade-in');
+
+    // Swap vers le site Adamois pendant que l'écran est couvert
+    setTimeout(function() {
+      showAdamoisSite();
+    }, 900);
+
+    // Début du fondu de sortie
+    setTimeout(function() {
+      fade.classList.add('fade-out');
+    }, 1150);
+
+    // Nettoyage des classes
+    setTimeout(function() {
+      fade.classList.remove('active', 'fade-in', 'fade-out');
+    }, 2050);
+  }
+  
+  function showMajelSite() {
+    document.getElementById('home-page').classList.add('hidden');
+    document.getElementById('majel-site').classList.add('visible');
+    document.getElementById('adamois-site').classList.remove('visible');
+    document.body.classList.add('scrolling');
+    window.scrollTo(0, 0);
+  }
+  
   function showAdamoisSite() {
+    document.getElementById('home-page').classList.add('hidden');
+    document.getElementById('adamois-site').classList.add('visible');
+    document.getElementById('majel-site').classList.remove('visible');
+    document.body.classList.add('scrolling');
+    window.scrollTo(0, 0);
     setTimeout(initBeforeAfterSliders, 100);
     setTimeout(initChantiersSlider, 120);
   }
-  function enter() {}
-  function enterMajel() {}
-  function enterAdamois() {}
-  function showMajelSite() {}
-
-  // Page dédiée Adamois : les sliders sont initialisés au chargement, pas besoin
-  // de gérer le popstate ou les hashes puisqu'il n'y a qu'un seul univers ici.
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
-      initBeforeAfterSliders();
-      initChantiersSlider();
-    });
-  } else {
-    initBeforeAfterSliders();
-    initChantiersSlider();
+  
+  function goHome(skipPush) {
+    document.getElementById('majel-site').classList.remove('visible');
+    document.getElementById('adamois-site').classList.remove('visible');
+    document.getElementById('home-page').classList.remove('hidden');
+    document.body.classList.remove('scrolling');
+    window.scrollTo(0, 0);
+    if (!skipPush && (!history.state || history.state.view !== 'home')) {
+      history.pushState({view: 'home'}, '', location.pathname + location.search);
+    }
   }
+
+  // Bouton "Retour" du navigateur -> on reste à l'intérieur du site
+  window.addEventListener('popstate', function(e) {
+    const stateView = e.state && e.state.view;
+    let view;
+    if (stateView) view = stateView;
+    else {
+      const h = location.hash || '';
+      if (h === '#majel' || h.indexOf('#m-') === 0) view = 'majel';
+      else if (h === '#adamois' || h.indexOf('#a-') === 0) view = 'adamois';
+      else view = 'home';
+    }
+    if (view === 'majel') showMajelSite();
+    else if (view === 'adamois') showAdamoisSite();
+    else goHome(true);
+  });
+  // Lien profond initial (ex. URL #majel partagée) + état initial pour le retour
+  (function initFromHash() {
+    const h = location.hash || '';
+    if (h === '#majel' || h.indexOf('#m-') === 0) {
+      history.replaceState({view: 'majel'}, '', h || '#majel');
+      showMajelSite();
+    } else if (h === '#adamois' || h.indexOf('#a-') === 0) {
+      history.replaceState({view: 'adamois'}, '', h || '#adamois');
+      showAdamoisSite();
+    } else {
+      history.replaceState({view: 'home'}, '', location.pathname + location.search);
+    }
+  })();
   
   function initBeforeAfterSliders() {
     const sliders = document.querySelectorAll('.ba-slider');
@@ -2692,5 +3358,4 @@
 </script>
 
 </body>
-
 </html>
